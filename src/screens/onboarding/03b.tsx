@@ -26,7 +26,7 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={4} back="/onboarding/03a" skip="/home/10c" />
-      <main className="flex flex-1 flex-col px-5 pt-4">
+      <main className="flex flex-1 flex-col px-5 pt-4 pb-6">
         <div className="flex flex-col gap-8">
           <Intro {...INTRO} />
           <div className="flex flex-col gap-5">
@@ -68,7 +68,7 @@ export function Mobile() {
           </p>
         </div>
       </main>
-      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href="/onboarding/04">Send to Google</Button>
       </div>
     </div>

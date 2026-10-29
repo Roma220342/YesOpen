@@ -103,10 +103,10 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={5} back={BACK} />
-      <main className="flex-1 px-5 pt-4">
+      <main className="flex-1 px-5 pt-4 pb-6">
         <Content desktop={false} />
       </main>
-      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href={NEXT}>Continue with Google</Button>
       </div>
     </div>

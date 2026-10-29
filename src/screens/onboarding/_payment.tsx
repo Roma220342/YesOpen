@@ -159,10 +159,10 @@ export function PaymentMobile({ state }: { state: PaymentState }) {
     <div className="flex min-h-dvh flex-col bg-white">
       {processing && <AutoAdvance />}
       <TopBar back={processing ? undefined : BACK} skip={processing ? undefined : SKIP} />
-      <main className="flex flex-1 flex-col px-5 pt-4">
+      <main className="flex flex-1 flex-col px-5 pt-4 pb-6">
         <PaymentForm state={state} desktop={false} />
       </main>
-      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">{mobileButton(state)}</div>
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">{mobileButton(state)}</div>
     </div>
   );
 }

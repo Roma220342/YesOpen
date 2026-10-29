@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import { ScreenSwitcher } from "@/components/screen-switcher";
+import { ScrollEdges } from "@/components/scroll-edges";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className="antialiased">
         {children}
         <ScreenSwitcher />
+        <ScrollEdges />
       </body>
     </html>
   );

@@ -46,10 +46,10 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={4} back="/onboarding/02b" skip="/home/10c" />
-      <main className="flex flex-1 flex-col px-5 pt-4">
+      <main className="flex flex-1 flex-col px-5 pt-4 pb-6">
         <Content />
       </main>
-      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href={NEXT}>Send to Google</Button>
       </div>
     </div>

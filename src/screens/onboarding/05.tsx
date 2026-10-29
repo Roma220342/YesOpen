@@ -67,11 +67,11 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={6} />
-      <main className="flex flex-1 flex-col gap-6 px-5 pt-4">
+      <main className="flex flex-1 flex-col gap-6 px-5 pt-4 pb-6">
         <Sent desktop={false} />
         <StillToFix desktop={false} />
       </main>
-      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href={NEXT}>{CTA}</Button>
       </div>
     </div>

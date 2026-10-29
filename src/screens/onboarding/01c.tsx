@@ -32,14 +32,14 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={1} back="/onboarding/01a" />
-      <main className="flex flex-1 flex-col justify-between px-5 pt-4">
+      <main className="flex flex-1 flex-col justify-between gap-8 px-5 pt-4 pb-6">
         <div className="flex flex-col gap-8">
           <Intro {...INTRO} />
           <MobileSteps className="flex flex-col gap-8" />
         </div>
         <SelectedBusiness />
       </main>
-      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href="/onboarding/02a">Check my business</Button>
       </div>
     </div>

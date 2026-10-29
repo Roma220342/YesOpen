@@ -120,7 +120,7 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={3} back="/onboarding/02a" skip="/home/10c" />
-      <main className="flex flex-1 flex-col gap-6 px-5 pt-4">
+      <main className="flex flex-1 flex-col gap-6 px-5 pt-4 pb-6">
         <div className="flex flex-col gap-4">
           <Intro {...INTRO} />
           <BusinessChip />
@@ -139,7 +139,7 @@ export function Mobile() {
         <Group title="Couldn’t check" kind="unknown" items={COULDNT_CHECK} />
         <Group title="Looks good" kind="good" items={LOOKS_GOOD} />
       </main>
-      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href={NEXT}>Fix description for free</Button>
       </div>
     </div>

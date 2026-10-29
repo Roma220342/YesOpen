@@ -61,14 +61,14 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar back={BACK} skip={SKIP} />
-      <main className="flex flex-1 flex-col justify-between px-5 pt-4">
+      <main className="flex flex-1 flex-col justify-between gap-8 px-5 pt-4 pb-6">
         <Trial />
         <div className="flex flex-col gap-1 text-center">
           <p className="t-headline text-secondary-900">14 days free, then $49 a month</p>
           <p className="t-footnote text-secondary-700">+$15 a month for each extra location</p>
         </div>
       </main>
-      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href={NEXT}>{CTA}</Button>
       </div>
     </div>

@@ -73,7 +73,7 @@ body {
 
 /* Motion: material-style easing, off for people who ask for reduced motion. */
 @theme {
-  --animate-pop-in: pop-in 260ms cubic-bezier(0.2, 0, 0, 1.4) both;
+  --animate-pop-in: pop-in 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-screen-in: screen-in 280ms cubic-bezier(0.2, 0, 0, 1) both;
   --animate-drop-in: drop-in 180ms cubic-bezier(0.2, 0, 0, 1) both;
 }
@@ -88,4 +88,19 @@ body {
 html:has([data-page-bg="neutral"]),
 html:has([data-page-bg="neutral"]) body {
   background: var(--color-secondary-75);
+}
+
+/* Pinned bars: a hairline appears only when content is scrolled under them (see ScrollEdges). */
+[data-edge] {
+  transition: border-color 200ms ease-out;
+}
+[data-edge="top"] {
+  border-bottom: 1px solid transparent;
+}
+[data-edge="bottom"] {
+  border-top: 1px solid transparent;
+}
+html[data-under~="top"] [data-edge="top"],
+html[data-under~="bottom"] [data-edge="bottom"] {
+  border-color: var(--color-secondary-100);
 }

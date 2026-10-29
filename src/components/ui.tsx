@@ -50,7 +50,7 @@ export function TopBar({
   className?: string;
 }) {
   return (
-    <div className={`flex h-14 items-center justify-between px-1 py-1.5 ${className}`}>
+    <div data-edge="top" className={`sticky top-0 z-20 flex h-14 items-center justify-between bg-white px-1 py-1.5 ${className}`}>
       <div className="flex w-[94px] items-center">
         {back && (
           <Link href={back} aria-label="Back" className="flex size-11 items-center justify-center rounded-[22px] text-secondary-900">
