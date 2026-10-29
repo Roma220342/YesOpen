@@ -4,10 +4,8 @@ import { useRef, useState } from "react";
 import { CountPill, PillButton } from "./module-card";
 import { TaskFields, type Task } from "./task";
 
-const CARD_W = 281;
-const GAP = 12;
-
-// Mobile "To approve" module: horizontally scrolling task cards (next card peeks), segment progress below.
+// Mobile "To approve" module: horizontally scrolling task cards, segment progress below.
+// The active card snaps to the centre; the previous and next cards peek out by the same amount on each side.
 export function ToApproveCarousel({
   tasks,
   cardHeight,
@@ -22,11 +20,25 @@ export function ToApproveCarousel({
   const [approved, setApproved] = useState<string[]>([]);
   const track = useRef<HTMLDivElement>(null);
 
+  // Card i is centred when the track is scrolled to its left edge minus the side padding.
+  const centreOf = (i: number) => {
+    const card = track.current?.children[i] as HTMLElement | undefined;
+    return card ? card.offsetLeft - (track.current!.clientWidth - card.clientWidth) / 2 : 0;
+  };
+
   // Approve: button turns green with a check, then the row glides to the next card.
   const approve = (t: Task, i: number) => {
     setApproved((a) => [...a, t.title]);
-    if (i < tasks.length - 1)
-      setTimeout(() => track.current?.scrollTo({ left: (i + 1) * (CARD_W + GAP), behavior: "smooth" }), 600);
+    if (i < tasks.length - 1) setTimeout(() => track.current?.scrollTo({ left: centreOf(i + 1), behavior: "smooth" }), 600);
+  };
+
+  const onScroll = () => {
+    const x = track.current?.scrollLeft ?? 0;
+    let best = 0;
+    tasks.forEach((_, i) => {
+      if (Math.abs(centreOf(i) - x) < Math.abs(centreOf(best) - x)) best = i;
+    });
+    setIndex(best);
   };
 
   return (
@@ -38,13 +50,13 @@ export function ToApproveCarousel({
 
       <div
         ref={track}
-        className="flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        onScroll={(e) => setIndex(Math.min(tasks.length - 1, Math.round(e.currentTarget.scrollLeft / (CARD_W + GAP))))}
+        className="no-scrollbar flex snap-x snap-mandatory gap-3 overflow-x-auto px-8"
+        onScroll={onScroll}
       >
         {tasks.map((t, i) => (
           <article
             key={t.title}
-            className="flex w-[281px] shrink-0 snap-start flex-col gap-4 overflow-hidden rounded-2xl border border-secondary-200 p-4"
+            className="flex w-full shrink-0 snap-center snap-always flex-col gap-4 overflow-hidden rounded-2xl border border-secondary-200 p-4"
             style={{ height: cardHeight }}
           >
             <div className="flex min-h-0 flex-1 flex-col gap-3">
