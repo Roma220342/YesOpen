@@ -13,6 +13,8 @@ import { useSkip } from "./use-skip";
 // Review cards fit it by rule: title 1 line, why 1 line, review 2 lines, reply 2 lines + the "Tap the text" hint
 // and the Skip button; tapping the reply opens the sheet, where it is edited in full.
 const CARD_HEIGHT = 504;
+// Length of the approve exit; matches --animate-card-out in globals.css.
+const CARD_OUT_MS = 280;
 
 // Mobile "To approve" module: horizontally scrolling task cards, segment progress below.
 // The active card snaps to the centre; the previous and next cards peek out by the same amount on each side.
@@ -57,10 +59,17 @@ export function ToApproveCarousel({
   };
   const glideTo = (i: number, delay = 0) => setTimeout(() => track.current?.scrollTo({ left: centreOf(i), behavior: "smooth" }), delay);
 
-  // Approve: the card leaves at once and the next one slides in, like Skip but without Undo.
+  // Approve: the card lifts away (card-out), then leaves the row and the next one glides in. No Undo: it is sent.
+  const [leaving, setLeaving] = useState<string | null>(null);
   const settle = (t: Task, i: number) => {
-    setGone((g) => [...g, t.title]);
-    glideTo(Math.min(i, tasks.length - 2), 60);
+    if (leaving) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    setLeaving(t.title);
+    setTimeout(() => {
+      setGone((g) => [...g, t.title]);
+      setLeaving(null);
+      glideTo(Math.min(i, tasks.length - 2), 60);
+    }, reduce ? 0 : CARD_OUT_MS);
   };
 
   // Skip: the card leaves at once and the next one slides in; Undo brings it back where it was.
@@ -104,7 +113,9 @@ export function ToApproveCarousel({
           return (
             <article
               key={t.title}
-              className="flex w-full shrink-0 snap-center snap-always flex-col gap-4 overflow-hidden rounded-2xl border border-secondary-200 p-4"
+              className={`flex w-full shrink-0 snap-center snap-always flex-col gap-4 overflow-hidden rounded-2xl border border-secondary-200 p-4 ${
+                leaving === t.title ? "animate-card-out pointer-events-none" : ""
+              }`}
               style={{ height: CARD_HEIGHT }}
             >
               <div className={`flex min-h-0 flex-1 flex-col ${t.reviews ? "gap-2.5" : "gap-3"}`}>
