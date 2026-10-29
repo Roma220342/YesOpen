@@ -48,7 +48,7 @@ function PaymentForm({ state, desktop }: { state: PaymentState; desktop: boolean
   // Figma 07b draws labels in Footnote/900 and placeholders in 700; the other states use Caption/700 and 500.
   const labelClass =
     state === "typing"
-      ? `t-small text-secondary-900`
+      ? `${desktop ? "t-small" : "t-footnote"} text-secondary-900`
       : `${desktop ? "t-small-bold" : "t-caption"} text-secondary-700`;
   const placeholder = state === "typing" ? "placeholder:text-secondary-700" : "placeholder:text-secondary-500";
   const box = `${desktop ? "h-12" : "h-14"} w-full rounded-2xl border-[1.5px] bg-secondary-50 px-4 t-body text-secondary-900 outline-none focus:border-primary-600`;

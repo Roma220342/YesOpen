@@ -33,7 +33,7 @@ export function ScreenFrame({ mod, view }: { mod: ScreenModule; view: View }) {
   // Each screen fades up on arrival; the page remounts on navigation, so this plays between screens.
   if (view === "desktop" && Desktop)
     return (
-      <div className="animate-screen-in">
+      <div data-desktop className="animate-screen-in">
         <Desktop />
       </div>
     );

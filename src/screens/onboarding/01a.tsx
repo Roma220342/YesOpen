@@ -68,7 +68,7 @@ export function DesktopHeader({ step, skip }: { step: number; skip?: string }) {
             <span key={i} className={`h-1 w-8 rounded-sm ${i < step ? "bg-secondary-900" : "bg-secondary-200"}`} />
           ))}
         </div>
-        <p className="text-[12px] leading-4 font-medium text-secondary-700">Step {step} of 6</p>
+        <p className="t-footnote leading-4 whitespace-nowrap text-secondary-700">Step {step} of 6</p>
       </div>
       <div className="flex w-60 items-center justify-end">
         {skip && (

@@ -57,6 +57,12 @@
 @utility t-small { font-size: 14px; line-height: 1.4; font-weight: 500; }
 @utility t-small-bold { font-size: 14px; line-height: 1.4; font-weight: 700; }
 
+/* Desktop type scale: Figma draws every 12px text of the mobile frames at 14px on desktop (there is no 12px text
+   there), so the two 12px roles step up inside a desktop screen and nowhere else. ScreenFrame sets data-desktop. */
+[data-desktop] :is(.t-footnote, .t-caption) {
+  font-size: 14px;
+}
+
 body {
   background: #ffffff;
   color: var(--color-secondary-900);

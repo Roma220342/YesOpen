@@ -47,7 +47,7 @@ function Trial() {
               </div>
               <div className={`flex min-w-0 flex-1 flex-col gap-1 pt-1.5 ${last ? "" : "pb-7"}`}>
                 <h2 className="t-title text-secondary-900">{d.title}</h2>
-                <p className="t-body text-secondary-700">{d.text}</p>
+                <p className="t-small text-secondary-700">{d.text}</p>
               </div>
             </li>
           );
