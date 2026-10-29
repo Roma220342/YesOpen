@@ -58,7 +58,7 @@ export function DesktopSteps() {
 /** Desktop onboarding header (Figma 369:1765): logo, 6-step progress, optional Skip. */
 export function DesktopHeader({ step, skip }: { step: number; skip?: string }) {
   return (
-    <header className="flex h-[72px] w-full shrink-0 items-center justify-between border-b border-secondary-200 bg-white px-10">
+    <header className="sticky top-0 z-20 flex h-[72px] w-full shrink-0 items-center justify-between border-b border-secondary-200 bg-white px-10">
       <div className="flex w-60 items-center">
         <img src="/brand/logo.svg" alt="YesOpen" width={84} height={24} />
       </div>
