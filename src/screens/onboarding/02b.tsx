@@ -167,19 +167,20 @@ export function Desktop() {
           </div>
         </div>
         <aside className="flex min-w-0 flex-1 flex-col pt-[110px] pr-10 pb-24 short:pb-12 pl-12 xl:pl-24">
-          <div className="flex w-full max-w-[416px] flex-col gap-6">
-            <div className="flex flex-col gap-4">
-              <h2 className="t-headline text-secondary-900">Your free fix</h2>
-              <div className="flex flex-col gap-1.5 rounded-2xl bg-success-50 px-3.5 py-3">
-                <p className="t-small-bold text-success-700">We’ll add this to your description</p>
-                <p className="t-headline text-secondary-900">“Delivery across Williamsburg and Greenpoint.”</p>
-                <p className="t-small text-secondary-700">Next: you review the text before anything changes.</p>
+          {/* Figma: the fix card, the note 24px under it, then the button 32px below. */}
+          <div className="flex w-full max-w-[416px] flex-col gap-8">
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <h2 className="t-headline text-secondary-900">Your free fix</h2>
+                <div className="flex flex-col gap-1.5 rounded-2xl bg-success-50 px-3.5 py-3">
+                  <p className="t-small-bold text-success-700">We’ll add this to your description</p>
+                  <p className="t-headline text-secondary-900">“Delivery across Williamsburg and Greenpoint.”</p>
+                  <p className="t-small text-secondary-700">Next: you review the text before anything changes.</p>
+                </div>
               </div>
+              <p className="t-small text-secondary-700">The first fix is free. The other 3 come with the plan.</p>
             </div>
-            <Button href={NEXT}>
-              Fix description for free
-            </Button>
-            <p className="t-small text-secondary-700">The first fix is free. The other 3 come with the plan.</p>
+            <Button href={NEXT}>Fix description for free</Button>
           </div>
         </aside>
       </main>

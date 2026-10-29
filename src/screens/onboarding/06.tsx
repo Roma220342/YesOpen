@@ -89,20 +89,23 @@ export function Desktop() {
           <Trial />
         </section>
         <aside className="min-w-0">
-          <div className="flex flex-col gap-4">
-            <h2 className="t-headline text-secondary-900">Summary</h2>
-            <dl className="contents">
-              {SUMMARY.map(([k, v]) => (
-                <div key={k} className="t-body flex justify-between whitespace-nowrap">
-                  <dt className="text-secondary-600">{k}</dt>
-                  <dd className="text-secondary-900">{v}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="pt-2">
-              <Button href={NEXT}>{CTA}</Button>
+          {/* Figma: summary rows, the cancel note 24px under them, then the button 32px below. */}
+          <div className="flex flex-col gap-8">
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-4">
+                <h2 className="t-headline text-secondary-900">Summary</h2>
+                <dl className="contents">
+                  {SUMMARY.map(([k, v]) => (
+                    <div key={k} className="t-body flex justify-between whitespace-nowrap">
+                      <dt className="text-secondary-600">{k}</dt>
+                      <dd className="text-secondary-900">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+              <p className="t-small text-secondary-600">Cancel anytime before November 11 and you won’t pay.</p>
             </div>
-            <p className="t-small text-secondary-600">Cancel anytime before November 11 and you won’t pay.</p>
+            <Button href={NEXT}>{CTA}</Button>
           </div>
         </aside>
       </main>

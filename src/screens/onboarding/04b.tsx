@@ -35,9 +35,9 @@ function Content({ p }: { p: ConnectErrorProps }) {
   );
 }
 
-function Secondary({ p }: { p: ConnectErrorProps }) {
+function Secondary({ p, className = "h-11" }: { p: ConnectErrorProps; className?: string }) {
   return (
-    <Link href={p.secondary.href} className="t-headline flex h-11 w-full items-center justify-center text-primary-600">
+    <Link href={p.secondary.href} className={`btn-text t-headline flex w-full items-center justify-center rounded-[28px] ${className}`}>
       {p.secondary.label}
     </Link>
   );
@@ -67,10 +67,9 @@ export function ConnectErrorDesktop(p: ConnectErrorProps) {
           <DesktopBack href={BACK} />
           <div className="w-[520px]">
             <Content p={p} />
-            <div className="pt-6">
-              <Secondary p={p} />
-            </div>
-            <div className="pt-8">
+            {/* Figma buttons container: 32px above, the 56px text button, 12px, the primary. */}
+            <div className="flex flex-col gap-3 pt-8">
+              <Secondary p={p} className="h-14" />
               <Button href={RETRY}>{p.primary}</Button>
             </div>
           </div>

@@ -38,7 +38,8 @@ function Sent({ desktop }: { desktop: boolean }) {
   );
 }
 
-function StillToFix() {
+// Desktop: the last row has no bottom padding, so the 32px gap to the button is measured from its text (Figma).
+function StillToFix({ desktop = false }: { desktop?: boolean }) {
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-center gap-2 pb-1">
@@ -47,7 +48,7 @@ function StillToFix() {
       </div>
       <ul className="flex flex-col gap-1">
         {FINDINGS.map((f) => (
-          <li key={f.title} className="flex items-start gap-3 py-2.5">
+          <li key={f.title} className={`flex items-start gap-3 py-2.5 ${desktop ? "last:pb-0" : ""}`}>
             <span className="pt-2">
               <span className="block size-2 rounded-md bg-error-500" />
             </span>
@@ -87,11 +88,9 @@ export function Desktop() {
           <Sent desktop />
         </section>
         <aside className="w-full max-w-[416px] min-w-0 pt-28 short:pt-14 pb-24 short:pb-12">
-          <div className="flex flex-col gap-4">
-            <StillToFix />
-            <div className="pt-4">
-              <Button href={NEXT}>{CTA}</Button>
-            </div>
+          <div className="flex flex-col gap-8">
+            <StillToFix desktop />
+            <Button href={NEXT}>{CTA}</Button>
           </div>
         </aside>
       </main>
