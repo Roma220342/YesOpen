@@ -57,6 +57,14 @@
 @utility t-small { font-size: 14px; line-height: 1.4; font-weight: 500; }
 @utility t-small-bold { font-size: 14px; line-height: 1.4; font-weight: 700; }
 
+/* Phones: secondary-50 (#f9fafa) all but vanishes on white on a bright iPhone screen, while a desktop monitor shows it.
+   Touch-only devices get a step closer to secondary-75 so boxes and fields stay visible; desktop keeps the Figma value. */
+@media (hover: none) and (pointer: coarse) {
+  :root {
+    --color-secondary-50: #f3f4f6;
+  }
+}
+
 /* Desktop type scale: Figma draws every 12px text of the mobile frames at 14px on desktop (there is no 12px text
    there), so the two 12px roles step up inside a desktop screen and nowhere else. ScreenFrame sets data-desktop. */
 [data-desktop] :is(.t-footnote, .t-caption) {

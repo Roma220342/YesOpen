@@ -65,7 +65,7 @@ export function DesktopHeader({ step, skip }: { step: number; skip?: string }) {
       <div className="flex items-center gap-4">
         <div className="flex gap-1" aria-hidden>
           {Array.from({ length: 6 }, (_, i) => (
-            <span key={i} className={`h-1 w-8 rounded-sm ${i < step ? "bg-secondary-900" : "bg-secondary-200"}`} />
+            <span key={i} className={`h-1 w-8 rounded-sm ${i < step ? "bg-secondary-900" : "bg-secondary-100"}`} />
           ))}
         </div>
         <p className="t-footnote leading-4 whitespace-nowrap text-secondary-700">Step {step} of 6</p>
