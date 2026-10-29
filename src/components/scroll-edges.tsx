@@ -9,9 +9,12 @@ export function ScrollEdges() {
   const path = usePathname();
   useEffect(() => {
     const root = document.documentElement;
+    // A few pixels of overflow (rounding, mobile browser bars) is not real hidden content.
+    const SLACK = 8;
     const update = () => {
       const y = window.scrollY;
-      root.dataset.under = [y > 1 ? "top" : "", y + window.innerHeight < root.scrollHeight - 1 ? "bottom" : ""]
+      const below = root.scrollHeight - (y + window.innerHeight);
+      root.dataset.under = [y > SLACK ? "top" : "", below > SLACK ? "bottom" : ""]
         .filter(Boolean)
         .join(" ");
     };

@@ -90,17 +90,14 @@ html:has([data-page-bg="neutral"]) body {
   background: var(--color-secondary-75);
 }
 
-/* Pinned bars: a hairline appears only when content is scrolled under them (see ScrollEdges). */
+/* Pinned bars: a hairline appears only when content is scrolled under them (see ScrollEdges).
+   Drawn as an inset shadow so it takes no space and never makes the page itself scroll. */
 [data-edge] {
-  transition: border-color 200ms ease-out;
+  transition: box-shadow 200ms ease-out;
 }
-[data-edge="top"] {
-  border-bottom: 1px solid transparent;
+html[data-under~="top"] [data-edge="top"] {
+  box-shadow: inset 0 -1px 0 var(--color-secondary-100);
 }
-[data-edge="bottom"] {
-  border-top: 1px solid transparent;
-}
-html[data-under~="top"] [data-edge="top"],
 html[data-under~="bottom"] [data-edge="bottom"] {
-  border-color: var(--color-secondary-100);
+  box-shadow: inset 0 1px 0 var(--color-secondary-100);
 }
