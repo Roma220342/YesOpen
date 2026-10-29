@@ -129,7 +129,7 @@ export function Mobile() {
         </div>
         <SearchField placeholderClass="text-secondary-600" />
       </main>
-      <div className="bg-white px-5 pt-4 pb-8">
+      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button variant="disabled">Check my business</Button>
       </div>
     </div>

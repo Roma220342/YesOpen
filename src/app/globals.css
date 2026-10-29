@@ -83,3 +83,9 @@ body {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
 }
+
+/* Grey screens (Home) tint the whole page, so phone browser bars and overscroll match instead of showing white. */
+html:has([data-page-bg="neutral"]),
+html:has([data-page-bg="neutral"]) body {
+  background: var(--color-secondary-75);
+}

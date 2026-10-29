@@ -162,7 +162,7 @@ export function PaymentMobile({ state }: { state: PaymentState }) {
       <main className="flex flex-1 flex-col px-5 pt-4">
         <PaymentForm state={state} desktop={false} />
       </main>
-      <div className="bg-white px-5 pb-8 pt-4">{mobileButton(state)}</div>
+      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">{mobileButton(state)}</div>
     </div>
   );
 }

@@ -51,7 +51,7 @@ export function ConnectErrorMobile(p: ConnectErrorProps) {
         <Content p={p} desktop={false} />
         <Secondary p={p} />
       </main>
-      <div className="bg-white px-5 pt-4 pb-8">
+      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href={RETRY}>{p.primary}</Button>
       </div>
     </div>

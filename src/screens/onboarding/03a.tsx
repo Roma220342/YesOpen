@@ -49,7 +49,7 @@ export function Mobile() {
       <main className="flex flex-1 flex-col px-5 pt-4">
         <Content />
       </main>
-      <div className="bg-white px-5 pt-4 pb-8">
+      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href={NEXT}>Send to Google</Button>
       </div>
     </div>

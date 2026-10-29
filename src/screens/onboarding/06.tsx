@@ -68,7 +68,7 @@ export function Mobile() {
           <p className="t-footnote text-secondary-700">+$15 a month for each extra location</p>
         </div>
       </main>
-      <div className="bg-white px-5 pt-4 pb-8">
+      <div className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href={NEXT}>{CTA}</Button>
       </div>
     </div>

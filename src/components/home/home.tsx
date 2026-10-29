@@ -53,7 +53,7 @@ function CaughtUp({ title, sub }: { title: string; sub: string }) {
 
 export function HomeMobile({ state }: { state: HomeState }) {
   return (
-    <div className="flex min-h-dvh flex-col bg-secondary-75">
+    <div data-page-bg="neutral" className="flex min-h-dvh flex-col bg-secondary-75">
       <HomeHeader business={state.business} user={state.user} />
       <main className="flex flex-1 flex-col gap-2 px-5 pt-2 pb-6">
         <Greeting lines={state.greeting} />
@@ -78,7 +78,7 @@ export function HomeDesktop({ state }: { state: HomeState }) {
   const bottom = layout.bottomRowHeight ?? 346;
   const head = layout.wideHeadGap ? " [&>:first-child]:mb-2" : "";
   return (
-    <div className="flex min-h-dvh bg-secondary-75">
+    <div data-page-bg="neutral" className="flex min-h-dvh bg-secondary-75">
       <Sidebar business={state.business} user={state.user} />
       <main className="flex min-w-0 flex-1 flex-col gap-6 px-10 pt-8 pb-12">
         <Greeting lines={state.greeting} />
