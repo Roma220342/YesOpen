@@ -67,17 +67,15 @@ export function CountPill({ children }: { children: React.ReactNode }) {
   );
 }
 
-// Primary pill button. Size "m" = 48px (task cards), "l" = 56px (desktop accordion).
+// Primary pill button, 48px high. Hugs its label with 32px on each side; mobile cards stretch it with w-full.
 export function PillButton({
   children,
-  size = "m",
   className = "",
   done = false,
   onClick,
   href,
 }: {
   children: React.ReactNode;
-  size?: "m" | "l";
   className?: string;
   /** Approved state: green with a check, no longer clickable. */
   done?: boolean;
@@ -85,9 +83,9 @@ export function PillButton({
   /** Renders a link instead of a button. */
   href?: string;
 }) {
-  const look = `t-headline flex items-center justify-center gap-2 rounded-[28px] px-6 text-white transition-[background-color,transform] duration-200 active:scale-[0.98] ${
+  const look = `t-headline flex items-center justify-center gap-2 rounded-[28px] px-8 text-white transition-[background-color,transform] duration-200 active:scale-[0.98] ${
     done ? "pointer-events-none bg-success-600" : "bg-primary-600 hover:bg-primary-700"
-  } ${size === "m" ? "h-12" : "h-14"} ${className}`;
+  } h-12 ${className}`;
   if (href && !done) return <Link href={href} className={look}>{children}</Link>;
   return (
     <button type="button" onClick={done ? undefined : onClick} className={look}>
@@ -97,15 +95,13 @@ export function PillButton({
   );
 }
 
-// Secondary answer under or beside the main button: no fill, blue label, same height.
+// Secondary answer under or beside the main button: no fill, blue label, same height and side padding.
 export function TextButton({
   children,
-  size = "m",
   className = "",
   onClick,
 }: {
   children: React.ReactNode;
-  size?: "m" | "l";
   className?: string;
   onClick?: () => void;
 }) {
@@ -113,9 +109,7 @@ export function TextButton({
     <button
       type="button"
       onClick={onClick}
-      className={`t-headline flex items-center justify-center rounded-[28px] px-2 whitespace-nowrap text-primary-600 transition-colors hover:bg-primary-50 ${
-        size === "m" ? "h-12" : "h-14"
-      } ${className}`}
+      className={`t-headline flex items-center justify-center h-12 rounded-[28px] px-8 whitespace-nowrap text-primary-600 transition-colors hover:bg-primary-50 ${className}`}
     >
       {children}
     </button>

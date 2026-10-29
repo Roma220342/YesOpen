@@ -100,13 +100,11 @@ export function ToApproveAccordion({
                       ))}
                       <div className="flex justify-end gap-2">
                         {t.alt && !settled[t.title] && (
-                          <TextButton size="l" onClick={() => settle(t, t.alt!.done)}>
+                          <TextButton onClick={() => settle(t, t.alt!.done)}>
                             {t.alt.label}
                           </TextButton>
                         )}
                         <PillButton
-                          size="l"
-                          className="min-w-[220px]"
                           done={!!settled[t.title]}
                           href={t.href}
                           onClick={() => settle(t, doneLabel(t.desktopAction ?? t.action))}
