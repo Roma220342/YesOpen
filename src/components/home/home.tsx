@@ -17,6 +17,8 @@ export type HomeState = {
   lockedMore?: { count: number; href: string };
   /** Index of the open desktop accordion item. */
   openTask?: number;
+  /** Opens the first review's reply for editing on arrival: the edit sheet on mobile, the open item on desktop (10e). */
+  startEditing?: boolean;
   week: WeekData;
   nearby: NearbyData;
   score: ScoreData;
@@ -58,7 +60,7 @@ export function HomeMobile({ state }: { state: HomeState }) {
       <main className="flex flex-1 flex-col gap-2 px-5 pt-2 pb-6">
         <Greeting lines={state.greeting} />
         <div className="flex flex-col gap-5">
-          {state.tasks.length > 0 && <ToApproveCarousel tasks={state.tasks} lockedMore={state.lockedMore} />}
+          {state.tasks.length > 0 && <ToApproveCarousel tasks={state.tasks} lockedMore={state.lockedMore} startEditing={state.startEditing} />}
           {state.tasks.length === 0 && state.caughtUp && <CaughtUp {...state.caughtUp} />}
           <WeekChart data={state.week} barMax={64} />
           <PlaceNearby data={state.nearby} />
@@ -82,7 +84,7 @@ export function HomeDesktop({ state }: { state: HomeState }) {
       <Sidebar business={state.business} user={state.user} />
       <main className="flex min-w-0 flex-1 flex-col gap-6 px-10 pt-8 pb-12">
         <Greeting lines={state.greeting} />
-        {state.tasks.length > 0 && <ToApproveAccordion tasks={state.tasks} defaultOpen={state.openTask} lockedMore={state.lockedMore} />}
+        {state.tasks.length > 0 && <ToApproveAccordion tasks={state.tasks} defaultOpen={state.openTask} lockedMore={state.lockedMore} startEditing={state.startEditing} />}
         {state.tasks.length === 0 && state.caughtUp && <CaughtUp {...state.caughtUp} />}
         <div className="flex gap-6" style={{ height: top }}>
           <WeekChart data={state.week} barMax={141} className={`min-w-0 flex-1${head}`} />

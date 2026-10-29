@@ -7,7 +7,8 @@ import { ReviewSheet } from "./review-sheet";
 import { doneLabel, ImpactChip, ReplyField, ReviewBlock, TaskFields, type Task } from "./task";
 
 // Every task card has this height on every Home state, so cards never change size between states.
-// Review cards fit it by rule: title 1 line, why 1 line, review 3 lines, reply 4 lines; the sheet shows the rest.
+// Review cards fit it by rule: title 1 line, why 1 line, review 3 lines, reply 3 lines + the "Tap the text" hint;
+// tapping the reply opens the sheet, where it is edited in full.
 const CARD_HEIGHT = 504;
 
 // Mobile "To approve" module: horizontally scrolling task cards, segment progress below.
@@ -16,18 +17,21 @@ export function ToApproveCarousel({
   tasks,
   title = "To approve",
   lockedMore,
+  startEditing,
 }: {
   tasks: Task[];
   title?: string;
   /** Tasks that exist but stay hidden until the trial (10c). */
   lockedMore?: { count: number; href: string };
+  /** Opens the first review's reply in the edit sheet on arrival (10e). */
+  startEditing?: boolean;
 }) {
   const [index, setIndex] = useState(0);
   // Task title → label the settled button shows ("Approved", "Kept as closed").
   const [settled, setSettled] = useState<Record<string, string>>({});
   // "Task title:review index" → reply the owner changed in the sheet.
   const [edits, setEdits] = useState<Record<string, string>>({});
-  const [sheet, setSheet] = useState<{ task: number; review: number } | null>(null);
+  const [sheet, setSheet] = useState<{ task: number; review: number } | null>(startEditing ? { task: 0, review: 0 } : null);
   const track = useRef<HTMLDivElement>(null);
 
   const replyOf = (t: Task, r: number) => edits[`${t.title}:${r}`] ?? t.reviews![r].reply;
@@ -88,7 +92,7 @@ export function ToApproveCarousel({
                       <ReviewBlock review={t.reviews![0]} clamp={3} />
                     </button>
                     <button type="button" className="text-left" onClick={() => setSheet({ task: i, review: 0 })}>
-                      <ReplyField reply={replyOf(t, 0)} clamp={4} />
+                      <ReplyField reply={replyOf(t, 0)} clamp={3} hint />
                     </button>
                   </>
                 )}
@@ -99,7 +103,7 @@ export function ToApproveCarousel({
                         <ReviewBlock review={r} clamp={2} />
                       </button>
                     ))}
-                    <p className="t-footnote text-secondary-700">Tap a review to read its reply.</p>
+                    <p className="t-footnote text-secondary-700">Tap a review to read or change its reply.</p>
                   </>
                 )}
               </div>
@@ -143,6 +147,14 @@ export function ToApproveCarousel({
           action={open.reviews!.length === 1 && !settled[open.title] ? open.action : "Done"}
           onAction={() => {
             if (open.reviews!.length === 1 && !settled[open.title]) settle(open, sheet.task, doneLabel(open.action));
+            setSheet(null);
+          }}
+          onDiscard={() => {
+            setEdits((e) => {
+              const next = { ...e };
+              delete next[`${open.title}:${sheet.review}`];
+              return next;
+            });
             setSheet(null);
           }}
           onClose={() => setSheet(null)}

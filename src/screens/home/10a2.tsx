@@ -3,7 +3,7 @@ import { NEW_PHOTOS, REPLY_TO_MARCO, REPLY_TO_TWO, STATE_10A, THANKSGIVING } fro
 
 // 10a2 Home · after approve — Figma mobile 281:2104, desktop 331:1780. Sunday hours approved: 4 tasks left, score 85.
 
-const STATE_10A2: HomeState = {
+export const STATE_10A2: HomeState = {
   ...STATE_10A,
   greeting: ["A good week", "4 things need you"],
   tasks: [REPLY_TO_MARCO, REPLY_TO_TWO, THANKSGIVING, NEW_PHOTOS],

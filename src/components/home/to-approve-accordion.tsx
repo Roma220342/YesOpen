@@ -4,31 +4,41 @@ import { useState } from "react";
 import { Collapse } from "@/components/collapse";
 import { Icon } from "@/components/icon";
 import { CountPill, LockedMore, PillButton, TextButton } from "./module-card";
+import { ReplyEditor } from "./reply-editor";
 import { doneLabel, ImpactChip, ReplyField, ReviewBlock, Stars, TaskFields, type Task } from "./task";
 
 // Desktop "To approve" module: the open item splits into what/why (360px) and fields + button; others are 64px rows.
 // Opening and closing animate height; approving turns the button green, then the item folds away and the next opens.
 // The open item grows with its content: a review shows up to 4 lines, its reply in full.
+// Tapping a reply edits it in place (blue border, counter, Reset to suggestion) and the row gets Discard + Approve.
 export function ToApproveAccordion({
   tasks,
   title = "To approve",
   defaultOpen = 0,
   lockedMore,
+  startEditing,
 }: {
   tasks: Task[];
   title?: string;
   defaultOpen?: number;
   /** Tasks that exist but stay hidden until the trial (10c). */
   lockedMore?: { count: number; href: string };
+  /** Opens the first review's reply for editing on arrival (10e). */
+  startEditing?: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
   const [settled, setSettled] = useState<Record<string, string>>({}); // button shows the done state
   const [gone, setGone] = useState<string[]>([]); // item folded away
+  // "Task title:review index" of the reply being edited, and the text the owner changed it to.
+  const [editing, setEditing] = useState<string | null>(startEditing ? `${tasks[defaultOpen]?.title}:0` : null);
+  const [edits, setEdits] = useState<Record<string, string>>({});
+  const replyOf = (t: Task, ri: number) => edits[`${t.title}:${ri}`] ?? t.reviews![ri].reply;
 
   const left = tasks.filter((t) => !gone.includes(t.title));
 
   const settle = (t: Task, label: string) => {
     setSettled((s) => ({ ...s, [t.title]: label }));
+    setEditing(null);
     setTimeout(() => {
       setGone((g) => [...g, t.title]);
       const next = tasks.findIndex((x) => x.title !== t.title && !gone.includes(x.title));
@@ -92,13 +102,41 @@ export function ToApproveAccordion({
                     </div>
                     <div className="flex min-w-0 flex-1 flex-col gap-6">
                       {t.fields?.length ? <TaskFields fields={t.fields} hint={t.hint} className="gap-4" /> : null}
-                      {t.reviews?.map((r) => (
-                        <div key={r.name} className="flex flex-col gap-4">
-                          <ReviewBlock review={r} clamp={4} />
-                          <ReplyField reply={r.reply} hint={t.reviews!.length === 1} />
-                        </div>
-                      ))}
+                      {t.reviews?.map((r, ri) => {
+                        const key = `${t.title}:${ri}`;
+                        return (
+                          <div key={r.name} className="flex flex-col gap-4">
+                            <ReviewBlock review={r} clamp={4} />
+                            {editing === key ? (
+                              <ReplyEditor
+                                id={`reply-${key}`}
+                                value={replyOf(t, ri)}
+                                onChange={(text) => setEdits((e) => ({ ...e, [key]: text }))}
+                                onReset={() => setEdits((e) => ({ ...e, [key]: r.reply }))}
+                              />
+                            ) : (
+                              <button type="button" className="text-left" onClick={() => setEditing(key)}>
+                                <ReplyField reply={replyOf(t, ri)} hint />
+                              </button>
+                            )}
+                          </div>
+                        );
+                      })}
                       <div className="flex justify-end gap-2">
+                        {editing?.startsWith(`${t.title}:`) && !settled[t.title] && (
+                          <TextButton
+                            onClick={() => {
+                              setEdits((e) => {
+                                const next = { ...e };
+                                delete next[editing];
+                                return next;
+                              });
+                              setEditing(null);
+                            }}
+                          >
+                            Discard
+                          </TextButton>
+                        )}
                         {t.alt && !settled[t.title] && (
                           <TextButton onClick={() => settle(t, t.alt!.done)}>
                             {t.alt.label}
