@@ -6,15 +6,13 @@ const BACK = "/onboarding/03a";
 const NEXT = "/onboarding/05";
 
 const PERMISSIONS: { icon: IconName; title: string; text: string }[] = [
-  { icon: "store", title: "See your business profile", text: "Hours, photos, reviews and posts" },
-  { icon: "edit", title: "Suggest fixes to it", text: "You see before and after, then approve" },
-  { icon: "chat", title: "Reply to your reviews", text: "Drafted in your tone" },
-  { icon: "campaign", title: "Publish posts", text: "Ready-made, on a schedule you choose" },
-  { icon: "trending", title: "Weekly check and position", text: "New problems and where you rank nearby" },
+  { icon: "trending", title: "Check your profile every week", text: "New problems and where you rank nearby" },
+  { icon: "sparkle", title: "Draft fixes, replies and posts", text: "In your tone, with before and after" },
+  { icon: "verified", title: "Publish only what you approve", text: "You can edit or discard anything" },
 ];
 
-// Figma 04: intro, the five permissions 16px apart, the promise. Mobile spaces the groups 32px apart and keeps the
-// subtitle to its first sentence; desktop keeps the full sentence and 24px groups.
+// Figma 04: intro, what YesOpen will do (three rows 16px apart), the promise. Mobile spaces the groups 32px apart and
+// keeps the subtitle to its first sentence; desktop keeps the full sentence and 24px groups.
 function Content({ desktop = false }: { desktop?: boolean }) {
   return (
     <div className={`flex flex-col ${desktop ? "gap-6" : "gap-8"}`}>
