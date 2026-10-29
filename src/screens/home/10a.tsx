@@ -10,7 +10,7 @@ export const SUNDAY_HOURS: Task = {
     { label: "Now", value: "Sunday · Closed" },
     { label: "New hours", value: "Sunday · 12 pm – 9 pm" },
   ],
-  hint: "Tap to change the hours.",
+  hint: "Tap the text to change it.",
   action: "Approve hours",
   alt: { label: "Not right for us", done: "Kept as closed" },
   impact: 6,

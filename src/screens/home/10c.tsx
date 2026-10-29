@@ -11,7 +11,7 @@ const TRIAL = "/onboarding/06";
 const STATE_10C: HomeState = {
   ...STATE_10A,
   greeting: ["Your first week", "4 things need you"],
-  tasks: [{ ...SUNDAY_HOURS, hint: undefined, href: TRIAL }],
+  tasks: [{ ...SUNDAY_HOURS, href: TRIAL }],
   lockedMore: { count: 3, href: TRIAL },
   week: {
     total: "142",
