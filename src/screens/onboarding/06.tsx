@@ -80,14 +80,15 @@ export function Desktop() {
     <div className="flex min-h-dvh flex-col bg-white">
       <DesktopHeader skip={SKIP} />
       {/* Figma: a centred 1128px block, task column 520px on the left, context column 416px on the right. */}
-      <main className="mx-auto flex w-full max-w-[1208px] flex-1 items-start justify-between gap-12 px-10">
-        <section className="flex w-full max-w-[520px] min-w-0 flex-col items-start gap-6 pt-12 pb-24 short:pb-12">
+      {/* Back sits in its own row so the summary starts level with the title, not with Back. */}
+      <main className="mx-auto grid w-full max-w-[1208px] flex-1 grid-cols-[minmax(0,520px)_minmax(0,416px)] content-start items-start justify-between gap-x-12 gap-y-6 px-10 pt-12 pb-24 short:pb-12">
+        <div className="col-span-2">
           <DesktopBack href={BACK} />
-          <div className="w-full">
-            <Trial />
-          </div>
+        </div>
+        <section className="min-w-0">
+          <Trial />
         </section>
-        <aside className="w-full max-w-[416px] min-w-0 pt-28 short:pt-14 pb-24 short:pb-12">
+        <aside className="min-w-0">
           <div className="flex flex-col gap-4">
             <h2 className="t-headline text-secondary-900">Summary</h2>
             <dl className="contents">
