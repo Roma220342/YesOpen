@@ -11,7 +11,8 @@ const TRIAL = "/onboarding/06";
 const STATE_10C: HomeState = {
   ...STATE_10A,
   greeting: ["Your first week", "4 things need you"],
-  tasks: [{ ...SUNDAY_HOURS, href: TRIAL }],
+  // Without a plan the only answer is the trial, so the card has one button and no Skip.
+  tasks: [{ ...SUNDAY_HOURS, href: TRIAL, skip: false }],
   lockedMore: { count: 3, href: TRIAL },
   week: {
     total: "142",
