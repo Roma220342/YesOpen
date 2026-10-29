@@ -1,25 +1,18 @@
 import { HomeDesktop, HomeMobile, type HomeState } from "@/components/home/home";
-import type { Task } from "@/components/home/task";
-import { NEW_PHOTOS, REPLY_TO_MARCO, STATE_10A, SUNDAY_HOURS, THANKSGIVING } from "./10a";
+import { STATE_10A, SUNDAY_HOURS } from "./10a";
 
 // 10c Home · trial skipped — Figma mobile 257:1798, desktop 331:2332.
-// Every approve leads to the trial; desktop rows are locked; no edit hints, nothing done yet.
+// Only the biggest fix is shown; approving it opens the trial. The other fixes are counted, not shown,
+// so their ready-made answers can't simply be copied into Google Maps by hand. Everything YesOpen does
+// (competitors above you, reply drafts, posts) is locked too; the owner's own Google data stays open.
 
-const TRIAL = { action: "Start 14 days free", desktopAction: "Start 14 days free", hint: undefined, locked: true };
-
-const REPLY: Task = {
-  ...REPLY_TO_MARCO,
-  fields: [
-    { label: "Marco wrote", value: REPLY_TO_MARCO.fields![0].value },
-    { label: "Your reply", value: REPLY_TO_MARCO.fields![1].value },
-  ],
-};
+const TRIAL = "/onboarding/06";
 
 const STATE_10C: HomeState = {
   ...STATE_10A,
-  greeting: ["You look closed", "on Sundays."],
-  tasks: [SUNDAY_HOURS, REPLY, THANKSGIVING, NEW_PHOTOS].map((t) => ({ ...t, ...TRIAL })),
-  cardHeight: 423,
+  greeting: ["Your first week", "4 things need you"],
+  tasks: [{ ...SUNDAY_HOURS, hint: undefined, href: TRIAL }],
+  lockedMore: { count: 3, href: TRIAL },
   week: {
     total: "142",
     label: "people asked for directions",
@@ -37,14 +30,15 @@ const STATE_10C: HomeState = {
       { label: "S", value: 2.4, closed: true },
     ],
     stats: [
-      { value: "1,020", label: "saw your profile" },
-      { value: "71", label: "visited your website" },
+      { value: "1,020", label: "Saw profile" },
+      { value: "71", label: "Web visits" },
     ],
   },
   nearby: {
     headline: "#6 of 14 pizzerias nearby",
     sub: "For “pizza near me” · first check today",
     rows: STATE_10A.nearby.rows,
+    locked: { title: "See who’s above you", sub: "Start your free trial to follow them every day", href: TRIAL },
   },
   score: {
     score: 58,
@@ -62,6 +56,7 @@ const STATE_10C: HomeState = {
     fresh: "12 unanswered",
     replied: 269 / 313,
     repliedLabel: "200 of 212 have a reply",
+    locked: { title: "12 replies are ready", sub: "Start your free trial to approve them", href: TRIAL },
   },
   thisWeek: {
     done: [],

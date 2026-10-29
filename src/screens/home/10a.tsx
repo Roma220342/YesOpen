@@ -5,52 +5,79 @@ import type { Task } from "@/components/home/task";
 
 export const SUNDAY_HOURS: Task = {
   title: "Add Sunday hours",
-  why: "Google shows you as closed on Sundays, so people who search then go somewhere else.",
-  summary: "Google shows you as closed on Sundays",
+  why: "Google shows you closed on Sundays.",
   fields: [
     { label: "Now", value: "Sunday · Closed" },
     { label: "New hours", value: "Sunday · 12 pm – 9 pm" },
   ],
   hint: "Tap to change the hours.",
   action: "Approve hours",
-  desktopAction: "Approve",
+  alt: { label: "Not right for us", done: "Kept as closed" },
+  impact: 6,
 };
 
 export const REPLY_TO_MARCO: Task = {
   title: "Reply to Marco",
-  why: "He waited too long on Friday. A kind reply shows others you care.",
-  summary: "A 2-star review from Friday",
-  fields: [
-    { label: "Now", value: "“Waited 40 minutes for a margherita. Pizza was good, though.”" },
+  why: "No reply for 3 days.",
+  reviews: [
     {
-      label: "New",
-      value: "“Sorry about the wait, Marco. That’s not how we want Friday nights to go. Thanks for telling us, we’d love to see you again.”",
+      name: "Marco R.",
+      initial: "M",
+      stars: 2,
+      when: "Friday",
+      text: "Waited 40 minutes for a margherita. Pizza was good, though.",
+      reply: "Sorry about the wait, Marco. That’s not how we want Friday nights to go. Thanks for telling us, we’d love to see you again.",
     },
   ],
-  hint: "Tap the text to change it.",
   action: "Approve reply",
+  impact: 2,
+};
+
+// The 4–5★ drafts behind "3 replies to approve": one card for both, each review opens with its reply.
+export const REPLY_TO_TWO: Task = {
+  title: "Reply to 2 reviews",
+  why: "No reply for 2 days.",
+  reviews: [
+    {
+      name: "Priya S.",
+      initial: "P",
+      stars: 5,
+      when: "Yesterday",
+      text: "Best crust in the neighborhood. The burrata pizza is unreal.",
+      reply: "Thank you, Priya! The burrata is a team favorite too. See you soon.",
+    },
+    {
+      name: "Dan K.",
+      initial: "D",
+      stars: 4,
+      when: "Sunday",
+      text: "Great pizza, a bit loud on Saturday night but worth it.",
+      reply: "Thanks, Dan! Saturdays get lively. Come by on a weeknight for a quieter table, we’d love to have you back.",
+    },
+  ],
+  action: "Approve 2 replies",
+  impact: 2,
 };
 
 export const THANKSGIVING: Task = {
   title: "Open on Thanksgiving?",
-  why: "Thursday, Nov 26. Google will show your usual hours. If you’re closed, people may come to a locked door.",
-  summary: "Thursday, Nov 26",
-  action: "Approve",
+  why: "Google will show your usual hours on Nov 26.",
+  action: "We’re closed that day",
+  alt: { label: "Open as usual", done: "Usual hours kept" },
 };
 
 export const NEW_PHOTOS: Task = {
   title: "Add new photos",
   why: "Your newest photo is 2 years old.",
-  summary: "Your newest photo is 2 years old",
   action: "Add photos",
+  impact: 5,
 };
 
 export const STATE_10A: HomeState = {
   business: { name: "Forno Rosso Pizzeria", photo: "/assets/business.jpg" },
   user: { initial: "E", name: "Example", email: "example@gmail.com" },
-  greeting: ["A good week.", "4 things need you."],
-  tasks: [SUNDAY_HOURS, REPLY_TO_MARCO, THANKSGIVING, NEW_PHOTOS],
-  cardHeight: 489,
+  greeting: ["A good week", "5 things need you"],
+  tasks: [SUNDAY_HOURS, REPLY_TO_MARCO, REPLY_TO_TWO, THANKSGIVING, NEW_PHOTOS],
   week: {
     total: "184",
     label: "people asked for directions",
@@ -68,8 +95,8 @@ export const STATE_10A: HomeState = {
     average: 21,
     averageLabel: "Last week: 21 a day",
     stats: [
-      { value: "1,240", label: "saw your profile" },
-      { value: "96", label: "visited your website" },
+      { value: "1,240", label: "Saw profile" },
+      { value: "96", label: "Web visits" },
     ],
   },
   nearby: {
@@ -98,7 +125,7 @@ export const STATE_10A: HomeState = {
     fresh: "5 new this week",
     replied: 267 / 313,
     repliedLabel: "209 of 212 have a reply",
-    drafts: { label: "3 replies are waiting for approval" },
+    drafts: { label: "3 replies to approve" },
   },
   thisWeek: {
     done: [

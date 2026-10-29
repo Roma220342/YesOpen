@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/icon";
-import { ModuleCard, Star, TrendChip, type TrendTone } from "./module-card";
+import { LockedRow, ModuleCard, Star, TrendChip, type Locked, type TrendTone } from "./module-card";
 
 type HeadLinkData = { label: string; href?: string };
 
@@ -80,7 +80,7 @@ export function WeekChart({ data, barMax, className }: { data: WeekData; barMax:
         {data.stats.map((s) => (
           <div key={s.label} className="flex h-[82px] min-w-0 flex-1 flex-col gap-0.5 rounded-2xl bg-secondary-50 p-4">
             <p className="t-title text-secondary-900">{s.value}</p>
-            <p className="t-footnote text-secondary-700">{s.label}</p>
+            <p className="t-small text-secondary-700">{s.label}</p>
           </div>
         ))}
       </div>
@@ -96,6 +96,8 @@ export type NearbyData = {
   headline: string; // "#6 of 14 pizzerias nearby"
   sub: string; // "For “pizza near me” · up 2 this week"
   rows: { rank: number; name: string; rating: string; you?: boolean }[];
+  /** Without a plan only your own row shows; the places above you open the trial (10c). */
+  locked?: Locked;
 };
 
 export function PlaceNearby({ data, className }: { data: NearbyData; className?: string }) {
@@ -103,10 +105,10 @@ export function PlaceNearby({ data, className }: { data: NearbyData; className?:
     <ModuleCard title={data.title ?? "Your place nearby"} link={data.link ?? { label: "Map" }} className={className}>
       <div className="flex flex-col gap-0.5">
         <p className="t-headline text-secondary-900">{data.headline}</p>
-        <p className="t-footnote text-secondary-700">{data.sub}</p>
+        <p className="t-small text-secondary-700">{data.sub}</p>
       </div>
       <ol className="flex flex-col gap-0.5">
-        {data.rows.map((r) => (
+        {data.rows.filter((r) => !data.locked || r.you).map((r) => (
           <li key={r.rank} className={`flex h-9 items-center gap-2.5 rounded-[10px] px-2.5 ${r.you ? "bg-primary-50" : ""}`}>
             <span className={`w-7 shrink-0 ${r.you ? "t-headline text-primary-600" : "t-body text-secondary-700"}`}>#{r.rank}</span>
             <span className={`min-w-0 flex-1 ${r.you ? "t-headline text-primary-600" : "t-body text-secondary-900"}`}>{r.name}</span>
@@ -117,6 +119,7 @@ export function PlaceNearby({ data, className }: { data: NearbyData; className?:
           </li>
         ))}
       </ol>
+      {data.locked && <LockedRow {...data.locked} />}
     </ModuleCard>
   );
 }
@@ -164,57 +167,18 @@ export function ProfileScore({ data, className }: { data: ScoreData; className?:
       </div>
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5">
         {data.groups.map((g) => (
-          <span key={g.tone} className="t-footnote flex items-center gap-1.5 text-secondary-900">
+          <span key={g.tone} className="t-small flex items-center gap-1.5 text-secondary-900">
             <span className={`size-2 shrink-0 ${data.marker === "square" ? "rounded-[2px]" : "rounded-full"} ${TONE_BG[g.tone]}`} />
             {g.label}
           </span>
         ))}
       </div>
-      <p className="t-footnote text-secondary-700">{data.why}</p>
+      <p className="t-small text-secondary-700">{data.why}</p>
     </ModuleCard>
   );
 }
 
-/* ------------------------------------------------------------------ Reviews */
-
-export type ReviewsData = {
-  title?: string;
-  link?: HeadLinkData;
-  rating: string; // "4.4"
-  count: string; // "212 reviews"
-  fresh: string; // "5 new this week"
-  /** Fill of the reply bar, 0..1 (as drawn in Figma). */
-  replied: number;
-  repliedLabel: string; // "209 of 212 have a reply"
-  /** Reply bar colour: blue (default) or green when every review has a reply (10b). */
-  barTone?: "primary" | "success";
-  /** "3 replies are waiting for approval" row; omitted when nothing waits. */
-  drafts?: { label: string; href?: string };
-};
-
-export function Reviews({ data, className }: { data: ReviewsData; className?: string }) {
-  return (
-    <ModuleCard title={data.title ?? "Reviews"} link={data.link ?? { label: "All reviews" }} className={className}>
-      <div className="flex items-center gap-2">
-        <Star size={22} />
-        <p className="t-title text-secondary-900">{data.rating}</p>
-        <div className="flex min-w-0 flex-1 flex-col">
-          <p className="t-body text-secondary-900">{data.count}</p>
-          <p className="t-footnote text-secondary-600">{data.fresh}</p>
-        </div>
-      </div>
-      <div className="h-1.5 overflow-hidden rounded-[3px] bg-secondary-100">
-        <div className={`h-full rounded-[3px] ${data.barTone === "success" ? "bg-success-500" : "bg-primary-500"}`} style={{ width: `${data.replied * 100}%` }} />
-      </div>
-      <p className="t-footnote text-secondary-700">{data.repliedLabel}</p>
-      {data.drafts && (
-        <Link href={data.drafts.href ?? "#"} className="t-headline rounded-xl bg-primary-50 px-3 py-2.5 text-primary-600">
-          {data.drafts.label}
-        </Link>
-      )}
-    </ModuleCard>
-  );
-}
+export { Reviews, type ReviewsData } from "./reviews";
 
 /* ------------------------------------------------------------------ This week */
 
@@ -238,7 +202,7 @@ export function ThisWeek({ data, className }: { data: ThisWeekData; className?: 
               <span className={`mt-[7px] size-2 shrink-0 rounded-full ${d.status === "live" ? "bg-success-500" : "bg-warning-500"}`} />
               <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <p className="t-body text-secondary-900">{d.title}</p>
-                <p className="t-footnote text-secondary-700">{d.meta}</p>
+                <p className="t-small text-secondary-700">{d.meta}</p>
               </div>
             </div>
           ))}
@@ -254,7 +218,7 @@ export function ThisWeek({ data, className }: { data: ThisWeekData; className?: 
               </span>
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="t-headline text-secondary-900">{n.title}</span>
-                <span className="t-footnote text-secondary-700">{n.meta}</span>
+                <span className="t-small text-secondary-700">{n.meta}</span>
               </span>
               {n.locked ? (
                 <Icon name="lock" size={22} className="shrink-0 text-secondary-700" />

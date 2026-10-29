@@ -13,8 +13,8 @@ export type HomeState = {
   greeting: [string, string];
   /** Tasks to approve. Empty hides the To approve module. */
   tasks: Task[];
-  /** Fixed mobile task-card height from Figma. */
-  cardHeight: number;
+  /** Tasks counted but not shown until the trial starts (10c). */
+  lockedMore?: { count: number; href: string };
   /** Index of the open desktop accordion item. */
   openTask?: number;
   week: WeekData;
@@ -29,7 +29,7 @@ export type HomeState = {
   /** Desktop row sizes when a state differs from 10a (top 510, bottom 346). */
   desktopLayout?: {
     topRowHeight?: number;
-    /** "auto" sizes the bottom row to its content (10b, 10c). */
+    /** Fixed height, or "auto" (default) to size the bottom row to its content. */
     bottomRowHeight?: number | "auto";
     /** 24px instead of 16px under the module head in Week, Score and Reviews (10c). */
     wideHeadGap?: boolean;
@@ -45,7 +45,7 @@ function CaughtUp({ title, sub }: { title: string; sub: string }) {
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="t-headline text-secondary-900">{title}</span>
-        <span className="t-footnote text-secondary-700">{sub}</span>
+        <span className="t-small text-secondary-700">{sub}</span>
       </span>
     </section>
   );
@@ -58,7 +58,7 @@ export function HomeMobile({ state }: { state: HomeState }) {
       <main className="flex flex-1 flex-col gap-2 px-5 pt-2 pb-6">
         <Greeting lines={state.greeting} />
         <div className="flex flex-col gap-5">
-          {state.tasks.length > 0 && <ToApproveCarousel tasks={state.tasks} cardHeight={state.cardHeight} />}
+          {state.tasks.length > 0 && <ToApproveCarousel tasks={state.tasks} lockedMore={state.lockedMore} />}
           {state.tasks.length === 0 && state.caughtUp && <CaughtUp {...state.caughtUp} />}
           <WeekChart data={state.week} barMax={64} />
           <PlaceNearby data={state.nearby} />
@@ -75,14 +75,14 @@ export function HomeMobile({ state }: { state: HomeState }) {
 export function HomeDesktop({ state }: { state: HomeState }) {
   const layout = state.desktopLayout ?? {};
   const top = layout.topRowHeight ?? 510;
-  const bottom = layout.bottomRowHeight ?? 346;
+  const bottom = layout.bottomRowHeight ?? "auto";
   const head = layout.wideHeadGap ? " [&>:first-child]:mb-2" : "";
   return (
     <div data-page-bg="neutral" className="flex min-h-dvh bg-secondary-75">
       <Sidebar business={state.business} user={state.user} />
       <main className="flex min-w-0 flex-1 flex-col gap-6 px-10 pt-8 pb-12">
         <Greeting lines={state.greeting} />
-        {state.tasks.length > 0 && <ToApproveAccordion tasks={state.tasks} defaultOpen={state.openTask} />}
+        {state.tasks.length > 0 && <ToApproveAccordion tasks={state.tasks} defaultOpen={state.openTask} lockedMore={state.lockedMore} />}
         {state.tasks.length === 0 && state.caughtUp && <CaughtUp {...state.caughtUp} />}
         <div className="flex gap-6" style={{ height: top }}>
           <WeekChart data={state.week} barMax={141} className={`min-w-0 flex-1${head}`} />

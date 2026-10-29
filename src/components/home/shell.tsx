@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/icon";
+import { ScrollPane } from "@/components/scroll-edges";
 
 export type Business = { name: string; photo: string };
 export type User = { initial: string; name: string; email: string };
@@ -35,11 +36,11 @@ export function HomeHeader({ business, user }: { business: Business; user: User 
 // "A good week. / 4 things need you." — second line in secondary-700.
 export function Greeting({ lines }: { lines: [string, string] }) {
   return (
-    <h1 className="t-large-title pt-2 pb-3 text-secondary-900">
-      {lines[0]}
-      <br />
-      <span className="text-secondary-700">{lines[1]}</span>
-    </h1>
+    // Small line sets the tone ("A good week"), the big one says what needs the owner ("5 things need you").
+    <hgroup className="flex flex-col gap-1 pt-2 pb-3">
+      <p className="t-body text-secondary-700">{lines[0]}</p>
+      <h1 className="t-large-title text-secondary-900">{lines[1]}</h1>
+    </hgroup>
   );
 }
 
@@ -101,13 +102,13 @@ export function Sidebar({ business, user, active = "Home" }: { business: Busines
   return (
     // Logo + switcher and footer stay put; only the nav scrolls when the window is short.
     <aside className="sticky top-0 flex h-dvh w-[248px] shrink-0 flex-col self-start bg-white py-6">
-      <div className="flex shrink-0 flex-col gap-5 px-4">
+      <div data-pane-edge="top" className="flex shrink-0 flex-col gap-5 px-4 pb-5">
         <div className="pl-3">
           <img src="/brand/logo.svg" alt="YesOpen" width={84} height={24} />
         </div>
         <BusinessSwitcher business={business} className="w-full bg-secondary-50" />
       </div>
-      <div className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto px-4 py-5 no-scrollbar">
+      <ScrollPane className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto px-4 no-scrollbar">
         <nav className="flex flex-col gap-1">
           {MAIN_NAV.map((n) => (
             <NavLink key={n.label} item={n} active={n.label === active} />
@@ -119,8 +120,8 @@ export function Sidebar({ business, user, active = "Home" }: { business: Busines
             <NavLink key={n.label} item={n} active={n.label === active} />
           ))}
         </nav>
-      </div>
-      <div className="flex shrink-0 flex-col gap-2 px-4">
+      </ScrollPane>
+      <div data-pane-edge="bottom" className="flex shrink-0 flex-col gap-2 px-4 pt-5">
         {FOOTER_NAV.map((n) => (
           <NavLink key={n.label} item={n} active={n.label === active} />
         ))}

@@ -1,22 +1,12 @@
 import { HomeDesktop, HomeMobile, type HomeState } from "@/components/home/home";
-import type { Task } from "@/components/home/task";
-import { NEW_PHOTOS, REPLY_TO_MARCO, STATE_10A, THANKSGIVING } from "./10a";
+import { NEW_PHOTOS, REPLY_TO_MARCO, REPLY_TO_TWO, STATE_10A, THANKSGIVING } from "./10a";
 
-// 10a2 Home · after approve — Figma mobile 281:2104, desktop 331:1780. Sunday hours approved: 3 tasks left, score 85.
-
-const REPLY: Task = {
-  ...REPLY_TO_MARCO,
-  fields: [
-    { label: "Marco wrote", value: REPLY_TO_MARCO.fields![0].value },
-    { label: "Your reply", value: REPLY_TO_MARCO.fields![1].value },
-  ],
-};
+// 10a2 Home · after approve — Figma mobile 281:2104, desktop 331:1780. Sunday hours approved: 4 tasks left, score 85.
 
 const STATE_10A2: HomeState = {
   ...STATE_10A,
-  greeting: ["A good week.", "3 things need you."],
-  tasks: [REPLY, THANKSGIVING, NEW_PHOTOS],
-  cardHeight: 497,
+  greeting: ["A good week", "4 things need you"],
+  tasks: [REPLY_TO_MARCO, REPLY_TO_TWO, THANKSGIVING, NEW_PHOTOS],
   score: {
     score: 85,
     trend: "Up 27 since you started",

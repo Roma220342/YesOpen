@@ -5,7 +5,7 @@ import { STATE_10A } from "./10a";
 
 const STATE_10B: HomeState = {
   ...STATE_10A,
-  greeting: ["A good week.", "Nothing needs you."],
+  greeting: ["A good week", "Nothing needs you"],
   tasks: [],
   caughtUp: { title: "You’re all caught up", sub: "We’ll email you if something needs you." },
   week: {
@@ -26,8 +26,8 @@ const STATE_10B: HomeState = {
     average: 26,
     averageLabel: "Last week: 26 a day",
     stats: [
-      { value: "1,310", label: "saw your profile" },
-      { value: "104", label: "visited your website" },
+      { value: "1,310", label: "Saw profile" },
+      { value: "104", label: "Web visits" },
     ],
   },
   nearby: {
