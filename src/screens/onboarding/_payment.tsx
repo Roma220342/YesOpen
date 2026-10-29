@@ -62,16 +62,27 @@ function PaymentForm({ state, desktop }: { state: PaymentState; desktop: boolean
         </p>
       </div>
 
-      <button
-        type="button"
-        disabled={disabled}
-        className={`flex w-full items-center justify-center gap-1.5 bg-secondary-900 text-white ${
-          desktop ? "h-12 rounded-3xl" : "h-14 rounded-[28px]"
-        }`}
-      >
-        <img src="/assets/onboarding/07/apple.svg" alt="" width={24} height={24} />
-        <span className="text-[20px] font-semibold leading-normal">Pay</span>
-      </button>
+      {/* Figma wallets: Apple Pay and Google Pay stacked 8px apart, black pills 48px high on both views. */}
+      <div className="flex w-full flex-col gap-2">
+        <button
+          type="button"
+          disabled={disabled}
+          aria-label="Pay with Apple Pay"
+          className="flex h-12 w-full items-center justify-center gap-1.5 rounded-full bg-secondary-900 text-white"
+        >
+          <img src="/assets/onboarding/07/apple.svg" alt="" width={24} height={24} />
+          <span className="text-[20px] font-semibold leading-normal">Pay</span>
+        </button>
+        <button
+          type="button"
+          disabled={disabled}
+          aria-label="Pay with Google Pay"
+          className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-secondary-900 text-white"
+        >
+          <img src="/assets/onboarding/07/google.svg" alt="" width={20} height={20} />
+          <span className="text-[20px] font-semibold leading-normal">Pay</span>
+        </button>
+      </div>
 
       <div className="flex w-full items-center gap-3">
         <span className="h-px flex-1 rounded-full bg-secondary-100" />
