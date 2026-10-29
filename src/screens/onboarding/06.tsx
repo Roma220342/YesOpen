@@ -1,6 +1,6 @@
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopBack, DesktopHeader } from "./04";
+import { DesktopHeader } from "@/components/desktop-header";
 
 const BACK = "/onboarding/05";
 const SKIP = "/home/10a";
@@ -61,14 +61,14 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar back={BACK} skip={SKIP} />
-      <main className="flex flex-1 flex-col justify-between gap-12 px-5 pt-4 pb-6">
+      <main className="flex flex-1 flex-col justify-between gap-12 px-5 pt-2">
         <Trial />
         <div className="flex flex-col gap-1 text-center">
           <p className="t-headline text-secondary-900">14 days free, then $49 a month</p>
           <p className="t-footnote text-secondary-700">+$15 a month for each extra location</p>
         </div>
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="bar-blur sticky bottom-0 z-10 px-5 pb-[max(12px,env(safe-area-inset-bottom))]">
         <Button href={NEXT}>{CTA}</Button>
       </div>
     </div>
@@ -78,13 +78,9 @@ export function Mobile() {
 export function Desktop() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader skip={SKIP} />
+      <DesktopHeader back={BACK} skip={SKIP} />
       {/* Figma: a centred 1128px block, task column 520px on the left, context column 416px on the right. */}
-      {/* Back sits in its own row so the summary starts level with the title, not with Back. */}
-      <main className="mx-auto grid w-full max-w-[1208px] flex-1 grid-cols-[minmax(0,520px)_minmax(0,416px)] content-start items-start justify-between gap-x-12 gap-y-6 px-10 pt-12 pb-24 short:pb-12">
-        <div className="col-span-2">
-          <DesktopBack href={BACK} />
-        </div>
+      <main className="mx-auto grid w-full max-w-[1208px] flex-1 grid-cols-[minmax(0,520px)_minmax(0,416px)] content-start items-start justify-between gap-x-12 px-10 pt-desk pb-desk">
         <section className="min-w-0">
           <Trial />
         </section>

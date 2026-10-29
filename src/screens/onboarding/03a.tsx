@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopBack, DesktopHeader, Intro } from "./01a";
+import { DesktopHeader } from "@/components/desktop-header";
+import { Intro } from "./01a";
 
 // Figma 165:762 (mobile), 320:2364 (desktop)
 
@@ -46,10 +47,10 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={4} back="/onboarding/02b" skip="/home/10c" />
-      <main className="flex flex-1 flex-col px-5 pt-4 pb-6">
+      <main className="flex flex-1 flex-col px-5 pt-2">
         <Content />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="bar-blur sticky bottom-0 z-10 px-5 pb-[max(12px,env(safe-area-inset-bottom))]">
         <Button href={NEXT}>Send to Google</Button>
       </div>
     </div>
@@ -59,10 +60,9 @@ export function Mobile() {
 export function Desktop() {
   return (
     <div className="flex min-h-dvh flex-col items-center bg-white">
-      <DesktopHeader step={4} skip="/home/10c" />
-      <main className="flex w-full flex-1 justify-center px-10 pt-[50px] pb-20 short:pt-8 short:pb-12">
-        <div className="flex w-full max-w-[520px] flex-col gap-6">
-          <DesktopBack href="/onboarding/02b" />
+      <DesktopHeader back="/onboarding/02b" step={4} skip="/home/10c" />
+      <main className="flex w-full flex-1 justify-center px-10 pt-desk pb-desk">
+        <div className="flex w-full max-w-[520px] flex-col">
           <div className="flex flex-col">
             <Content desktop />
             <div className="pt-8">

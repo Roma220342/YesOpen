@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopBack, DesktopHeader } from "./04";
+import { DesktopHeader } from "@/components/desktop-header";
 
 // Shared layout for the connect error states 04b (wrong account), 04c (no access), 04d (not verified).
 export type ConnectErrorProps = {
@@ -48,10 +48,10 @@ export function ConnectErrorMobile(p: ConnectErrorProps) {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={5} back={BACK} skip={SKIP} />
-      <main className="flex-1 px-5 pt-4 pb-6">
+      <main className="flex-1 px-5 pt-2">
         <Content p={p} />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 flex flex-col gap-3 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="bar-blur sticky bottom-0 z-10 flex flex-col gap-3 px-5 pb-[max(12px,env(safe-area-inset-bottom))]">
         <Secondary p={p} />
         <Button href={RETRY}>{p.primary}</Button>
       </div>
@@ -62,10 +62,9 @@ export function ConnectErrorMobile(p: ConnectErrorProps) {
 export function ConnectErrorDesktop(p: ConnectErrorProps) {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader step={5} skip={SKIP} />
-      <main className="flex flex-1 justify-center px-10 pt-[50px] pb-20 short:pt-8 short:pb-12">
-        <div className="flex flex-col items-start gap-6">
-          <DesktopBack href={BACK} />
+      <DesktopHeader back={BACK} step={5} skip={SKIP} />
+      <main className="flex flex-1 justify-center px-10 pt-desk pb-desk">
+        <div className="flex flex-col items-start">
           <div className="w-[520px]">
             <Content p={p} />
             {/* Figma buttons container: 32px above, the 56px text button, 12px, the primary. */}

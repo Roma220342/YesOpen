@@ -1,6 +1,6 @@
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopHeader } from "./04";
+import { DesktopHeader } from "@/components/desktop-header";
 
 const NEXT = "/onboarding/06";
 const CTA = "Fix the rest, 14 days free";
@@ -67,11 +67,11 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={6} />
-      <main className="flex flex-1 flex-col gap-6 px-5 pt-4 pb-6">
+      <main className="flex flex-1 flex-col gap-6 px-5 pt-2">
         <Sent desktop={false} />
         <StillToFix />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="bar-blur sticky bottom-0 z-10 px-5 pb-[max(12px,env(safe-area-inset-bottom))]">
         <Button href={NEXT}>{CTA}</Button>
       </div>
     </div>
@@ -81,13 +81,13 @@ export function Mobile() {
 export function Desktop() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader step={6} />
+      <DesktopHeader back="/onboarding/04" step={6} />
       {/* Figma: a centred 1128px block, task column 520px on the left, context column 416px on the right. */}
       <main className="mx-auto flex w-full max-w-[1208px] flex-1 items-start justify-between gap-12 px-10">
-        <section className="flex w-full max-w-[520px] min-w-0 flex-col gap-6 pt-28 short:pt-14 pb-24 short:pb-12">
+        <section className="flex w-full max-w-[520px] min-w-0 flex-col gap-6 pt-desk pb-desk">
           <Sent desktop />
         </section>
-        <aside className="w-full max-w-[416px] min-w-0 pt-28 short:pt-14 pb-24 short:pb-12">
+        <aside className="w-full max-w-[416px] min-w-0 pt-desk pb-desk">
           <div className="flex flex-col gap-8">
             <StillToFix desktop />
             <Button href={NEXT}>{CTA}</Button>

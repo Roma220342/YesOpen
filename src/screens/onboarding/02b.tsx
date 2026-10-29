@@ -1,5 +1,6 @@
 import { Button, TopBar } from "@/components/ui";
-import { DesktopBack, DesktopHeader, Intro } from "./01a";
+import { DesktopHeader } from "@/components/desktop-header";
+import { Intro } from "./01a";
 
 // Figma 137:761 (mobile), 320:2249 (desktop)
 
@@ -118,7 +119,7 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={3} back="/onboarding/02a" skip="/home/10c" />
-      <main className="flex flex-1 flex-col gap-6 px-5 pt-4 pb-6">
+      <main className="flex flex-1 flex-col gap-6 px-5 pt-2">
         <div className="flex flex-col gap-4">
           <Intro {...INTRO} />
           <BusinessChip />
@@ -137,7 +138,7 @@ export function Mobile() {
         <Group title="Couldn’t check" kind="unknown" items={COULDNT_CHECK} />
         <Group title="Looks good" kind="good" items={LOOKS_GOOD} />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="bar-blur sticky bottom-0 z-10 px-5 pb-[max(12px,env(safe-area-inset-bottom))]">
         <Button href={NEXT}>Fix description for free</Button>
       </div>
     </div>
@@ -147,13 +148,10 @@ export function Mobile() {
 export function Desktop() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader step={3} skip="/home/10c" />
+      <DesktopHeader back="/onboarding/02a" step={3} skip="/home/10c" />
       {/* Same frame as 05–07: a centred 1128px block, report 520px on the left, the free fix 416px on the right. */}
-      {/* Back sits in its own row so the fix starts level with the title, not with Back. */}
-      <main className="mx-auto grid w-full max-w-[1208px] flex-1 grid-cols-[minmax(0,520px)_minmax(0,416px)] content-start items-start justify-between gap-x-12 gap-y-6 px-10 pt-12 pb-24 short:pb-12">
-        <div className="col-span-2">
-          <DesktopBack href="/onboarding/02a" />
-        </div>
+      {/* The fix and its button stay in view while the report scrolls past (sticky under the header). */}
+      <main className="mx-auto grid w-full max-w-[1208px] flex-1 grid-cols-[minmax(0,520px)_minmax(0,416px)] content-start items-start justify-between gap-x-12 px-10 pt-desk pb-desk">
         <section className="min-w-0">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-8">
@@ -170,11 +168,11 @@ export function Desktop() {
             </div>
           </div>
         </section>
-        <aside className="min-w-0">
+        <aside className="sticky top-[calc(72px+clamp(24px,5.3vh,48px))] min-w-0">
           {/* Figma: the fix card, the note 24px under it, then the button 32px below. */}
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-4">
                 <h2 className="t-headline text-secondary-900">Your free fix</h2>
                 <div className="flex flex-col gap-1.5 rounded-2xl bg-success-50 px-3.5 py-3">
                   <p className="t-small-bold text-success-700">We’ll add this to your description</p>

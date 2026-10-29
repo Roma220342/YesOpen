@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { DesktopHeader } from "@/components/desktop-header";
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
 
@@ -154,26 +154,11 @@ export function PaymentMobile({ state }: { state: PaymentState }) {
     <div className="flex min-h-dvh flex-col bg-white">
       {processing && <AutoAdvance />}
       <TopBar back={processing ? undefined : BACK} skip={processing ? undefined : SKIP} />
-      <main className="flex flex-1 flex-col px-5 pt-4 pb-6">
+      <main className="flex flex-1 flex-col px-5 pt-2 pb-4">
         <PaymentForm state={state} desktop={false} />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">{mobileButton(state)}</div>
+      <div data-edge="bottom" className="bar-blur sticky bottom-0 z-10 px-5 pb-[max(12px,env(safe-area-inset-bottom))]">{mobileButton(state)}</div>
     </div>
-  );
-}
-
-export function DesktopHeader({ skip }: { skip?: string }) {
-  return (
-    <header className="sticky top-0 z-20 flex h-[72px] w-full shrink-0 items-center justify-between border-b border-secondary-200 bg-white px-10">
-      <div className="flex w-60 items-center">
-        <img src="/brand/logo.svg" alt="YesOpen" width={84} height={24} />
-      </div>
-      <div className="flex w-60 items-center justify-end">
-        {skip && (
-          <Link href={skip} className="t-body rounded-lg px-3 py-2 text-secondary-700">Skip</Link>
-        )}
-      </div>
-    </header>
   );
 }
 
@@ -194,7 +179,8 @@ function SummaryPanel({ children }: { children: React.ReactNode }) {
           <span className="text-secondary-900">{v}</span>
         </div>
       ))}
-      <p className="t-small text-secondary-600">Cancel anytime before November 11 and you won’t pay.</p>
+      {/* Figma: the note 24px under the rows, the button 32px under the note. */}
+      <p className="t-small pt-2 text-secondary-600">Cancel anytime before November 11 and you won’t pay.</p>
       <div className="pt-4">{children}</div>
     </div>
   );
@@ -211,23 +197,13 @@ export function PaymentDesktop({ state }: { state: PaymentState }) {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       {processing && <AutoAdvance />}
-      <DesktopHeader skip={processing ? undefined : SKIP} />
+      <DesktopHeader back={processing ? undefined : BACK} skip={processing ? undefined : SKIP} />
       {/* Figma: a centred 1128px block, task column 520px on the left, context column 416px on the right. */}
       <div className="mx-auto flex w-full max-w-[1208px] flex-1 items-start justify-between gap-12 px-10">
-        <div className={`w-full max-w-[520px] min-w-0 pb-24 short:pb-12 ${processing ? "pt-28 short:pt-14" : "pt-12"}`}>
-          <div className="flex flex-col gap-6">
-            {!processing && (
-              <Link href={BACK} className="t-body flex items-center gap-1.5 self-start py-2 pr-1 text-secondary-700">
-                <Icon name="back" size={20} />
-                Back
-              </Link>
-            )}
-            <div className="flex w-full flex-col">
-              <PaymentForm state={state} desktop />
-            </div>
-          </div>
+        <div className="w-full max-w-[520px] min-w-0 pt-desk pb-desk">
+          <PaymentForm state={state} desktop />
         </div>
-        <div className={`w-full max-w-[416px] min-w-0 pb-24 short:pb-12 ${processing ? "pt-28 short:pt-14" : "pt-[110px]"}`}>
+        <div className="w-full max-w-[416px] min-w-0 pt-desk pb-desk">
           <SummaryPanel>{desktopButton(state)}</SummaryPanel>
         </div>
       </div>

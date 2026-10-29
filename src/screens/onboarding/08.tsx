@@ -1,5 +1,5 @@
 import { Button, TopBar } from "@/components/ui";
-import { DesktopHeader } from "./_payment";
+import { DesktopHeader } from "@/components/desktop-header";
 
 const NEXT = "/home/10a";
 
@@ -51,10 +51,10 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar />
-      <main className="flex flex-1 flex-col px-5 pt-4 pb-6">
+      <main className="flex flex-1 flex-col px-5 pt-2">
         <Content />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="bar-blur sticky bottom-0 z-10 px-5 pb-[max(12px,env(safe-area-inset-bottom))]">
         <Button href={NEXT}>Fix opening hours</Button>
       </div>
     </div>
@@ -64,9 +64,8 @@ export function Mobile() {
 export function Desktop() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader />
-      {/* Centred in the space under the header, so the button is in view on laptop-height windows too. */}
-      <div className="flex flex-1 flex-col items-center justify-center px-10 py-12">
+      <DesktopHeader back="/onboarding/07d" />
+      <div className="flex flex-1 flex-col items-center px-10 pt-desk pb-desk">
         <div className="flex w-full max-w-[520px] flex-col">
           <Content />
           <div className="pt-8">

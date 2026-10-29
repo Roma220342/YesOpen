@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Collapse } from "@/components/collapse";
 import { TopBar } from "@/components/ui";
-import { DesktopBack, DesktopHeader, Intro } from "./01a";
+import { DesktopHeader } from "@/components/desktop-header";
+import { Intro } from "./01a";
 
 // Figma 131:732 (mobile), 320:2153 (desktop). The check plays out step by step, as it runs for real:
 // each part shows what we're reading, then lands as good / to fix / couldn't check, and the report opens at the end.
@@ -96,7 +97,7 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={2} back="/onboarding/01c" />
-      <main className="flex flex-1 flex-col gap-8 px-5 pt-4 pb-10">
+      <main className="flex flex-1 flex-col gap-8 px-5 pt-2 pb-10">
         <Intro {...INTRO} />
         <div className="flex flex-col gap-4">
           <Summary done={done} toFix={toFix} finished={finished} />
@@ -132,10 +133,9 @@ export function Desktop() {
   const { state, done, toFix, finished } = useCheck();
   return (
     <div className="flex min-h-dvh flex-col items-center bg-white">
-      <DesktopHeader step={2} />
-      <main className="flex w-full flex-1 flex-col items-center px-10 pt-[50px] pb-20 short:pt-8 short:pb-12">
-        <div className="flex w-full max-w-[640px] flex-col gap-6">
-          <DesktopBack href="/onboarding/01c" />
+      <DesktopHeader back="/onboarding/01c" step={2} />
+      <main className="flex w-full flex-1 flex-col items-center px-10 pt-desk pb-desk">
+        <div className="flex w-full max-w-[640px] flex-col">
           <div className="flex w-full flex-col gap-8">
             <Intro {...INTRO} />
             <div className="flex flex-col gap-3">

@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopBack, DesktopHeader, DesktopSteps, Intro, MobileSteps } from "./01a";
+import { DesktopHeader } from "@/components/desktop-header";
+import { DesktopSteps, Intro, MobileSteps } from "./01a";
 import { DesktopSelected } from "./_search";
 
 // Figma 89:1048 (mobile), 320:2104 (desktop)
@@ -32,14 +33,14 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={1} back="/onboarding/01a" />
-      <main className="flex flex-1 flex-col justify-between gap-12 px-5 pt-4 pb-6">
+      <main className="flex flex-1 flex-col justify-between gap-12 px-5 pt-2 pb-6">
         <div className="flex flex-col gap-8">
           <Intro {...INTRO} />
           <MobileSteps className="flex flex-col gap-8" />
         </div>
         <SelectedBusiness />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="bar-blur sticky bottom-0 z-10 px-5 pb-[max(12px,env(safe-area-inset-bottom))]">
         <Button href="/onboarding/02a">Check my business</Button>
       </div>
     </div>
@@ -49,20 +50,16 @@ export function Mobile() {
 export function Desktop() {
   return (
     <div className="flex min-h-dvh flex-col items-center bg-white">
-      <DesktopHeader step={1} />
-      <main className="flex w-full flex-1 flex-col items-center px-10 pt-[50px] pb-20 short:pt-8 short:pb-12">
-        <div className="flex w-full max-w-[720px] flex-col gap-6">
-          <DesktopBack href="/onboarding/01a" />
+      <DesktopHeader back="/onboarding/01a" step={1} />
+      <main className="flex w-full flex-1 flex-col items-center px-10 pt-desk pb-desk">
+        {/* Figma: intro, the full-width search, how it works, then the button 32px below, all 720px wide. */}
+        <div className="flex w-full max-w-[720px] flex-col gap-8">
           <div className="flex w-full flex-col gap-10">
             <Intro {...INTRO} />
-            <div className="flex w-full items-center gap-3">
-              <DesktopSelected />
-              <div className="w-60 shrink-0">
-                <Button href="/onboarding/02a">Check my business</Button>
-              </div>
-            </div>
+            <DesktopSelected />
             <DesktopSteps />
           </div>
+          <Button href="/onboarding/02a">Check my business</Button>
         </div>
       </main>
     </div>

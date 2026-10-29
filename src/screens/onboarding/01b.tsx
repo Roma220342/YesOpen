@@ -12,7 +12,7 @@ export function Mobile() {
 
   return (
     <div className="flex min-h-dvh flex-col bg-white">
-      <main className="flex flex-1 flex-col gap-4 px-5 pt-4 pb-3">
+      <main className="flex flex-1 flex-col gap-4 px-5 pt-2 pb-3">
         <div className="flex items-center rounded-full bg-secondary-50 p-1">
           <Link
             href="/onboarding/01a"
