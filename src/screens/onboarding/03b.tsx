@@ -68,7 +68,7 @@ export function Mobile() {
           </p>
         </div>
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(4px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">
         <Button href="/onboarding/04">Send to Google</Button>
       </div>
     </div>

@@ -39,7 +39,7 @@ export function Mobile() {
         </div>
         <SelectedBusiness />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(4px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">
         <Button href="/onboarding/02a">Check my business</Button>
       </div>
     </div>

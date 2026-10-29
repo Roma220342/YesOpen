@@ -49,7 +49,7 @@ export function Mobile() {
       <main className="flex flex-1 flex-col px-5 pt-4 pb-6">
         <Content />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(4px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(12px,env(safe-area-inset-bottom))]">
         <Button href={NEXT}>Send to Google</Button>
       </div>
     </div>
