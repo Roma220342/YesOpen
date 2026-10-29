@@ -8,10 +8,10 @@ import { ReplyEditor } from "./reply-editor";
 import { SkipMenu } from "./skip";
 import { Toast } from "./toast";
 import { ImpactChip, ReplyField, ReviewBlock, Stars, TaskFields, type Task } from "./task";
-import { useSkip } from "./use-skip";
+import { useTasks } from "./use-tasks";
 
 // Desktop "To approve" module: the open item splits into what/why (360px) and fields + button; others are 64px rows.
-// Opening and closing animate height; approving turns the button green, then the item folds away and the next opens.
+// Opening and closing animate height; approving folds the item away and opens the next.
 // The open item grows with its content: a review shows up to 4 lines, its reply in full.
 // Tapping a reply edits it in place (blue border, counter, Reset to suggestion) and the row gets Discard + Approve.
 // "Skip ▾" opens Not now / Don’t suggest again; the item folds away, the next opens, and the toast offers Undo.
@@ -36,16 +36,10 @@ export function ToApproveAccordion({
   /** Arrives with the first task just skipped and the Undo toast up (10g). */
   startSkipped?: boolean;
 }) {
-  const skips = useSkip(startSkipped ? tasks[0]?.title : undefined);
+  const { skips, away, left, approve, replyOf, setReply, dropReply } = useTasks(tasks, startSkipped ? tasks[0]?.title : undefined);
   const [open, setOpen] = useState(startSkipped ? 1 : defaultOpen);
-  const [gone, setGone] = useState<string[]>([]); // item folded away
-  // "Task title:review index" of the reply being edited, and the text the owner changed it to.
+  // "Task title:review index" of the reply being edited.
   const [editing, setEditing] = useState<string | null>(startEditing ? `${tasks[defaultOpen]?.title}:0` : null);
-  const [edits, setEdits] = useState<Record<string, string>>({});
-  const replyOf = (t: Task, ri: number) => edits[`${t.title}:${ri}`] ?? t.reviews![ri].reply;
-
-  const left = tasks.filter((t) => !gone.includes(t.title) && !skips.hidden.includes(t.title));
-  const away = (t: Task) => gone.includes(t.title) || skips.hidden.includes(t.title);
 
   // Skip: the item folds away like an approved one and the next opens; Undo puts it back and opens it.
   const skip = (t: Task, choice: Parameters<typeof skips.skip>[1]) => {
@@ -62,7 +56,7 @@ export function ToApproveAccordion({
   // Approve: the item folds away at once and the next one opens.
   const settle = (t: Task) => {
     setEditing(null);
-    setGone((g) => [...g, t.title]);
+    approve(t);
     setOpen(tasks.findIndex((x) => x.title !== t.title && !away(x)));
   };
 
@@ -88,11 +82,14 @@ export function ToApproveAccordion({
                 <Collapse open={!isOpen}>
                   <button
                     type="button"
+                    aria-expanded={false}
+                    aria-controls={`task-${i}`}
                     onClick={() => setOpen(i)}
-                    className="flex h-16 w-full items-center gap-4 px-5 text-left"
+                    className="flex h-16 w-full items-center gap-4 rounded-2xl px-5 text-left"
                   >
                     <Icon name="chevron" rotate={-90} className="shrink-0 text-secondary-900" />
-                    <span className="t-headline w-[348px] shrink-0 truncate text-secondary-900">{t.title}</span>
+                    {/* 348px at 1440 (Figma); narrower desktops give the summary its share instead of squeezing it. */}
+                    <span className="t-headline w-[min(348px,34%)] shrink-0 truncate text-secondary-900">{t.title}</span>
                     <span className="flex min-w-0 flex-1 items-center gap-2">
                       {one && <Stars stars={one.stars} />}
                       <span className="t-body min-w-0 truncate text-secondary-600">{t.why}</span>
@@ -103,16 +100,20 @@ export function ToApproveAccordion({
 
                 {/* Open item */}
                 <Collapse open={isOpen}>
-                  <div className="flex items-start gap-10 p-5">
-                    <div className="flex w-[360px] shrink-0 flex-col gap-2">
-                      <button
-                        type="button"
-                        onClick={() => setOpen(-1)}
-                        className="flex items-center gap-2 text-left text-secondary-900"
-                      >
-                        <Icon name="chevron" className="shrink-0" />
-                        <h3 className="t-title flex-1">{t.title}</h3>
-                      </button>
+                  <div id={`task-${i}`} className="flex items-start gap-10 p-5">
+                    <div className="flex w-[min(360px,35%)] shrink-0 flex-col gap-2">
+                      <h3 className="t-title text-secondary-900">
+                        <button
+                          type="button"
+                          aria-expanded={isOpen}
+                          aria-controls={`task-${i}`}
+                          onClick={() => setOpen(-1)}
+                          className="flex w-full items-center gap-2 rounded-lg text-left"
+                        >
+                          <Icon name="chevron" className="shrink-0" />
+                          <span className="flex-1">{t.title}</span>
+                        </button>
+                      </h3>
                       <p className="t-body pl-7 text-secondary-600">{t.why}</p>
                       {t.impact ? (
                         <div className="pl-7">
@@ -131,8 +132,8 @@ export function ToApproveAccordion({
                               <ReplyEditor
                                 id={`reply-${key}`}
                                 value={replyOf(t, ri)}
-                                onChange={(text) => setEdits((e) => ({ ...e, [key]: text }))}
-                                onReset={() => setEdits((e) => ({ ...e, [key]: r.reply }))}
+                                onChange={(text) => setReply(key, text)}
+                                onReset={() => dropReply(key)}
                               />
                             ) : (
                               <button type="button" className="text-left" onClick={() => setEditing(key)}>
@@ -146,11 +147,7 @@ export function ToApproveAccordion({
                         {editing?.startsWith(`${t.title}:`) && (
                           <TextButton
                             onClick={() => {
-                              setEdits((e) => {
-                                const next = { ...e };
-                                delete next[editing];
-                                return next;
-                              });
+                              dropReply(editing);
                               setEditing(null);
                             }}
                           >

@@ -33,7 +33,7 @@ export function DesktopSearch() {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => setOpen(true)}
-          onBlur={() => setTimeout(() => setOpen(false), 150)}
+          onBlur={() => setOpen(false)}
           placeholder="Business name or address"
           aria-label="Business name or address"
           className="t-body min-w-0 flex-1 bg-transparent text-secondary-900 caret-primary-600 outline-none placeholder:text-secondary-600 [&::-webkit-search-cancel-button]:hidden"
@@ -46,13 +46,15 @@ export function DesktopSearch() {
       </label>
 
       {show && (
-        <div className="absolute inset-x-0 top-full z-10 mt-2 origin-top animate-drop-in rounded-3xl border border-secondary-100 bg-white p-2 shadow-[0_8px_24px_rgba(19,20,22,0.08)]">
+        <div className="absolute inset-x-0 top-full z-10 mt-2 origin-top animate-drop-in rounded-3xl border border-secondary-100 bg-white p-2 shadow-pop">
           {hits.length > 0 ? (
             <ul className="flex flex-col">
               {hits.map((r) => (
                 <li key={r.address}>
                   <Link
                     href="/onboarding/01c"
+                    // Keep the input focused on press, so blur does not close the list before the click lands.
+                    onMouseDown={(e) => e.preventDefault()}
                     className="flex items-center gap-3 rounded-2xl px-2 py-2 hover:bg-secondary-50"
                   >
                     <img src={r.photo} alt="" className="size-9 shrink-0 rounded-lg object-cover" />

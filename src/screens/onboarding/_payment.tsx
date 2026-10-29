@@ -8,7 +8,6 @@ export type PaymentState = "empty" | "typing" | "declined" | "ready" | "processi
 const BACK = "/onboarding/06";
 const SKIP = "/home/10a";
 const NEXT = "/onboarding/07e";
-const ERROR = "#cc2921";
 
 type Values = { card: string; exp: string; cvc: string; zip: string };
 const FILLED: Values = { card: "4242 4242 4242 4242", exp: "08 / 29", cvc: "123", zip: "94110" };
@@ -36,7 +35,7 @@ function Field({
       <span className={labelClass}>{label}</span>
       {children}
       {error && (
-        <span className="t-small text-[#cc2921]">{error}</span>
+        <span className="t-small text-error-600">{error}</span>
       )}
     </label>
   );
@@ -50,7 +49,7 @@ function PaymentForm({ state, desktop }: { state: PaymentState; desktop: boolean
     state === "typing"
       ? `${desktop ? "t-small" : "t-footnote"} text-secondary-900`
       : `${desktop ? "t-small-bold" : "t-caption"} text-secondary-700`;
-  const placeholder = state === "typing" ? "placeholder:text-secondary-700" : "placeholder:text-secondary-500";
+  const placeholder = state === "typing" ? "placeholder:text-secondary-700" : "placeholder:text-secondary-600";
   const box = `${desktop ? "h-12" : "h-14"} w-full rounded-2xl border-[1.5px] bg-secondary-50 px-4 t-body text-secondary-900 outline-none focus:border-primary-600`;
   const input = (extra = "border-transparent") => `${box} ${placeholder} ${extra}`;
 
@@ -88,7 +87,7 @@ function PaymentForm({ state, desktop }: { state: PaymentState; desktop: boolean
         >
           <input
             className={input(state === "typing" ? "border-primary-600" : "border-transparent")}
-            style={state === "declined" ? { borderColor: ERROR } : undefined}
+            style={state === "declined" ? { borderColor: "var(--color-error-600)" } : undefined}
             inputMode="numeric"
             autoComplete="cc-number"
             placeholder="1234 1234 1234 1234"

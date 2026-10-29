@@ -40,7 +40,10 @@ export function Toast({
       onMouseLeave={start}
       onTouchStart={stop}
       onTouchEnd={start}
-      className={`animate-screen-in fixed z-40 flex items-center rounded-2xl bg-secondary-800 text-white shadow-[0_8px_24px_rgba(0,0,0,0.18)] ${
+      // Keyboard users reaching Undo pause the timer too.
+      onFocus={stop}
+      onBlur={start}
+      className={`animate-screen-in fixed z-40 flex items-center rounded-2xl bg-secondary-800 text-white shadow-toast ${
         desktop
           ? "bottom-6 left-[288px] w-fit max-w-[420px] gap-6 px-5 py-3.5"
           : "inset-x-5 bottom-[92px] mx-auto max-w-[353px] gap-3 px-4 py-3.5"

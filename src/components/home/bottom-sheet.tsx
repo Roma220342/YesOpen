@@ -47,17 +47,21 @@ export function BottomSheet({
     return () => window.removeEventListener("keydown", onKey);
   }, [close]);
 
-  // Lock the page, take focus into the sheet, and give both back on the way out.
+  // Lock the page, make it inert so Tab stays in the sheet, take focus in, and give all of it back on the way out.
   useEffect(() => {
     const html = document.documentElement;
     const before = { html: html.style.overflow, body: document.body.style.overflow };
     const opener = document.activeElement as HTMLElement | null;
+    const sheet = panel.current?.closest("[role=dialog]");
+    const page = [...document.body.children].filter((el): el is HTMLElement => el instanceof HTMLElement && el !== sheet && !el.inert);
     html.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
+    page.forEach((el) => (el.inert = true));
     panel.current?.focus({ preventScroll: true });
     return () => {
       html.style.overflow = before.html;
       document.body.style.overflow = before.body;
+      page.forEach((el) => (el.inert = false));
       opener?.focus?.({ preventScroll: true });
     };
   }, []);

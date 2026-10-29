@@ -23,7 +23,7 @@ function Options({ onChoose, className, menu = false }: { onChoose: (c: SkipChoi
           role={menu ? "menuitem" : undefined}
           autoFocus={i === 0}
           onClick={() => onChoose(o.id)}
-          className={`flex flex-col gap-0.5 text-left outline-none hover:bg-secondary-50 focus:bg-secondary-50 ${className}`}
+          className={`flex flex-col gap-0.5 text-left hover:bg-secondary-50 focus-visible:bg-secondary-50 ${className}`}
         >
           <span className="t-headline text-secondary-900">{o.title}</span>
           <span className="t-small text-secondary-700">{o.sub}</span>
@@ -105,7 +105,7 @@ export function SkipMenu({ onChoose, defaultOpen = false }: { onChoose: (c: Skip
             data-skip-menu
             role="menu"
             style={{ left: pos.left, top: pos.top }}
-            className="animate-drop-in absolute z-50 flex w-[300px] flex-col gap-1 rounded-2xl border border-secondary-200 bg-white p-2 shadow-[0_8px_24px_rgba(0,0,0,0.14)]"
+            className="animate-drop-in absolute z-50 flex w-[300px] flex-col gap-1 rounded-2xl border border-secondary-200 bg-white p-2 shadow-pop"
           >
             <Options
               onChoose={(c) => {

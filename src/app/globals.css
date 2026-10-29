@@ -42,6 +42,16 @@
   --color-warning-400: #ffc94d;
   --color-warning-500: #e39b0b;
   --color-warning-600: #b47b09;
+
+  /* Raised surfaces: menus and dropdowns, and the darker toast. */
+  --shadow-pop: 0 8px 24px rgb(19 20 22 / 0.12);
+  --shadow-toast: 0 8px 24px rgb(19 20 22 / 0.18);
+}
+
+/* Keyboard focus: one ring for every control, drawn only for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
 }
 
 /* Short desktop windows (laptops, browser chrome): big vertical paddings shrink so the main action stays in view. */
