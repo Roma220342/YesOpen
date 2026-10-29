@@ -87,7 +87,7 @@ export function Desktop() {
         <section className="flex w-full max-w-[520px] min-w-0 flex-col gap-6 pt-desk pb-desk">
           <Sent desktop />
         </section>
-        <aside className="w-full max-w-[416px] min-w-0 pt-desk pb-desk">
+        <aside className="sticky top-[72px] w-full max-w-[416px] min-w-0 pt-desk pb-desk">
           <div className="flex flex-col gap-8">
             <StillToFix desktop />
             <Button href={NEXT}>{CTA}</Button>

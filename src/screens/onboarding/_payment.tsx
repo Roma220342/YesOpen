@@ -203,7 +203,7 @@ export function PaymentDesktop({ state }: { state: PaymentState }) {
         <div className="w-full max-w-[520px] min-w-0 pt-desk pb-desk">
           <PaymentForm state={state} desktop />
         </div>
-        <div className="w-full max-w-[416px] min-w-0 pt-desk pb-desk">
+        <div className="sticky top-[72px] w-full max-w-[416px] min-w-0 pt-desk pb-desk">
           <SummaryPanel>{desktopButton(state)}</SummaryPanel>
         </div>
       </div>

@@ -59,6 +59,8 @@
    the window height in between so a laptop with browser chrome keeps the button in view. */
 @utility pt-desk { padding-top: clamp(24px, 5.3vh, 48px); }
 @utility pb-desk { padding-bottom: clamp(32px, 10.6vh, 96px); }
+/* Where a sticky right column stops: under the 72px header, at the same distance as the content starts. */
+@utility top-desk { top: calc(72px + clamp(24px, 5.3vh, 48px)); }
 
 /* Mobile button bar (Figma Buttons Container, progressive background blur): no line, no padding above the button.
    Content scrolls under it and dissolves; the blur starts 24px above the bar and only shows while content is under. */

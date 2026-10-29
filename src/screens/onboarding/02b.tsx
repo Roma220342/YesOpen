@@ -168,7 +168,7 @@ export function Desktop() {
             </div>
           </div>
         </section>
-        <aside className="sticky top-[calc(72px+clamp(24px,5.3vh,48px))] min-w-0">
+        <aside className="sticky top-desk min-w-0">
           {/* Figma: the fix card, the note 24px under it, then the button 32px below. */}
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-6">

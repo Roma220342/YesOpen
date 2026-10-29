@@ -84,7 +84,7 @@ export function Desktop() {
         <section className="min-w-0">
           <Trial />
         </section>
-        <aside className="min-w-0">
+        <aside className="sticky top-desk min-w-0">
           {/* Figma: summary rows, the cancel note 24px under them, then the button 32px below. */}
           <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-6">
