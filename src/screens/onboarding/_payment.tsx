@@ -22,13 +22,11 @@ const VALUES: Record<PaymentState, Values> = {
 
 function Field({
   label,
-  desktop,
   labelClass,
   children,
   error,
 }: {
   label: string;
-  desktop: boolean;
   labelClass: string;
   children: React.ReactNode;
   error?: string;
@@ -38,7 +36,7 @@ function Field({
       <span className={labelClass}>{label}</span>
       {children}
       {error && (
-        <span className={`${desktop ? "t-small" : "t-footnote"} text-[#cc2921]`}>{error}</span>
+        <span className="t-small text-[#cc2921]">{error}</span>
       )}
     </label>
   );
@@ -50,12 +48,11 @@ function PaymentForm({ state, desktop }: { state: PaymentState; desktop: boolean
   // Figma 07b draws labels in Footnote/900 and placeholders in 700; the other states use Caption/700 and 500.
   const labelClass =
     state === "typing"
-      ? `${desktop ? "t-small" : "t-footnote"} text-secondary-900`
+      ? `t-small text-secondary-900`
       : `${desktop ? "t-small-bold" : "t-caption"} text-secondary-700`;
   const placeholder = state === "typing" ? "placeholder:text-secondary-700" : "placeholder:text-secondary-500";
   const box = `${desktop ? "h-12" : "h-14"} w-full rounded-2xl border-[1.5px] bg-secondary-50 px-4 t-body text-secondary-900 outline-none focus:border-primary-600`;
   const input = (extra = "border-transparent") => `${box} ${placeholder} ${extra}`;
-  const small = desktop ? "t-small" : "t-footnote";
 
   return (
     <div className={`flex w-full flex-col gap-6 ${disabled ? "opacity-50" : ""}`}>
@@ -79,14 +76,13 @@ function PaymentForm({ state, desktop }: { state: PaymentState; desktop: boolean
 
       <div className="flex w-full items-center gap-3">
         <span className="h-px flex-1 rounded-full bg-secondary-100" />
-        <span className={`${small} text-secondary-700`}>or pay with card</span>
+        <span className="t-small text-secondary-700">or pay with card</span>
         <span className="h-px flex-1 rounded-full bg-secondary-100" />
       </div>
 
       <div className="flex w-full flex-col gap-4">
         <Field
           label="Card number"
-          desktop={desktop}
           labelClass={labelClass}
           error={state === "declined" ? "Your bank declined this card. Try another card or use Apple Pay." : undefined}
         >
@@ -102,15 +98,15 @@ function PaymentForm({ state, desktop }: { state: PaymentState; desktop: boolean
           />
         </Field>
         <div className="flex w-full gap-3">
-          <Field label="Expiry date" desktop={desktop} labelClass={labelClass}>
+          <Field label="Expiry date" labelClass={labelClass}>
             <input className={input()} inputMode="numeric" autoComplete="cc-exp" placeholder="MM / YY" defaultValue={v.exp} disabled={disabled} />
           </Field>
-          <Field label="Security code" desktop={desktop} labelClass={labelClass}>
+          <Field label="Security code" labelClass={labelClass}>
             <input className={input()} inputMode="numeric" autoComplete="cc-csc" placeholder="CVC" defaultValue={v.cvc} disabled={disabled} />
           </Field>
         </div>
         <div className="flex w-full gap-3">
-          <Field label="Country" desktop={desktop} labelClass={labelClass}>
+          <Field label="Country" labelClass={labelClass}>
             <span className="relative block">
               <select
                 className={`${input()} appearance-none pr-11`}
@@ -125,7 +121,7 @@ function PaymentForm({ state, desktop }: { state: PaymentState; desktop: boolean
               <Icon name="chevron" size={20} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-secondary-700" />
             </span>
           </Field>
-          <Field label="ZIP code" desktop={desktop} labelClass={labelClass}>
+          <Field label="ZIP code" labelClass={labelClass}>
             <input className={input()} inputMode="numeric" autoComplete="postal-code" placeholder="12345" defaultValue={v.zip} disabled={disabled} />
           </Field>
         </div>
@@ -133,7 +129,7 @@ function PaymentForm({ state, desktop }: { state: PaymentState; desktop: boolean
 
       <div className="flex w-full items-center gap-2">
         <Icon name="lock" size={16} className="shrink-0 text-secondary-700" />
-        <p className={`${small} flex-1 text-secondary-700`}>
+        <p className="t-small flex-1 text-secondary-700">
           Secured by Stripe. By continuing, you agree to the{" "}
           <a href="#" className="text-primary-600 underline">Terms</a>.
         </p>

@@ -60,7 +60,7 @@ export function Mobile() {
           <li>
             <button type="button" className="flex w-full items-center gap-1 py-3 pr-3.5 pl-2 text-secondary-700">
               <Icon name="location" size={16} />
-              <span className="t-footnote">Not listed? Search by address</span>
+              <span className="t-small">Not listed? Search by address</span>
             </button>
           </li>
         </ul>

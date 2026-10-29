@@ -47,14 +47,12 @@ function Group({
   title,
   kind,
   items,
-  small,
   children,
   className = "",
 }: {
   title: string;
   kind: Kind;
   items: { title: string; text?: string }[];
-  small?: boolean;
   children?: React.ReactNode;
   className?: string;
 }) {
@@ -70,7 +68,7 @@ function Group({
             <Node kind={kind} />
             <div className={`flex min-w-0 flex-1 flex-col ${i === 0 && children ? "gap-2" : "gap-0.5"}`}>
               <p className="t-body text-secondary-900">{it.title}</p>
-              {it.text && <p className={`${small ? "t-small" : "t-footnote"} text-secondary-700`}>{it.text}</p>}
+              {it.text && <p className="t-small text-secondary-700">{it.text}</p>}
               {i === 0 && children}
             </div>
           </li>
@@ -80,18 +78,18 @@ function Group({
   );
 }
 
-function BusinessChip({ small }: { small?: boolean }) {
+function BusinessChip() {
   return (
     <div className="flex items-center gap-2 self-start rounded-full bg-secondary-50 px-3 py-2.5">
       <img src="/assets/business.jpg" alt="" className="size-6 rounded-md object-cover" />
-      <p className={`${small ? "t-small" : "t-footnote"} text-secondary-900`}>Forno Rosso Pizzeria, Brooklyn</p>
+      <p className="t-small text-secondary-900">Forno Rosso Pizzeria, Brooklyn</p>
     </div>
   );
 }
 
 function Facts({ desktop }: { desktop?: boolean }) {
   const card = `flex min-w-0 flex-1 flex-col gap-1 rounded-[20px] py-4 ${desktop ? "px-5" : "px-3.5"}`;
-  const label = desktop ? "t-small" : "t-footnote";
+  const label = "t-small";
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-stretch gap-2">
@@ -131,10 +129,10 @@ export function Mobile() {
             <div className="flex flex-col gap-1.5 rounded-2xl bg-success-50 px-3.5 py-3">
               <p className="t-caption text-success-700">Free fix — we’ll add to your description</p>
               <p className="t-headline text-secondary-900">“Delivery across Williamsburg and Greenpoint.”</p>
-              <p className="t-footnote text-secondary-700">Next: you review the text before anything changes.</p>
+              <p className="t-small text-secondary-700">Next: you review the text before anything changes.</p>
             </div>
           </Group>
-          <p className="t-footnote text-secondary-700">The first fix is free. The other 3 come with the plan.</p>
+          <p className="t-small text-secondary-700">The first fix is free. The other 3 come with the plan.</p>
         </div>
         <Group title="Couldn’t check" kind="unknown" items={COULDNT_CHECK} />
         <Group title="Looks good" kind="good" items={LOOKS_GOOD} />
@@ -157,13 +155,13 @@ export function Desktop() {
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-4">
                 <Intro {...INTRO} />
-                <BusinessChip small />
+                <BusinessChip />
               </div>
               <Facts desktop />
-              <Group title="Needs a fix" kind="fix" items={NEEDS_FIX} small />
+              <Group title="Needs a fix" kind="fix" items={NEEDS_FIX} />
               <div className="flex items-start gap-10">
-                <Group title="Couldn’t check" kind="unknown" items={COULDNT_CHECK} small className="min-w-0 flex-1" />
-                <Group title="Looks good" kind="good" items={LOOKS_GOOD} small className="min-w-0 flex-1" />
+                <Group title="Couldn’t check" kind="unknown" items={COULDNT_CHECK} className="min-w-0 flex-1" />
+                <Group title="Looks good" kind="good" items={LOOKS_GOOD} className="min-w-0 flex-1" />
               </div>
             </div>
           </div>

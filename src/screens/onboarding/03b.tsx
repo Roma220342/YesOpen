@@ -56,14 +56,14 @@ export function Mobile() {
                     setText(SUGGESTION);
                     field.current?.focus();
                   }}
-                  className="t-footnote flex h-11 items-center text-primary-600"
+                  className="t-small flex h-11 items-center text-primary-600"
                 >
                   Reset to suggestion
                 </button>
               </div>
             </div>
           </div>
-          <p className="t-footnote text-secondary-700">
+          <p className="t-small text-secondary-700">
             Written by AI, so check it. Next, Google asks you to allow the change.
           </p>
         </div>

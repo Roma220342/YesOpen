@@ -61,13 +61,13 @@ function Node({ state, pendingRing = "border-secondary-200" }: { state: State; p
   return <span className={`block shrink-0 rounded-md ${look}`} />;
 }
 
-function Summary({ done, toFix, finished, small }: { done: number; toFix: number; finished: boolean; small?: boolean }) {
+function Summary({ done, toFix, finished }: { done: number; toFix: number; finished: boolean }) {
   return (
     <div className="flex items-center gap-2">
       <p className="t-headline flex-1 text-secondary-900 tabular-nums">
         {finished ? "All 8 checked" : `${done} of 8 checked`}
       </p>
-      <p className={`${small ? "t-small" : "t-footnote"} text-secondary-700 tabular-nums`}>
+      <p className="t-small text-secondary-700 tabular-nums">
         {finished ? "Opening your report…" : toFix ? `${toFix} to fix so far` : "Nothing to fix so far"}
       </p>
     </div>
@@ -75,18 +75,17 @@ function Summary({ done, toFix, finished, small }: { done: number; toFix: number
 }
 
 /** Label + what we're reading now, or the finding once it's in. */
-function Row({ c, s, small }: { c: (typeof CHECKS)[number]; s: State; small?: boolean }) {
-  const note = small ? "t-small" : "t-footnote";
+function Row({ c, s }: { c: (typeof CHECKS)[number]; s: State }) {
   return (
     <span className="flex min-w-0 flex-1 flex-col">
       <span className={`t-body transition-colors duration-300 ${s === "pending" ? "text-secondary-600" : "text-secondary-900"}`}>
         {c.label}
       </span>
       <Collapse open={s === "current"}>
-        <span className={`${note} block animate-pulse pt-0.5 text-secondary-700`}>{c.reading}…</span>
+        <span className="t-small block animate-pulse pt-0.5 text-secondary-700">{c.reading}…</span>
       </Collapse>
       <Collapse open={(s === "fix" || s === "unknown") && !!c.finding}>
-        <span className={`${note} block pt-0.5 ${s === "fix" ? "text-error-700" : "text-secondary-700"}`}>{c.finding}</span>
+        <span className={`t-small block pt-0.5 ${s === "fix" ? "text-error-700" : "text-secondary-700"}`}>{c.finding}</span>
       </Collapse>
     </span>
   );
@@ -140,7 +139,7 @@ export function Desktop() {
           <div className="flex w-full flex-col gap-8">
             <Intro {...INTRO} />
             <div className="flex flex-col gap-3">
-              <Summary done={done} toFix={toFix} finished={finished} small />
+              <Summary done={done} toFix={toFix} finished={finished} />
               <div className="h-1 overflow-hidden rounded-sm bg-secondary-100">
                 <div
                   className="h-1 rounded-sm bg-secondary-900 transition-[width] duration-700 ease-[cubic-bezier(0.2,0,0,1)]"
@@ -156,7 +155,7 @@ export function Desktop() {
                       <span className="flex h-[22px] w-4 shrink-0 items-center justify-center" aria-hidden>
                         <Node state={s} pendingRing="border-secondary-100" />
                       </span>
-                      <Row c={c} s={s} small />
+                      <Row c={c} s={s} />
                     </li>
                   );
                 })}

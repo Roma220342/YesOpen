@@ -31,7 +31,7 @@ export function MobileSteps({ className = "flex flex-col gap-4" }: { className?:
           <StepNumber n={i + 1} />
           <div className="flex min-w-0 flex-1 flex-col gap-0.5">
             <p className="t-headline text-secondary-900">{s.title}</p>
-            <p className="t-footnote text-secondary-700">{s.text}</p>
+            <p className="t-small text-secondary-700">{s.text}</p>
           </div>
         </li>
       ))}

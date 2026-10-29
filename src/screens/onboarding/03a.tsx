@@ -17,7 +17,7 @@ const EDIT = "/onboarding/03b";
 
 function Content({ desktop }: { desktop?: boolean }) {
   const label = desktop ? "t-small-bold" : "t-caption";
-  const note = desktop ? "t-small" : "t-footnote";
+  const hint = desktop ? "t-small" : "t-footnote";
   return (
     <div className="flex flex-col gap-6">
       <Intro {...INTRO} />
@@ -32,10 +32,10 @@ function Content({ desktop }: { desktop?: boolean }) {
             {SUGGESTION_BASE}
             <strong className="font-bold">{SUGGESTION_ADDED}</strong>
           </Link>
-          <p className={`${note} text-secondary-700`}>Tap the text to change it.</p>
+          <p className={`${hint} text-secondary-700`}>Tap the text to change it.</p>
         </div>
       </div>
-      <p className={`${note} text-secondary-700`}>
+      <p className="t-small text-secondary-700">
         Written by AI, so check it. Next, Google asks you to allow the change.
       </p>
     </div>

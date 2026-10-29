@@ -12,7 +12,6 @@ const FINDINGS = [
 ];
 
 function Sent({ desktop }: { desktop: boolean }) {
-  const small = desktop ? "t-small" : "t-footnote";
   return (
     <>
       <div className="flex flex-col gap-3">
@@ -25,7 +24,7 @@ function Sent({ desktop }: { desktop: boolean }) {
         <Icon name="clock" size={22} className="shrink-0 text-primary-600" />
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
           <p className="t-headline text-secondary-900">Waiting for Google’s review</p>
-          <p className={`${small} text-secondary-700`}>No need to wait here. We’ll email you when it’s live.</p>
+          <p className="t-small text-secondary-700">No need to wait here. We’ll email you when it’s live.</p>
         </div>
       </div>
       <div className="flex flex-col gap-2">
@@ -39,7 +38,7 @@ function Sent({ desktop }: { desktop: boolean }) {
   );
 }
 
-function StillToFix({ desktop }: { desktop: boolean }) {
+function StillToFix() {
   return (
     <div className="flex flex-col gap-1">
       <div className="flex items-center gap-2 pb-1">
@@ -54,7 +53,7 @@ function StillToFix({ desktop }: { desktop: boolean }) {
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
               <span className="t-body text-secondary-900">{f.title}</span>
-              <span className={`${desktop ? "t-small" : "t-footnote"} text-secondary-700`}>{f.text}</span>
+              <span className="t-small text-secondary-700">{f.text}</span>
             </span>
           </li>
         ))}
@@ -69,7 +68,7 @@ export function Mobile() {
       <TopBar step={6} />
       <main className="flex flex-1 flex-col gap-6 px-5 pt-4 pb-6">
         <Sent desktop={false} />
-        <StillToFix desktop={false} />
+        <StillToFix />
       </main>
       <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href={NEXT}>{CTA}</Button>
@@ -89,7 +88,7 @@ export function Desktop() {
         </section>
         <aside className="w-full max-w-[416px] min-w-0 pt-28 short:pt-14 pb-24 short:pb-12">
           <div className="flex flex-col gap-4">
-            <StillToFix desktop />
+            <StillToFix />
             <div className="pt-4">
               <DesktopButton href={NEXT}>{CTA}</DesktopButton>
             </div>

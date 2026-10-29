@@ -106,7 +106,7 @@ export function HeadLink({ children, href = "#" }: { children: React.ReactNode; 
   return (
     <Link href={href} className="t-headline -my-[11px] flex h-11 items-center gap-0.5 text-primary-600">
       {children}
-      <Icon name="chevron" size={16} rotate={-90} />
+      <Icon name="chevron" size={22} rotate={-90} className="-mr-1" />
     </Link>
   );
 }

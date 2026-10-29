@@ -65,8 +65,7 @@ const PERMISSIONS: { icon: IconName | "trending"; title: string; text: string }[
   { icon: "trending", title: "Weekly check and position", text: "New problems and where you rank nearby" },
 ];
 
-function Content({ desktop }: { desktop: boolean }) {
-  const small = desktop ? "t-small" : "t-footnote";
+function Content() {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-3">
@@ -86,12 +85,12 @@ function Content({ desktop }: { desktop: boolean }) {
               </span>
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="t-headline text-secondary-900">{p.title}</span>
-                <span className={`${small} text-secondary-700`}>{p.text}</span>
+                <span className="t-small text-secondary-700">{p.text}</span>
               </span>
             </li>
           ))}
         </ul>
-        <p className={`${small} text-secondary-700`}>
+        <p className="t-small text-secondary-700">
           Nothing goes live unless you approve it. YesOpen can’t access your Gmail, Google Ads, or payment information.
         </p>
       </div>
@@ -104,7 +103,7 @@ export function Mobile() {
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={5} back={BACK} />
       <main className="flex-1 px-5 pt-4 pb-6">
-        <Content desktop={false} />
+        <Content />
       </main>
       <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
         <Button href={NEXT}>Continue with Google</Button>
@@ -121,7 +120,7 @@ export function Desktop() {
         <div className="flex flex-col items-start gap-6">
           <DesktopBack href={BACK} />
           <div className="w-[520px]">
-            <Content desktop />
+            <Content />
             <div className="pt-8">
               <DesktopButton href={NEXT}>Continue with Google</DesktopButton>
             </div>
