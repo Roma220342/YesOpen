@@ -54,7 +54,7 @@ export function Mobile() {
       <main className="flex flex-1 flex-col px-5 pt-4 pb-6">
         <Content />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[env(safe-area-inset-bottom)]">
         <Button href={NEXT}>Fix opening hours</Button>
       </div>
     </div>

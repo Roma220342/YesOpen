@@ -68,7 +68,7 @@ export function Mobile() {
           <p className="t-footnote text-secondary-700">+$15 a month for each extra location</p>
         </div>
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-8">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[env(safe-area-inset-bottom)]">
         <Button href={NEXT}>{CTA}</Button>
       </div>
     </div>
