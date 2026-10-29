@@ -32,7 +32,7 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={1} back="/onboarding/01a" />
-      <main className="flex flex-1 flex-col justify-between gap-8 px-5 pt-4 pb-6">
+      <main className="flex flex-1 flex-col justify-between gap-12 px-5 pt-4 pb-6">
         <div className="flex flex-col gap-8">
           <Intro {...INTRO} />
           <MobileSteps className="flex flex-col gap-8" />

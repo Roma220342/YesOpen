@@ -47,7 +47,7 @@ export function ConnectErrorMobile(p: ConnectErrorProps) {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={5} back={BACK} skip={SKIP} />
-      <main className="flex flex-1 flex-col justify-between gap-8 px-5 pt-4 pb-6">
+      <main className="flex flex-1 flex-col justify-between gap-12 px-5 pt-4 pb-6">
         <Content p={p} desktop={false} />
         <Secondary p={p} />
       </main>

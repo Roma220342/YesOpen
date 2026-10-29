@@ -61,7 +61,7 @@ export function Mobile() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar back={BACK} skip={SKIP} />
-      <main className="flex flex-1 flex-col justify-between gap-8 px-5 pt-4 pb-6">
+      <main className="flex flex-1 flex-col justify-between gap-12 px-5 pt-4 pb-6">
         <Trial />
         <div className="flex flex-col gap-1 text-center">
           <p className="t-headline text-secondary-900">14 days free, then $49 a month</p>
