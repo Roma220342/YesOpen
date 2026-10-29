@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+/* Tokens exported from Figma paint and text styles (file qtaij4Cg3NPov2tSwnyzC8). */
+@theme {
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+
+  --color-primary-50: #f5f9ff;
+  --color-primary-100: #c2dbff;
+  --color-primary-200: #8fbdff;
+  --color-primary-300: #5c9fff;
+  --color-primary-400: #2981ff;
+  --color-primary-500: #0065f5;
+  --color-primary-600: #0050c2;
+  --color-primary-700: #003b8f;
+  --color-primary-800: #00265c;
+  --color-primary-900: #001129;
+
+  --color-secondary-50: #f9fafa;
+  --color-secondary-75: #f1f2f4;
+  --color-secondary-100: #dee0e3;
+  --color-secondary-200: #c2c6cb;
+  --color-secondary-300: #a7acb4;
+  --color-secondary-400: #8b929c;
+  --color-secondary-500: #717984;
+  --color-secondary-600: #596069;
+  --color-secondary-700: #42464d;
+  --color-secondary-800: #2a2d32;
+  --color-secondary-900: #131416;
+
+  --color-error-50: #fdeded;
+  --color-error-100: #f7baba;
+  --color-error-500: #e5484d;
+  --color-error-600: #c2361c;
+  --color-error-700: #932915;
+  --color-success-50: #e5f5ec;
+  --color-success-100: #b5e3c9;
+  --color-success-500: #1f9d55;
+  --color-success-600: #2f7d4f;
+  --color-success-700: #215938;
+  --color-warning-50: #fff4d6;
+  --color-warning-100: #ffe9ad;
+  --color-warning-400: #ffc94d;
+  --color-warning-500: #e39b0b;
+  --color-warning-600: #b47b09;
+}
+
+/* Figma text styles */
+@utility t-large-title { font-size: 32px; line-height: 1.2; font-weight: 800; letter-spacing: -0.02em; }
+@utility t-title { font-size: 24px; line-height: 1.3; font-weight: 700; letter-spacing: -0.01em; }
+@utility t-headline { font-size: 16px; line-height: 1.4; font-weight: 700; }
+@utility t-body { font-size: 16px; line-height: 1.4; font-weight: 500; }
+@utility t-footnote { font-size: 12px; line-height: 1.4; font-weight: 500; }
+@utility t-caption { font-size: 12px; line-height: 1.4; font-weight: 700; }
+@utility t-small { font-size: 14px; line-height: 1.4; font-weight: 500; }
+@utility t-small-bold { font-size: 14px; line-height: 1.4; font-weight: 700; }
+
+body {
+  background: #ffffff;
+  color: var(--color-secondary-900);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection { background: var(--color-primary-100); }
+
+/* Scrolls, but without a visible scrollbar (desktop sidebar nav). */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Motion: material-style easing, off for people who ask for reduced motion. */
+@theme {
+  --animate-pop-in: pop-in 260ms cubic-bezier(0.2, 0, 0, 1.4) both;
+  --animate-screen-in: screen-in 280ms cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-drop-in: drop-in 180ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+@keyframes pop-in { from { opacity: 0; transform: scale(0.4); } }
+@keyframes screen-in { from { opacity: 0; transform: translateY(8px); } }
+@keyframes drop-in { from { opacity: 0; transform: translateY(-4px) scale(0.98); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
+}
