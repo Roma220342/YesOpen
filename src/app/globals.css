@@ -48,8 +48,9 @@
   --shadow-toast: 0 8px 24px rgb(19 20 22 / 0.18);
 }
 
-/* Keyboard focus: one ring for every control, drawn only for keyboard users. */
-:focus-visible {
+/* Keyboard focus: one ring for every control, drawn only for keyboard users. Text fields are left out: they
+   already show focus with their own blue border and the caret, and a second ring around them reads as a double edge. */
+:focus-visible:not(input, textarea, select) {
   outline: 2px solid var(--color-primary-500);
   outline-offset: 2px;
 }
