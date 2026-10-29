@@ -44,6 +44,9 @@
   --color-warning-600: #b47b09;
 }
 
+/* Short desktop windows (laptops, browser chrome): big vertical paddings shrink so the main action stays in view. */
+@custom-variant short (@media (max-height: 940px));
+
 /* Figma text styles */
 @utility t-large-title { font-size: 32px; line-height: 1.2; font-weight: 800; letter-spacing: -0.02em; }
 @utility t-title { font-size: 24px; line-height: 1.3; font-weight: 700; letter-spacing: -0.01em; }

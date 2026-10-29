@@ -66,8 +66,9 @@ export function Desktop() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <DesktopHeader />
-      <div className="flex flex-1 flex-col items-center px-10 pb-20 pt-28">
-        <div className="flex w-[520px] flex-col">
+      {/* Centred in the space under the header, so the button is in view on laptop-height windows too. */}
+      <div className="flex flex-1 flex-col items-center justify-center px-10 py-12">
+        <div className="flex w-full max-w-[520px] flex-col">
           <Content desktop />
           <div className="pt-8">
             <DesktopButton href={NEXT}>Fix opening hours</DesktopButton>

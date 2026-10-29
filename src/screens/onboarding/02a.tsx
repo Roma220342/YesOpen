@@ -134,7 +134,7 @@ export function Desktop() {
   return (
     <div className="flex min-h-dvh flex-col items-center bg-white">
       <DesktopHeader step={2} />
-      <main className="flex w-full flex-1 flex-col items-center px-10 pt-[50px] pb-20">
+      <main className="flex w-full flex-1 flex-col items-center px-10 pt-[50px] pb-20 short:pt-8 short:pb-12">
         <div className="flex w-full max-w-[640px] flex-col gap-6">
           <DesktopBack href="/onboarding/01c" />
           <div className="flex w-full flex-col gap-8">

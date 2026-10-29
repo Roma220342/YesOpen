@@ -60,7 +60,7 @@ export function Desktop() {
   return (
     <div className="flex min-h-dvh flex-col items-center bg-white">
       <DesktopHeader step={4} skip="/home/10c" />
-      <main className="flex w-full flex-1 justify-center px-10 pt-[50px] pb-20">
+      <main className="flex w-full flex-1 justify-center px-10 pt-[50px] pb-20 short:pt-8 short:pb-12">
         <div className="flex w-full max-w-[520px] flex-col gap-6">
           <DesktopBack href="/onboarding/02b" />
           <div className="flex flex-col">

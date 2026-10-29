@@ -84,10 +84,10 @@ export function Desktop() {
       <DesktopHeader step={6} />
       {/* Figma: a centred 1128px block, task column 520px on the left, context column 416px on the right. */}
       <main className="mx-auto flex w-full max-w-[1208px] flex-1 items-start justify-between gap-12 px-10">
-        <section className="flex w-full max-w-[520px] min-w-0 flex-col gap-6 pt-28 pb-24">
+        <section className="flex w-full max-w-[520px] min-w-0 flex-col gap-6 pt-28 short:pt-14 pb-24 short:pb-12">
           <Sent desktop />
         </section>
-        <aside className="w-full max-w-[416px] min-w-0 pt-28 pb-24">
+        <aside className="w-full max-w-[416px] min-w-0 pt-28 short:pt-14 pb-24 short:pb-12">
           <div className="flex flex-col gap-4">
             <StillToFix desktop />
             <div className="pt-4">

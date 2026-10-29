@@ -151,7 +151,7 @@ export function Desktop() {
     <div className="flex min-h-dvh flex-col bg-white">
       <DesktopHeader step={3} skip="/home/10c" />
       <main className="flex w-full flex-1 items-start">
-        <div className="flex min-w-0 flex-[0_1_852px] flex-col items-end pt-12 pr-12 pb-24 pl-10 xl:pr-24">
+        <div className="flex min-w-0 flex-[0_1_852px] flex-col items-end pt-12 pr-12 pb-24 short:pb-12 pl-10 xl:pr-24">
           <div className="flex w-full max-w-[520px] flex-col gap-6">
             <DesktopBack href="/onboarding/02a" />
             <div className="flex flex-col gap-8">
@@ -168,7 +168,7 @@ export function Desktop() {
             </div>
           </div>
         </div>
-        <aside className="flex min-w-0 flex-1 flex-col pt-28 pr-10 pb-24 pl-12 xl:pl-24">
+        <aside className="flex min-w-0 flex-1 flex-col pt-28 short:pt-14 pr-10 pb-24 short:pb-12 pl-12 xl:pl-24">
           <div className="flex w-full max-w-[416px] flex-col gap-6">
             <div className="flex flex-col gap-4">
               <h2 className="t-headline text-secondary-900">Your free fix</h2>

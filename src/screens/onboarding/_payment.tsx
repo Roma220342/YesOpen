@@ -250,7 +250,7 @@ export function PaymentDesktop({ state }: { state: PaymentState }) {
       <DesktopHeader skip={processing ? undefined : SKIP} />
       {/* Figma: a centred 1128px block, task column 520px on the left, context column 416px on the right. */}
       <div className="mx-auto flex w-full max-w-[1208px] flex-1 items-start justify-between gap-12 px-10">
-        <div className={`w-full max-w-[520px] min-w-0 pb-24 ${processing ? "pt-28" : "pt-12"}`}>
+        <div className={`w-full max-w-[520px] min-w-0 pb-24 short:pb-12 ${processing ? "pt-28 short:pt-14" : "pt-12"}`}>
           <div className="flex flex-col gap-6">
             {!processing && (
               <Link href={BACK} className="t-body flex items-center gap-1.5 self-start py-2 pr-1 text-secondary-700">
@@ -263,7 +263,7 @@ export function PaymentDesktop({ state }: { state: PaymentState }) {
             </div>
           </div>
         </div>
-        <div className="w-full max-w-[416px] min-w-0 pb-24 pt-28">
+        <div className="w-full max-w-[416px] min-w-0 pb-24 short:pb-12 pt-28 short:pt-14">
           <SummaryPanel>{desktopButton(state)}</SummaryPanel>
         </div>
       </div>

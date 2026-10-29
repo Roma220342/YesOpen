@@ -62,7 +62,7 @@ export function ConnectErrorDesktop(p: ConnectErrorProps) {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <DesktopHeader step={5} skip={SKIP} />
-      <main className="flex flex-1 justify-center px-10 pt-[50px] pb-20">
+      <main className="flex flex-1 justify-center px-10 pt-[50px] pb-20 short:pt-8 short:pb-12">
         <div className="flex flex-col items-start gap-6">
           <DesktopBack href={BACK} />
           <div className="w-[520px]">
