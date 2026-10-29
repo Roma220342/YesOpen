@@ -39,7 +39,7 @@ export function AccountMenu({ avatar, name, children }: { avatar: ReactNode; nam
         onClick={() => setOpen((o) => !o)}
         className="flex h-11 w-full items-center gap-3 rounded-full px-2 py-1 text-left hover:bg-secondary-50"
       >
-        <span className="flex min-w-0 flex-1 items-center gap-1">
+        <span className="flex min-w-0 flex-1 items-center gap-2">
           {avatar}
           <span className="t-small min-w-0 flex-1 truncate text-secondary-900">{name}</span>
         </span>
