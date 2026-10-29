@@ -168,7 +168,7 @@ export function Desktop() {
             </div>
           </div>
         </div>
-        <aside className="flex min-w-0 flex-1 flex-col pt-28 short:pt-14 pr-10 pb-24 short:pb-12 pl-12 xl:pl-24">
+        <aside className="flex min-w-0 flex-1 flex-col pt-[110px] pr-10 pb-24 short:pb-12 pl-12 xl:pl-24">
           <div className="flex w-full max-w-[416px] flex-col gap-6">
             <div className="flex flex-col gap-4">
               <h2 className="t-headline text-secondary-900">Your free fix</h2>

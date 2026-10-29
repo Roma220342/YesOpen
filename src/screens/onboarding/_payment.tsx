@@ -263,7 +263,7 @@ export function PaymentDesktop({ state }: { state: PaymentState }) {
             </div>
           </div>
         </div>
-        <div className="w-full max-w-[416px] min-w-0 pb-24 short:pb-12 pt-28 short:pt-14">
+        <div className={`w-full max-w-[416px] min-w-0 pb-24 short:pb-12 ${processing ? "pt-28 short:pt-14" : "pt-[110px]"}`}>
           <SummaryPanel>{desktopButton(state)}</SummaryPanel>
         </div>
       </div>
