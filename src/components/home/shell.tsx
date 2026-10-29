@@ -1,14 +1,21 @@
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/icon";
 import { ScrollPane } from "@/components/scroll-edges";
+import { AccountMenu } from "./account-menu";
 
 export type Business = { name: string; photo: string };
 export type User = { initial: string; name: string; email: string };
 
-function Avatar({ initial }: { initial: string }) {
+// Account initial: 44px with a 14px letter in the mobile header, 32px with a 12px one in the desktop sidebar.
+function Avatar({ initial, small = false }: { initial: string; small?: boolean }) {
   return (
-    <span className="flex size-11 shrink-0 items-center justify-center rounded-full border-3 border-white">
-      <span className="t-caption flex size-full items-center justify-center rounded-full bg-primary-50 text-primary-600">{initial}</span>
+    <span
+      data-figma-12={small || undefined}
+      className={`flex shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-700 ${
+        small ? "t-caption size-8" : "t-small-bold size-11"
+      }`}
+    >
+      {initial}
     </span>
   );
 }
@@ -52,7 +59,10 @@ const SETTINGS =
 const HELP =
   "M10.2125 14.8198C10.4093 14.6226 10.5078 14.3812 10.5078 14.0955C10.5078 13.81 10.4092 13.5688 10.212 13.372C10.0148 13.1753 9.7735 13.077 9.488 13.077C9.2025 13.077 8.96133 13.1756 8.7645 13.3728C8.56767 13.5699 8.46925 13.8112 8.46925 14.0968C8.46925 14.3822 8.56783 14.6234 8.765 14.8203C8.96217 15.0169 9.2035 15.1152 9.489 15.1152C9.7745 15.1152 10.0157 15.0168 10.2125 14.8198ZM9.50175 19C8.18775 19 6.95267 18.7507 5.7965 18.252C4.64033 17.7533 3.63467 17.0766 2.7795 16.2218C1.92433 15.3669 1.24725 14.3617 0.74825 13.206C0.249417 12.0503 0 10.8156 0 9.50175C0 8.18775 0.249333 6.95267 0.748 5.7965C1.24667 4.64033 1.92342 3.63467 2.77825 2.7795C3.63308 1.92433 4.63833 1.24725 5.794 0.74825C6.94967 0.249417 8.18442 0 9.49825 0C10.8123 0 12.0473 0.249333 13.2035 0.748C14.3597 1.24667 15.3653 1.92342 16.2205 2.77825C17.0757 3.63308 17.7528 4.63833 18.2518 5.794C18.7506 6.94967 19 8.18442 19 9.49825C19 10.8123 18.7507 12.0473 18.252 13.2035C17.7533 14.3597 17.0766 15.3653 16.2218 16.2205C15.3669 17.0757 14.3617 17.7528 13.206 18.2518C12.0503 18.7506 10.8156 19 9.50175 19ZM9.5 17.5C11.7333 17.5 13.625 16.725 15.175 15.175C16.725 13.625 17.5 11.7333 17.5 9.5C17.5 7.26667 16.725 5.375 15.175 3.825C13.625 2.275 11.7333 1.5 9.5 1.5C7.26667 1.5 5.375 2.275 3.825 3.825C2.275 5.375 1.5 7.26667 1.5 9.5C1.5 11.7333 2.275 13.625 3.825 15.175C5.375 16.725 7.26667 17.5 9.5 17.5ZM9.581 5.21925C10.0423 5.21925 10.4416 5.3645 10.7788 5.655C11.1161 5.9455 11.2848 6.30858 11.2848 6.74425C11.2848 7.11092 11.177 7.43908 10.9615 7.72875C10.7462 8.01858 10.5 8.2885 10.223 8.5385C9.86 8.8605 9.54042 9.21475 9.26425 9.60125C8.98808 9.98758 8.84042 10.4179 8.82125 10.8923C8.81475 11.0744 8.87883 11.227 9.0135 11.35C9.14817 11.473 9.30517 11.5345 9.4845 11.5345C9.67683 11.5345 9.83967 11.4704 9.973 11.3422C10.1063 11.2141 10.1916 11.0571 10.2288 10.8713C10.2954 10.5276 10.4374 10.2215 10.6547 9.953C10.8721 9.68433 11.1075 9.42892 11.361 9.18675C11.7255 8.83142 12.0436 8.44408 12.3152 8.02475C12.5871 7.60525 12.723 7.13742 12.723 6.62125C12.723 5.82892 12.4108 5.17792 11.7865 4.66825C11.1622 4.15875 10.4333 3.904 9.6 3.904C9.00517 3.904 8.44425 4.03567 7.91725 4.299C7.39042 4.5625 6.98017 4.94683 6.6865 5.452C6.5955 5.60717 6.56633 5.77042 6.599 5.94175C6.6315 6.11325 6.71942 6.24342 6.86275 6.33225C7.04525 6.43375 7.23267 6.46275 7.425 6.41925C7.61733 6.37558 7.78075 6.266 7.91525 6.0905C8.11792 5.82767 8.36317 5.61675 8.651 5.45775C8.93883 5.29875 9.24883 5.21925 9.581 5.21925Z";
 
-type NavIcon = IconName | "settings" | "help";
+const LOGOUT =
+  "M5.31 20.5C4.803 20.5 4.377 20.327 4.03 19.98C3.683 19.633 3.507 19.203 3.5 18.69L3.5 5.31C3.5 4.803 3.673 4.377 4.02 4.03C4.367 3.683 4.797 3.507 5.31 3.5L11.26 3.5C11.473 3.5 11.65 3.573 11.79 3.72C11.93 3.867 12.003 4.043 12.01 4.25C12.017 4.457 11.943 4.633 11.79 4.78C11.637 4.927 11.46 5 11.26 5L5.31 5C5.23 5 5.16 5.033 5.1 5.1C5.04 5.167 5.007 5.237 5 5.31L5 18.69C5 18.77 5.033 18.84 5.1 18.9C5.167 18.96 5.237 18.993 5.31 19L11.26 19C11.473 19 11.65 19.073 11.79 19.22C11.93 19.367 12.003 19.543 12.01 19.75C12.017 19.957 11.943 20.133 11.79 20.28C11.637 20.427 11.46 20.5 11.26 20.5L5.31 20.5ZM17.62 12.75L9.85 12.75C9.637 12.75 9.46 12.677 9.32 12.53C9.18 12.383 9.107 12.207 9.1 12C9.093 11.793 9.167 11.617 9.32 11.47C9.473 11.323 9.65 11.25 9.85 11.25L17.62 11.25L15.69 9.33C15.55 9.19 15.48 9.02 15.48 8.82C15.48 8.62 15.55 8.443 15.69 8.29C15.83 8.137 16.007 8.057 16.22 8.05C16.433 8.043 16.613 8.117 16.76 8.27L19.85 11.36C20.03 11.54 20.12 11.75 20.12 11.99C20.12 12.23 20.03 12.44 19.85 12.62L16.76 15.71C16.613 15.857 16.437 15.93 16.23 15.93C16.023 15.93 15.843 15.85 15.69 15.69C15.543 15.537 15.473 15.36 15.48 15.16C15.487 14.96 15.56 14.787 15.7 14.64L17.61 12.73L17.62 12.75Z";
+
+type NavIcon = IconName | "settings" | "help" | "logout";
 type NavItem = { label: string; icon: NavIcon; href: string };
 
 const MAIN_NAV: NavItem[] = [
@@ -66,30 +76,40 @@ const PROFILE_NAV: NavItem[] = [
   { label: "Business details", icon: "store", href: "#" },
   { label: "Activity", icon: "clock", href: "#" },
 ];
-const FOOTER_NAV: NavItem[] = [
+// Behind the account chevron. Log out is the only red line.
+const ACCOUNT_NAV: NavItem[] = [
   { label: "Subscription", icon: "card", href: "#" },
   { label: "Settings", icon: "settings", href: "#" },
   { label: "Help", icon: "help", href: "#" },
+  { label: "Log out", icon: "logout", href: "#" },
 ];
 
 function NavGlyph({ name }: { name: NavIcon }) {
-  if (name === "settings" || name === "help") {
+  if (name === "settings" || name === "help" || name === "logout") {
     return (
       <svg width={20} height={20} viewBox="0 0 24 24" fill="currentColor" aria-hidden className="shrink-0">
-        <path d={name === "settings" ? SETTINGS : HELP} transform={name === "help" ? "translate(2.5 2.5)" : undefined} />
+        <path
+          d={name === "settings" ? SETTINGS : name === "help" ? HELP : LOGOUT}
+          transform={name === "help" ? "translate(2.5 2.5)" : undefined}
+        />
       </svg>
     );
   }
   return <Icon name={name} size={20} className="shrink-0" />;
 }
 
-function NavLink({ item, active }: { item: NavItem; active: boolean }) {
+// Every nav line is Small (14 Medium); the active one only changes colour and background.
+function NavLink({ item, active, role }: { item: NavItem; active: boolean; role?: string }) {
+  const tone = active
+    ? "bg-primary-50 text-primary-600"
+    : item.icon === "logout"
+      ? "text-error-700 hover:bg-secondary-50"
+      : "text-secondary-900 hover:bg-secondary-50";
   return (
     <Link
       href={item.href}
-      className={`flex h-11 items-center gap-3 rounded-xl px-3 ${
-        active ? "t-headline bg-primary-50 text-primary-600" : "t-body text-secondary-900 hover:bg-secondary-50"
-      }`}
+      role={role}
+      className={`t-small flex h-11 items-center gap-3 rounded-xl px-3 ${tone}`}
     >
       <NavGlyph name={item.icon} />
       <span className="min-w-0 flex-1">{item.label}</span>
@@ -97,42 +117,35 @@ function NavLink({ item, active }: { item: NavItem; active: boolean }) {
   );
 }
 
-// Desktop sidebar (248px): logo, business switcher, main nav, "Your profile" group, footer nav + account.
+// Desktop sidebar (248px): logo, business switcher, main nav, "Your profile" group, account row with its menu.
 export function Sidebar({ business, user, active = "Home" }: { business: Business; user: User; active?: string }) {
   return (
-    // Logo + switcher and footer stay put; only the nav scrolls when the window is short.
-    <aside className="sticky top-0 flex h-dvh w-[248px] shrink-0 flex-col self-start bg-white py-6">
+    // Logo + switcher and the account row stay put; only the nav scrolls when the window is short.
+    <aside className="sticky top-0 flex h-dvh w-[248px] shrink-0 flex-col self-start bg-white pt-6">
       <div data-pane-edge="top" className="flex shrink-0 flex-col gap-5 px-4 pb-5">
         <div className="pl-3">
           <img src="/brand/logo.svg" alt="YesOpen" width={84} height={24} />
         </div>
         <BusinessSwitcher business={business} className="w-full bg-secondary-50" />
       </div>
-      <ScrollPane className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto px-4 no-scrollbar">
+      <ScrollPane className="flex min-h-0 flex-1 flex-col gap-5 overflow-y-auto px-4 pb-5 no-scrollbar">
         <nav className="flex flex-col gap-1">
           {MAIN_NAV.map((n) => (
             <NavLink key={n.label} item={n} active={n.label === active} />
           ))}
         </nav>
         <nav className="flex flex-col gap-1">
-          <p className="t-caption pb-1 pl-3 text-secondary-600">Your profile</p>
+          <p className="t-small pb-1 pl-3 text-secondary-600">Your profile</p>
           {PROFILE_NAV.map((n) => (
             <NavLink key={n.label} item={n} active={n.label === active} />
           ))}
         </nav>
       </ScrollPane>
-      <div data-pane-edge="bottom" className="flex shrink-0 flex-col gap-2 px-4 pt-5">
-        {FOOTER_NAV.map((n) => (
-          <NavLink key={n.label} item={n} active={n.label === active} />
+      <AccountMenu avatar={<Avatar initial={user.initial} small />} name={user.name}>
+        {ACCOUNT_NAV.map((n) => (
+          <NavLink key={n.label} item={n} active={false} role="menuitem" />
         ))}
-        <div className="flex h-14 items-center gap-3 px-2">
-          <Avatar initial={user.initial} />
-          <div className="flex min-w-0 flex-1 flex-col">
-            <p className="t-headline truncate text-secondary-900">{user.name}</p>
-            <p className="t-footnote truncate text-secondary-600">{user.email}</p>
-          </div>
-        </div>
-      </div>
+      </AccountMenu>
     </aside>
   );
 }
