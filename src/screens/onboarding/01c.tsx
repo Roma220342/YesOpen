@@ -13,7 +13,7 @@ const INTRO = {
 
 function SelectedBusiness() {
   return (
-    <div className="flex h-[68px] w-full min-w-0 flex-1 items-center justify-between rounded-3xl bg-secondary-50 px-3 py-2.5">
+    <div className="flex h-[68px] w-full min-w-0 shrink-0 items-center justify-between rounded-3xl bg-secondary-50 px-3 py-2.5">
       <div className="flex min-w-0 items-center gap-3">
         <img src="/assets/business.jpg" alt="" className="size-11 shrink-0 rounded-xl object-cover" />
         <div className="flex w-[230px] min-w-0 flex-col gap-px">
