@@ -220,7 +220,7 @@ const SUMMARY: [string, string][] = [
   ["Each extra location", "+$15 a month"],
 ];
 
-function SummaryPanel() {
+function SummaryPanel({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex w-full max-w-[416px] flex-col gap-4">
       <p className="t-headline text-secondary-900">Summary</p>
@@ -231,6 +231,7 @@ function SummaryPanel() {
         </div>
       ))}
       <p className="t-small text-secondary-600">Cancel anytime before November 11 and you won’t pay.</p>
+      <div className="pt-4">{children}</div>
     </div>
   );
 }
@@ -259,12 +260,11 @@ export function PaymentDesktop({ state }: { state: PaymentState }) {
             )}
             <div className="flex w-full flex-col">
               <PaymentForm state={state} desktop />
-              <div className="pt-8">{desktopButton(state)}</div>
             </div>
           </div>
         </div>
         <div className="w-full max-w-[416px] min-w-0 pb-24 pt-28">
-          <SummaryPanel />
+          <SummaryPanel>{desktopButton(state)}</SummaryPanel>
         </div>
       </div>
     </div>
