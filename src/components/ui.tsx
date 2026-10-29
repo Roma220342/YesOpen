@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Icon, type IconName } from "./icon";
+import { Icon } from "./icon";
 
 // Button component (Figma 42:1710): Primary, Tonal, Disabled, Loading. Height 56, radius 28, on mobile and desktop.
 // Hover (desktop) and pressed states come from the .btn-* classes in globals.css.
@@ -75,32 +75,7 @@ export function TopBar({
   );
 }
 
-// Tab bar (Figma 230:798)
-const TABS: { label: string; icon: IconName; href: string }[] = [
-  { label: "Home", icon: "home", href: "/home/10a" },
-  { label: "Reviews", icon: "chat", href: "#" },
-  { label: "Posts", icon: "campaign", href: "#" },
-  { label: "Map", icon: "location", href: "#" },
-  { label: "More", icon: "more", href: "#" },
-];
-
-export function TabBar({ active = "Home" }: { active?: string }) {
-  return (
-    <nav className="sticky bottom-0 flex border-t border-secondary-100 bg-white px-2 pt-2.5 pb-[17px]">
-      {TABS.map((t) => {
-        const on = t.label === active;
-        return (
-          <Link key={t.label} href={t.href} className="flex flex-1 flex-col items-center gap-1">
-            <span className={`flex h-8 w-14 items-center justify-center rounded-2xl ${on ? "bg-primary-50 text-primary-600" : "text-secondary-600"}`}>
-              <Icon name={t.icon} />
-            </span>
-            <span className={on ? "t-caption text-primary-600" : "t-footnote text-secondary-600"}>{t.label}</span>
-          </Link>
-        );
-      })}
-    </nav>
-  );
-}
+export { TabBar } from "./tab-bar";
 
 // Header link with chevron used in Home modules ("Details ›"). 44px tap height without growing the row.
 export function HeadLink({ children, href = "#" }: { children: React.ReactNode; href?: string }) {

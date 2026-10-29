@@ -13,7 +13,7 @@ const PERMISSIONS: { icon: IconName; title: string; text: string }[] = [
   { icon: "trending", title: "Weekly check and position", text: "New problems and where you rank nearby" },
 ];
 
-// Figma 04: intro, the five permissions 12px apart, the promise. Mobile spaces the groups 32px apart and keeps the
+// Figma 04: intro, the five permissions 16px apart, the promise. Mobile spaces the groups 32px apart and keeps the
 // subtitle to its first sentence; desktop keeps the full sentence and 24px groups.
 function Content({ desktop = false }: { desktop?: boolean }) {
   return (
@@ -25,7 +25,7 @@ function Content({ desktop = false }: { desktop?: boolean }) {
         </p>
       </div>
       <div className={`flex flex-col ${desktop ? "gap-6" : "gap-8"}`}>
-        <ul className="flex flex-col gap-3">
+        <ul className="flex flex-col gap-4">
           {PERMISSIONS.map((p) => (
             <li key={p.title} className="flex items-center gap-3">
               <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary-75 text-secondary-900">
