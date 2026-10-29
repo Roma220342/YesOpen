@@ -7,7 +7,7 @@ import { CountPill, LockedMore, PillButton, TextButton } from "./module-card";
 import { ReplyEditor } from "./reply-editor";
 import { SkipMenu } from "./skip";
 import { Toast } from "./toast";
-import { doneLabel, ImpactChip, ReplyField, ReviewBlock, Stars, TaskFields, type Task } from "./task";
+import { ImpactChip, ReplyField, ReviewBlock, Stars, TaskFields, type Task } from "./task";
 import { useSkip } from "./use-skip";
 
 // Desktop "To approve" module: the open item splits into what/why (360px) and fields + button; others are 64px rows.
@@ -38,7 +38,6 @@ export function ToApproveAccordion({
 }) {
   const skips = useSkip(startSkipped ? tasks[0]?.title : undefined);
   const [open, setOpen] = useState(startSkipped ? 1 : defaultOpen);
-  const [settled, setSettled] = useState<Record<string, string>>({}); // button shows the done state
   const [gone, setGone] = useState<string[]>([]); // item folded away
   // "Task title:review index" of the reply being edited, and the text the owner changed it to.
   const [editing, setEditing] = useState<string | null>(startEditing ? `${tasks[defaultOpen]?.title}:0` : null);
@@ -60,14 +59,11 @@ export function ToApproveAccordion({
     if (i >= 0) setOpen(i);
   };
 
-  const settle = (t: Task, label: string) => {
-    setSettled((s) => ({ ...s, [t.title]: label }));
+  // Approve: the item folds away at once and the next one opens.
+  const settle = (t: Task) => {
     setEditing(null);
-    setTimeout(() => {
-      setGone((g) => [...g, t.title]);
-      const next = tasks.findIndex((x) => x.title !== t.title && !away(x));
-      setOpen(next);
-    }, 700);
+    setGone((g) => [...g, t.title]);
+    setOpen(tasks.findIndex((x) => x.title !== t.title && !away(x)));
   };
 
   return (
@@ -95,7 +91,7 @@ export function ToApproveAccordion({
                     onClick={() => setOpen(i)}
                     className="flex h-16 w-full items-center gap-4 px-5 text-left"
                   >
-                    <Icon name="chevron" size={20} rotate={-90} className="shrink-0 text-secondary-900" />
+                    <Icon name="chevron" rotate={-90} className="shrink-0 text-secondary-900" />
                     <span className="t-headline w-[348px] shrink-0 truncate text-secondary-900">{t.title}</span>
                     <span className="flex min-w-0 flex-1 items-center gap-2">
                       {one && <Stars stars={one.stars} />}
@@ -114,7 +110,7 @@ export function ToApproveAccordion({
                         onClick={() => setOpen(-1)}
                         className="flex items-center gap-2 text-left text-secondary-900"
                       >
-                        <Icon name="chevron" size={20} className="shrink-0" />
+                        <Icon name="chevron" className="shrink-0" />
                         <h3 className="t-title flex-1">{t.title}</h3>
                       </button>
                       <p className="t-body pl-7 text-secondary-600">{t.why}</p>
@@ -147,7 +143,7 @@ export function ToApproveAccordion({
                         );
                       })}
                       <div className="flex justify-end gap-2">
-                        {editing?.startsWith(`${t.title}:`) && !settled[t.title] && (
+                        {editing?.startsWith(`${t.title}:`) && (
                           <TextButton
                             onClick={() => {
                               setEdits((e) => {
@@ -161,20 +157,16 @@ export function ToApproveAccordion({
                             Discard
                           </TextButton>
                         )}
-                        {t.skip && !settled[t.title] && !editing?.startsWith(`${t.title}:`) && (
+                        {t.skip && !editing?.startsWith(`${t.title}:`) && (
                           <SkipMenu defaultOpen={startSkipChoice && i === 0} onChoose={(c) => skip(t, c)} />
                         )}
-                        {t.alt && !settled[t.title] && (
-                          <TextButton onClick={() => settle(t, t.alt!.done)}>
+                        {t.alt && (
+                          <TextButton onClick={() => settle(t)}>
                             {t.alt.label}
                           </TextButton>
                         )}
-                        <PillButton
-                          done={!!settled[t.title]}
-                          href={t.href}
-                          onClick={() => settle(t, doneLabel(t.desktopAction ?? t.action))}
-                        >
-                          {settled[t.title] ?? t.desktopAction ?? t.action}
+                        <PillButton href={t.href} onClick={() => settle(t)}>
+                          {t.desktopAction ?? t.action}
                         </PillButton>
                       </div>
                     </div>
@@ -190,7 +182,7 @@ export function ToApproveAccordion({
 
       <Collapse open={left.length === 0}>
         <div className="flex items-center gap-3 rounded-2xl bg-success-50 p-4">
-          <Icon name="check" size={20} className="shrink-0 text-success-600" />
+          <Icon name="check" className="shrink-0 text-success-600" />
           <p className="t-headline text-secondary-900">All done. We’ll send these to Google.</p>
         </div>
       </Collapse>

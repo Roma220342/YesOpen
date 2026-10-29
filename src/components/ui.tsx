@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Icon, type IconName } from "./icon";
 
-// Button component (Figma 42:1710): Primary, Tonal, Disabled, Loading. Height 56, radius 28.
+// Button component (Figma 42:1710): Primary, Tonal, Disabled, Loading. Height 56, radius 28, on mobile and desktop.
+// Hover (desktop) and pressed states come from the .btn-* classes in globals.css.
 type ButtonVariant = "primary" | "tonal" | "disabled" | "loading";
 
 export function Button({
@@ -15,11 +16,11 @@ export function Button({
   href?: string;
   className?: string;
 }) {
-  const base = "t-headline flex h-14 w-full items-center justify-center gap-2.5 rounded-[28px] px-6 transition-colors";
+  const base = "t-headline flex h-14 w-full items-center justify-center gap-2.5 rounded-[28px] px-6";
   const look = {
-    primary: "bg-primary-600 text-white hover:bg-primary-700",
-    tonal: "bg-secondary-100 text-secondary-900 hover:bg-secondary-200",
-    disabled: "bg-secondary-100 text-secondary-700 opacity-60 pointer-events-none",
+    primary: "btn-primary",
+    tonal: "btn-tonal",
+    disabled: "bg-secondary-100 text-secondary-600 pointer-events-none",
     loading: "bg-primary-600 text-white pointer-events-none",
   }[variant];
   const inner = (
@@ -106,7 +107,7 @@ export function HeadLink({ children, href = "#" }: { children: React.ReactNode; 
   return (
     <Link href={href} className="t-headline -my-[11px] flex h-11 items-center gap-0.5 text-primary-600">
       {children}
-      <Icon name="chevron" size={22} rotate={-90} className="-mr-1" />
+      <Icon name="chevron" rotate={-90} className="-mr-1" />
     </Link>
   );
 }

@@ -1,5 +1,5 @@
 import { Button, TopBar } from "@/components/ui";
-import { DesktopButton, DesktopHeader } from "./_payment";
+import { DesktopHeader } from "./_payment";
 
 const NEXT = "/home/10a";
 
@@ -70,7 +70,7 @@ export function Desktop() {
         <div className="flex w-full max-w-[520px] flex-col">
           <Content />
           <div className="pt-8">
-            <DesktopButton href={NEXT}>Fix opening hours</DesktopButton>
+            <Button href={NEXT}>Fix opening hours</Button>
           </div>
         </div>
       </div>

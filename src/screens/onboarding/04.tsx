@@ -43,21 +43,9 @@ export function DesktopBack({ href }: { href: string }) {
   );
 }
 
-// Desktop primary button: 48px tall, radius 24.
-export function DesktopButton({ children, href }: { children: React.ReactNode; href: string }) {
-  return (
-    <Link
-      href={href}
-      className="t-headline flex h-12 w-full items-center justify-center rounded-3xl bg-primary-600 px-6 text-white transition-colors hover:bg-primary-700"
-    >
-      {children}
-    </Link>
-  );
-}
-
 // ---- Screen 04 ----
 
-const PERMISSIONS: { icon: IconName | "trending"; title: string; text: string }[] = [
+const PERMISSIONS: { icon: IconName; title: string; text: string }[] = [
   { icon: "store", title: "See your business profile", text: "Hours, photos, reviews and posts" },
   { icon: "edit", title: "Suggest fixes to it", text: "You see before and after, then approve" },
   { icon: "chat", title: "Reply to your reviews", text: "Drafted in your tone" },
@@ -77,11 +65,7 @@ function Content() {
           {PERMISSIONS.map((p) => (
             <li key={p.title} className="flex items-center gap-3">
               <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary-75 text-secondary-900">
-                {p.icon === "trending" ? (
-                  <img src="/assets/onboarding/04/trending.svg" alt="" width={20} height={20} />
-                ) : (
-                  <Icon name={p.icon} size={20} />
-                )}
+                <Icon name={p.icon} />
               </span>
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="t-headline text-secondary-900">{p.title}</span>
@@ -122,7 +106,7 @@ export function Desktop() {
           <div className="w-[520px]">
             <Content />
             <div className="pt-8">
-              <DesktopButton href={NEXT}>Continue with Google</DesktopButton>
+              <Button href={NEXT}>Continue with Google</Button>
             </div>
           </div>
         </div>

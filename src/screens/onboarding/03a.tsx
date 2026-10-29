@@ -66,7 +66,7 @@ export function Desktop() {
           <div className="flex flex-col">
             <Content desktop />
             <div className="pt-8">
-              <Button href={NEXT} className="h-12! rounded-3xl!">
+              <Button href={NEXT}>
                 Send to Google
               </Button>
             </div>

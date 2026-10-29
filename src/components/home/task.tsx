@@ -27,7 +27,7 @@ export type Task = {
   /** Button label in the open desktop item. Defaults to `action`. */
   desktopAction?: string;
   /** Second answer to a question with two real answers ("Open as usual"). Settles the task. */
-  alt?: { label: string; done: string };
+  alt?: { label: string };
   /**
    * Shows Skip: "Not now" (comes back once, next week) or "Don’t suggest again". Not for questions with two answers.
    * Skipping changes nothing on Google and never raises Profile score.
@@ -38,8 +38,6 @@ export type Task = {
   /** Points this fix surely adds to Profile score once Google applies it. Omit when the gain depends on the answer (Thanksgiving). */
   impact?: number;
 };
-
-export const doneLabel = (action: string) => (/^approve/i.test(action) ? "Approved" : "Done");
 
 export function TaskFields({ fields, hint, className = "gap-3" }: { fields: TaskField[]; hint?: string; className?: string }) {
   return (

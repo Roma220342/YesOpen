@@ -1,6 +1,6 @@
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopBack, DesktopButton, DesktopHeader } from "./04";
+import { DesktopBack, DesktopHeader } from "./04";
 
 const BACK = "/onboarding/05";
 const SKIP = "/home/10a";
@@ -36,11 +36,11 @@ function Trial() {
                 <span className={`h-1 w-0.5 ${i === 0 ? "" : "bg-primary-100"}`} />
                 <span className="flex size-9 items-center justify-center rounded-full bg-primary-50 text-primary-600">
                   {d.icon === "bell" ? (
-                    <span className="relative size-[22px]">
+                    <span className="relative size-6 in-[[data-desktop]]:size-[22px]">
                       <img src="/assets/onboarding/06/bell.svg" alt="" className="absolute top-[10.42%] left-[11.01%] h-[79.96%] w-[77.98%]" />
                     </span>
                   ) : (
-                    <Icon name={d.icon} size={22} />
+                    <Icon name={d.icon} className="in-[[data-desktop]]:size-[22px]" />
                   )}
                 </span>
                 {!last && <span className="w-0.5 flex-1 bg-primary-100" />}
@@ -100,7 +100,7 @@ export function Desktop() {
               ))}
             </dl>
             <div className="pt-2">
-              <DesktopButton href={NEXT}>{CTA}</DesktopButton>
+              <Button href={NEXT}>{CTA}</Button>
             </div>
             <p className="t-small text-secondary-600">Cancel anytime before November 11 and you won’t pay.</p>
           </div>

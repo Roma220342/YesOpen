@@ -1,6 +1,6 @@
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopButton, DesktopHeader } from "./04";
+import { DesktopHeader } from "./04";
 
 const NEXT = "/onboarding/06";
 const CTA = "Fix the rest, 14 days free";
@@ -21,7 +21,7 @@ function Sent({ desktop }: { desktop: boolean }) {
         </p>
       </div>
       <div className="flex items-start gap-3 rounded-2xl bg-primary-50 p-4">
-        <Icon name="clock" size={22} className="shrink-0 text-primary-600" />
+        <Icon name="clock" className="shrink-0 text-primary-600 in-[[data-desktop]]:size-[22px]" />
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
           <p className="t-headline text-secondary-900">Waiting for Google’s review</p>
           <p className="t-small text-secondary-700">No need to wait here. We’ll email you when it’s live.</p>
@@ -90,7 +90,7 @@ export function Desktop() {
           <div className="flex flex-col gap-4">
             <StillToFix />
             <div className="pt-4">
-              <DesktopButton href={NEXT}>{CTA}</DesktopButton>
+              <Button href={NEXT}>{CTA}</Button>
             </div>
           </div>
         </aside>

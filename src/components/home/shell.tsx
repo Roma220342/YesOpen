@@ -18,7 +18,7 @@ function BusinessSwitcher({ business, className = "" }: { business: Business; cl
     <button type="button" className={`flex items-center gap-2 rounded-full px-3 py-2.5 text-left ${className}`}>
       <img src={business.photo} alt="" width={24} height={24} className="size-6 shrink-0 rounded-md object-cover" />
       <span className="t-headline min-w-0 flex-1 truncate text-secondary-900">{business.name}</span>
-      <Icon name="chevron" size={20} className="shrink-0 text-secondary-700" />
+      <Icon name="chevron" className="shrink-0 text-secondary-700" />
     </button>
   );
 }

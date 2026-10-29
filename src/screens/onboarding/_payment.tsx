@@ -118,7 +118,7 @@ function PaymentForm({ state, desktop }: { state: PaymentState; desktop: boolean
                 <option>Canada</option>
                 <option>United Kingdom</option>
               </select>
-              <Icon name="chevron" size={20} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-secondary-700" />
+              <Icon name="chevron" className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-secondary-700" />
             </span>
           </Field>
           <Field label="ZIP code" labelClass={labelClass}>
@@ -163,37 +163,6 @@ export function PaymentMobile({ state }: { state: PaymentState }) {
   );
 }
 
-// Desktop primary button: 48px tall, radius 24.
-export function DesktopButton({
-  children,
-  variant = "primary",
-  href,
-}: {
-  children: React.ReactNode;
-  variant?: "primary" | "disabled" | "loading";
-  href?: string;
-}) {
-  const base = "t-headline flex h-12 w-full items-center justify-center gap-2.5 rounded-3xl px-6 transition-colors";
-  const look = {
-    primary: "bg-primary-600 text-white hover:bg-primary-700",
-    disabled: "bg-secondary-100 text-secondary-700 opacity-60 pointer-events-none",
-    loading: "bg-primary-600 text-white",
-  }[variant];
-  const inner = (
-    <>
-      {variant === "loading" && (
-        <img src="/assets/onboarding/07/spinner.svg" alt="" width={18} height={18} className="animate-spin" />
-      )}
-      {children}
-    </>
-  );
-  return href ? (
-    <Link href={href} className={`${base} ${look}`}>{inner}</Link>
-  ) : (
-    <button type="button" disabled={variant === "disabled"} className={`${base} ${look}`}>{inner}</button>
-  );
-}
-
 export function DesktopHeader({ skip }: { skip?: string }) {
   return (
     <header className="sticky top-0 z-20 flex h-[72px] w-full shrink-0 items-center justify-between border-b border-secondary-200 bg-white px-10">
@@ -233,9 +202,9 @@ function SummaryPanel({ children }: { children: React.ReactNode }) {
 }
 
 function desktopButton(state: PaymentState) {
-  if (state === "ready") return <DesktopButton href={NEXT}>Start free trial</DesktopButton>;
-  if (state === "processing") return <DesktopButton variant="loading" href="/onboarding/08">Starting your trial</DesktopButton>;
-  return <DesktopButton variant="disabled">Start free trial</DesktopButton>;
+  if (state === "ready") return <Button href={NEXT}>Start free trial</Button>;
+  if (state === "processing") return <Button variant="loading" href="/onboarding/08">Starting your trial</Button>;
+  return <Button variant="disabled">Start free trial</Button>;
 }
 
 export function PaymentDesktop({ state }: { state: PaymentState }) {

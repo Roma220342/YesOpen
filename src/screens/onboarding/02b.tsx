@@ -176,7 +176,7 @@ export function Desktop() {
                 <p className="t-small text-secondary-700">Next: you review the text before anything changes.</p>
               </div>
             </div>
-            <Button href={NEXT} className="h-12! rounded-3xl!">
+            <Button href={NEXT}>
               Fix description for free
             </Button>
             <p className="t-small text-secondary-700">The first fix is free. The other 3 come with the plan.</p>

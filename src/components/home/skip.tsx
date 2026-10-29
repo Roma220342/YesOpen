@@ -94,10 +94,10 @@ export function SkipMenu({ onChoose, defaultOpen = false }: { onChoose: (c: Skip
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((o) => !o)}
-        className="t-headline flex h-12 items-center gap-1 rounded-[28px] pr-6 pl-8 whitespace-nowrap text-primary-600 transition-colors hover:bg-primary-50"
+        className="btn-text t-headline flex h-12 items-center gap-1 rounded-[28px] pr-6 pl-8 whitespace-nowrap"
       >
         Skip
-        <Icon name="chevron" size={20} />
+        <Icon name="chevron" />
       </button>
       {open &&
         pos &&

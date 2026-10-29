@@ -32,11 +32,8 @@ export type HomeState = {
   thisWeekDesktop?: ThisWeekData;
   /** Shown in place of To approve when there are no tasks (10b "You're all caught up"). */
   caughtUp?: { title: string; sub: string };
-  /** Desktop row sizes when a state differs from 10a (top 510, bottom 346). */
+  /** Desktop spacing when a state differs from 10a. */
   desktopLayout?: {
-    topRowHeight?: number;
-    /** Fixed height, or "auto" (default) to size the bottom row to its content. */
-    bottomRowHeight?: number | "auto";
     /** 24px instead of 16px under the module head in Week, Score and Reviews (10c). */
     wideHeadGap?: boolean;
   };
@@ -47,7 +44,7 @@ function CaughtUp({ title, sub }: { title: string; sub: string }) {
   return (
     <section className="flex items-center gap-3 rounded-3xl bg-white p-5">
       <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-success-50 text-secondary-900">
-        <Icon name="check" size={20} />
+        <Icon name="check" />
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className="t-headline text-secondary-900">{title}</span>
@@ -86,8 +83,6 @@ export function HomeMobile({ state }: { state: HomeState }) {
 
 export function HomeDesktop({ state }: { state: HomeState }) {
   const layout = state.desktopLayout ?? {};
-  const top = layout.topRowHeight ?? 510;
-  const bottom = layout.bottomRowHeight ?? "auto";
   const head = layout.wideHeadGap ? " [&>:first-child]:mb-2" : "";
   return (
     <div data-page-bg="neutral" className="flex min-h-dvh bg-secondary-75">
@@ -103,16 +98,15 @@ export function HomeDesktop({ state }: { state: HomeState }) {
             startSkipped={state.startSkipped}
           />}
         {state.tasks.length === 0 && state.caughtUp && <CaughtUp {...state.caughtUp} />}
-        <div className="flex gap-6" style={{ height: top }}>
-          <WeekChart data={state.week} barMax={141} className={`min-w-0 flex-1${head}`} />
-          <div className="flex w-[544px] shrink-0 flex-col gap-6">
+        {/* Two equal columns; each row is as tall as its taller side and both cards stretch to it, so edges line up. */}
+        <div className="grid grid-cols-2 gap-6">
+          <WeekChart data={state.week} barMax={141} className={`min-w-0${head}`} />
+          <div className="flex min-w-0 flex-col gap-6">
             <PlaceNearby data={state.nearby} />
             <ProfileScore data={state.score} className={`flex-1${head}`} />
           </div>
-        </div>
-        <div className="flex gap-6" style={bottom === "auto" ? undefined : { height: bottom }}>
-          <Reviews data={state.reviews} className={`min-w-0 flex-1${head}`} />
-          <ThisWeek data={state.thisWeekDesktop ?? state.thisWeek} className="min-w-0 flex-1" />
+          <Reviews data={state.reviews} className={`min-w-0${head}`} />
+          <ThisWeek data={state.thisWeekDesktop ?? state.thisWeek} className="min-w-0" />
         </div>
       </main>
     </div>

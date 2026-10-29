@@ -65,7 +65,7 @@ const STATE_10C: HomeState = {
       STATE_10A.thisWeek.next[1],
     ],
   },
-  desktopLayout: { topRowHeight: 485, bottomRowHeight: "auto", wideHeadGap: true },
+  desktopLayout: { wideHeadGap: true },
 };
 
 export function Mobile() {

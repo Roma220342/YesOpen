@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopBack, DesktopButton, DesktopHeader } from "./04";
+import { DesktopBack, DesktopHeader } from "./04";
 
 // Shared layout for the connect error states 04b (wrong account), 04c (no access), 04d (not verified).
 export type ConnectErrorProps = {
@@ -25,7 +25,7 @@ function Content({ p }: { p: ConnectErrorProps }) {
         <p className="t-body text-secondary-700">{p.text}</p>
       </div>
       <div className="flex items-start gap-3 rounded-2xl bg-primary-50 p-4">
-        <Icon name={p.icon} size={22} className="shrink-0 text-primary-600" />
+        <Icon name={p.icon} className="shrink-0 text-primary-600 in-[[data-desktop]]:size-[22px]" />
         <div className="flex min-w-0 flex-1 flex-col gap-0.5">
           <p className="t-headline text-secondary-900">Forno Rosso Pizzeria</p>
           <p className="t-small text-secondary-700">{p.status}</p>
@@ -67,9 +67,11 @@ export function ConnectErrorDesktop(p: ConnectErrorProps) {
           <DesktopBack href={BACK} />
           <div className="w-[520px]">
             <Content p={p} />
-            <Secondary p={p} />
+            <div className="pt-6">
+              <Secondary p={p} />
+            </div>
             <div className="pt-8">
-              <DesktopButton href={RETRY}>{p.primary}</DesktopButton>
+              <Button href={RETRY}>{p.primary}</Button>
             </div>
           </div>
         </div>

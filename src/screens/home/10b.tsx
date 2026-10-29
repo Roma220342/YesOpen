@@ -55,7 +55,6 @@ const STATE_10B: HomeState = {
     barTone: "success",
   },
   thisWeekDesktop: { ...STATE_10A.thisWeek, done: [] },
-  desktopLayout: { bottomRowHeight: "auto" },
 };
 
 export function Mobile() {

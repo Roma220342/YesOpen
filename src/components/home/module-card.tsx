@@ -68,28 +68,23 @@ export function CountPill({ children }: { children: React.ReactNode }) {
 }
 
 // Primary pill button, 48px high. Hugs its label with 32px on each side; mobile cards stretch it with w-full.
+// Hover (desktop) and pressed states come from .btn-primary in globals.css.
 export function PillButton({
   children,
   className = "",
-  done = false,
   onClick,
   href,
 }: {
   children: React.ReactNode;
   className?: string;
-  /** Approved state: green with a check, no longer clickable. */
-  done?: boolean;
   onClick?: () => void;
   /** Renders a link instead of a button. */
   href?: string;
 }) {
-  const look = `t-headline flex items-center justify-center gap-2 rounded-[28px] px-8 text-white transition-[background-color,transform] duration-200 active:scale-[0.98] ${
-    done ? "pointer-events-none bg-success-600" : "bg-primary-600 hover:bg-primary-700"
-  } h-12 ${className}`;
-  if (href && !done) return <Link href={href} className={look}>{children}</Link>;
+  const look = `btn-primary t-headline flex h-12 items-center justify-center gap-2 rounded-[28px] px-8 ${className}`;
+  if (href) return <Link href={href} className={look}>{children}</Link>;
   return (
-    <button type="button" onClick={done ? undefined : onClick} className={look}>
-      {done && <Icon name="check" size={20} className="animate-pop-in" />}
+    <button type="button" onClick={onClick} className={look}>
       {children}
     </button>
   );
@@ -109,7 +104,7 @@ export function TextButton({
     <button
       type="button"
       onClick={onClick}
-      className={`t-headline flex items-center justify-center h-12 rounded-[28px] px-8 whitespace-nowrap text-primary-600 transition-colors hover:bg-primary-50 ${className}`}
+      className={`btn-text t-headline flex h-12 items-center justify-center rounded-[28px] px-8 whitespace-nowrap ${className}`}
     >
       {children}
     </button>
@@ -121,7 +116,7 @@ export type Locked = { title: string; sub: string; href: string };
 // What YesOpen does, shown as a closed row on a home without a plan (10c). Opens the trial.
 export function LockedRow({ title, sub, href, className = "" }: Locked & { className?: string }) {
   return (
-    <Link href={href} className={`flex items-center gap-3 rounded-2xl bg-secondary-50 p-4 transition-colors hover:bg-secondary-75 ${className}`}>
+    <Link href={href} className={`flex items-center gap-3 rounded-2xl bg-secondary-50 p-4 transition-colors in-[[data-desktop]]:hover:bg-secondary-75 active:bg-secondary-75 ${className}`}>
       <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-white text-secondary-900">
         <Icon name="lock" size={20} />
       </span>
@@ -129,7 +124,7 @@ export function LockedRow({ title, sub, href, className = "" }: Locked & { class
         <span className="t-headline text-secondary-900">{title}</span>
         <span className="t-small text-secondary-700">{sub}</span>
       </span>
-      <Icon name="chevron" size={22} rotate={-90} className="shrink-0 text-secondary-700" />
+      <Icon name="chevron" rotate={-90} className="shrink-0 text-secondary-700" />
     </Link>
   );
 }

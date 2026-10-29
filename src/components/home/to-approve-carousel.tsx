@@ -1,12 +1,12 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Collapse } from "@/components/collapse";
+import { Icon } from "@/components/icon";
 import { CountPill, LockedMore, PillButton, TextButton } from "./module-card";
 import { ReviewSheet } from "./review-sheet";
 import { SkipSheet } from "./skip";
 import { Toast } from "./toast";
-import { doneLabel, ImpactChip, ReplyField, ReviewBlock, TaskFields, type Task } from "./task";
+import { ImpactChip, ReplyField, ReviewBlock, TaskFields, type Task } from "./task";
 import { useSkip } from "./use-skip";
 
 // Every task card has this height on every Home state, so cards never change size between states.
@@ -36,12 +36,12 @@ export function ToApproveCarousel({
   startSkipped?: boolean;
 }) {
   const skips = useSkip(startSkipped ? all[0]?.title : undefined);
-  // Skipped tasks leave the row; everything below works on what is still there.
-  const tasks = all.filter((t) => !skips.hidden.includes(t.title));
+  // Approved tasks.
+  const [gone, setGone] = useState<string[]>([]);
+  // Approved and skipped tasks leave the row; everything below works on what is still there.
+  const tasks = all.filter((t) => !skips.hidden.includes(t.title) && !gone.includes(t.title));
 
   const [index, setIndex] = useState(0);
-  // Task title → label the settled button shows ("Approved").
-  const [settled, setSettled] = useState<Record<string, string>>({});
   // "Task title:review index" → reply the owner changed in the sheet.
   const [edits, setEdits] = useState<Record<string, string>>({});
   const [sheet, setSheet] = useState<{ task: number; review: number } | null>(startEditing ? { task: 0, review: 0 } : null);
@@ -57,10 +57,10 @@ export function ToApproveCarousel({
   };
   const glideTo = (i: number, delay = 0) => setTimeout(() => track.current?.scrollTo({ left: centreOf(i), behavior: "smooth" }), delay);
 
-  // Approve: button turns green with a check, then the row glides to the next card.
-  const settle = (t: Task, i: number, label: string) => {
-    setSettled((s) => ({ ...s, [t.title]: label }));
-    if (i < tasks.length - 1) glideTo(i + 1, 600);
+  // Approve: the card leaves at once and the next one slides in, like Skip but without Undo.
+  const settle = (t: Task, i: number) => {
+    setGone((g) => [...g, t.title]);
+    glideTo(Math.min(i, tasks.length - 2), 60);
   };
 
   // Skip: the card leaves at once and the next one slides in; Undo brings it back where it was.
@@ -91,7 +91,7 @@ export function ToApproveCarousel({
     <section id="to-approve" className="flex scroll-mt-4 flex-col gap-4 overflow-hidden rounded-3xl bg-white py-5">
       <div className="flex items-center gap-2 px-5">
         <h2 className="t-headline text-secondary-900">{title}</h2>
-        <CountPill>{tasks.length - Object.keys(settled).filter((k) => tasks.some((t) => t.title === k)).length + (lockedMore?.count ?? 0)}</CountPill>
+        <CountPill>{tasks.length + (lockedMore?.count ?? 0)}</CountPill>
       </div>
 
       <div
@@ -137,26 +137,17 @@ export function ToApproveCarousel({
               </div>
               <div className="flex flex-col gap-1">
                 {t.alt && (
-                  <Collapse open={!settled[t.title]}>
-                    <TextButton className="w-full" onClick={() => settle(t, i, t.alt!.done)}>
-                      {t.alt.label}
-                    </TextButton>
-                  </Collapse>
+                  <TextButton className="w-full" onClick={() => settle(t, i)}>
+                    {t.alt.label}
+                  </TextButton>
                 )}
                 {t.skip && (
-                  <Collapse open={!settled[t.title]}>
-                    <TextButton className="w-full" onClick={() => setSkipFor(t.title)}>
-                      Skip
-                    </TextButton>
-                  </Collapse>
+                  <TextButton className="w-full" onClick={() => setSkipFor(t.title)}>
+                    Skip
+                  </TextButton>
                 )}
-                <PillButton
-                  className="w-full"
-                  done={!!settled[t.title]}
-                  href={t.href}
-                  onClick={() => settle(t, i, doneLabel(t.action))}
-                >
-                  {settled[t.title] ?? t.action}
+                <PillButton className="w-full" href={t.href} onClick={() => settle(t, i)}>
+                  {t.action}
                 </PillButton>
               </div>
             </article>
@@ -172,6 +163,13 @@ export function ToApproveCarousel({
         </div>
       )}
 
+      {tasks.length === 0 && !lockedMore && (
+        <div className="mx-5 flex items-center gap-3 rounded-2xl bg-success-50 p-4">
+          <Icon name="check" className="shrink-0 text-success-600" />
+          <p className="t-headline text-secondary-900">All done. We’ll send these to Google.</p>
+        </div>
+      )}
+
       {lockedMore && <LockedMore {...lockedMore} className="mx-5" />}
 
       {open && sheet && (
@@ -179,9 +177,9 @@ export function ToApproveCarousel({
           review={open.reviews![sheet.review]}
           reply={replyOf(open, sheet.review)}
           onReply={(text) => setEdits((e) => ({ ...e, [`${open.title}:${sheet.review}`]: text }))}
-          action={open.reviews!.length === 1 && !settled[open.title] ? open.action : "Done"}
+          action={open.reviews!.length === 1 ? open.action : "Done"}
           onAction={() => {
-            if (open.reviews!.length === 1 && !settled[open.title]) settle(open, sheet.task, doneLabel(open.action));
+            if (open.reviews!.length === 1) settle(open, sheet.task);
             setSheet(null);
           }}
           onDiscard={() => {

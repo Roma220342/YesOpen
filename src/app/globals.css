@@ -63,6 +63,40 @@
   font-size: 14px;
 }
 
+/* Button states. Hover only inside a desktop screen (a phone has no pointer to hover with); pressed on both. */
+.btn-primary {
+  background: var(--color-primary-600);
+  color: #ffffff;
+}
+[data-desktop] .btn-primary:hover {
+  background: var(--color-primary-700);
+}
+.btn-primary:active {
+  background: var(--color-primary-800);
+}
+.btn-tonal {
+  background: var(--color-secondary-100);
+  color: var(--color-secondary-900);
+}
+[data-desktop] .btn-tonal:hover {
+  background: var(--color-secondary-200);
+}
+.btn-tonal:active {
+  background: var(--color-secondary-300);
+}
+.btn-text {
+  color: var(--color-primary-600);
+}
+[data-desktop] .btn-text:hover {
+  background: var(--color-primary-50);
+}
+.btn-text:active {
+  background: var(--color-primary-100);
+}
+:is(.btn-primary, .btn-tonal, .btn-text) {
+  transition: background-color 150ms ease-out;
+}
+
 body {
   background: #ffffff;
   color: var(--color-secondary-900);

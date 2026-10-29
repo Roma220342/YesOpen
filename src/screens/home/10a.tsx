@@ -65,7 +65,7 @@ export const THANKSGIVING: Task = {
   title: "Open on Thanksgiving?",
   why: "Google will show your usual hours on Nov 26.",
   action: "We’re closed that day",
-  alt: { label: "Open as usual", done: "Usual hours kept" },
+  alt: { label: "Open as usual" },
 };
 
 export const NEW_PHOTOS: Task = {

@@ -78,7 +78,7 @@ export function WeekChart({ data, barMax, className }: { data: WeekData; barMax:
 
       <div className="flex gap-2">
         {data.stats.map((s) => (
-          <div key={s.label} className="flex h-[82px] min-w-0 flex-1 flex-col gap-0.5 rounded-2xl bg-secondary-50 p-4">
+          <div key={s.label} className="flex min-w-0 flex-1 flex-col gap-0.5 rounded-2xl bg-secondary-50 p-4">
             <p className="t-title text-secondary-900">{s.value}</p>
             <p className="t-small text-secondary-700">{s.label}</p>
           </div>
@@ -214,7 +214,7 @@ export function ThisWeek({ data, className }: { data: ThisWeekData; className?: 
           {data.next.map((n) => (
             <Link key={n.title} href={n.href ?? "#"} className="flex items-center gap-3">
               <span className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-secondary-75 text-secondary-900">
-                <Icon name={n.icon} size={20} />
+                <Icon name={n.icon} className="in-[[data-desktop]]:size-5" />
               </span>
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className="t-headline text-secondary-900">{n.title}</span>
@@ -223,7 +223,7 @@ export function ThisWeek({ data, className }: { data: ThisWeekData; className?: 
               {n.locked ? (
                 <Icon name="lock" size={22} className="shrink-0 text-secondary-700" />
               ) : (
-                <Icon name="chevron" size={22} rotate={-90} className="shrink-0 text-secondary-700" />
+                <Icon name="chevron" rotate={-90} className="shrink-0 text-secondary-700" />
               )}
             </Link>
           ))}

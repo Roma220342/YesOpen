@@ -47,7 +47,7 @@ export function Reviews({ data, className }: { data: ReviewsData; className?: st
           <span className="min-w-0 flex-1">{data.drafts.label}</span>
           <span className="flex shrink-0 items-center gap-0.5">
             View
-            <Icon name="chevron" size={22} rotate={-90} className="-mr-1" />
+            <Icon name="chevron" rotate={-90} className="-mr-1" />
           </span>
         </Link>
       )}
