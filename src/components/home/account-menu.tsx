@@ -41,7 +41,7 @@ export function AccountMenu({ avatar, name, children }: { avatar: ReactNode; nam
       >
         <span className="flex min-w-0 flex-1 items-center gap-1">
           {avatar}
-          <span data-figma-12 className="t-caption min-w-0 flex-1 truncate text-secondary-900">{name}</span>
+          <span className="t-small min-w-0 flex-1 truncate text-secondary-900">{name}</span>
         </span>
         <Icon name="chevron" rotate={open ? 180 : undefined} className="shrink-0 text-secondary-700" />
       </button>

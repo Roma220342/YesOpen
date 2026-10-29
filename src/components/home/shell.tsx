@@ -6,13 +6,12 @@ import { AccountMenu } from "./account-menu";
 export type Business = { name: string; photo: string };
 export type User = { initial: string; name: string; email: string };
 
-// Account initial: 44px with a 14px letter in the mobile header, 32px with a 12px one in the desktop sidebar.
+// Account initial: Small Bold 14, in a 44px circle in the mobile header and a 32px one in the desktop sidebar.
 function Avatar({ initial, small = false }: { initial: string; small?: boolean }) {
   return (
     <span
-      data-figma-12={small || undefined}
-      className={`flex shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-700 ${
-        small ? "t-caption size-8" : "t-small-bold size-11"
+      className={`t-small-bold flex shrink-0 items-center justify-center rounded-full bg-primary-100 text-primary-700 ${
+        small ? "size-8" : "size-11"
       }`}
     >
       {initial}

@@ -115,9 +115,8 @@ html[data-under~="bottom"] .bar-blur::before {
 }
 
 /* Desktop type scale: Figma draws every 12px text of the mobile frames at 14px on desktop (there is no 12px text
-   there), so the two 12px roles step up inside a desktop screen and nowhere else. ScreenFrame sets data-desktop.
-   The one exception is the sidebar account row (avatar letter + name), which Figma keeps at 12: data-figma-12. */
-[data-desktop] :is(.t-footnote, .t-caption):not([data-figma-12]) {
+   there), so the two 12px roles step up inside a desktop screen and nowhere else. ScreenFrame sets data-desktop. */
+[data-desktop] :is(.t-footnote, .t-caption) {
   font-size: 14px;
 }
 
