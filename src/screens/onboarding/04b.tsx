@@ -51,7 +51,7 @@ export function ConnectErrorMobile(p: ConnectErrorProps) {
       <main className="flex-1 px-5 pt-4 pb-6">
         <Content p={p} />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 flex flex-col gap-3 bg-white px-5 pt-4 pb-[max(16px,env(safe-area-inset-bottom))]">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 flex flex-col gap-3 bg-white px-5 pt-4 pb-[max(4px,env(safe-area-inset-bottom))]">
         <Secondary p={p} />
         <Button href={RETRY}>{p.primary}</Button>
       </div>
