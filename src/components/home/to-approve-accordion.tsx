@@ -5,18 +5,24 @@ import { Collapse } from "@/components/collapse";
 import { Icon } from "@/components/icon";
 import { CountPill, LockedMore, PillButton, TextButton } from "./module-card";
 import { ReplyEditor } from "./reply-editor";
+import { SkipMenu } from "./skip";
+import { Toast } from "./toast";
 import { doneLabel, ImpactChip, ReplyField, ReviewBlock, Stars, TaskFields, type Task } from "./task";
+import { useSkip } from "./use-skip";
 
 // Desktop "To approve" module: the open item splits into what/why (360px) and fields + button; others are 64px rows.
 // Opening and closing animate height; approving turns the button green, then the item folds away and the next opens.
 // The open item grows with its content: a review shows up to 4 lines, its reply in full.
 // Tapping a reply edits it in place (blue border, counter, Reset to suggestion) and the row gets Discard + Approve.
+// "Skip ▾" opens Not now / Don’t suggest again; the item folds away, the next opens, and the toast offers Undo.
 export function ToApproveAccordion({
   tasks,
   title = "To approve",
   defaultOpen = 0,
   lockedMore,
   startEditing,
+  startSkipChoice,
+  startSkipped,
 }: {
   tasks: Task[];
   title?: string;
@@ -25,8 +31,13 @@ export function ToApproveAccordion({
   lockedMore?: { count: number; href: string };
   /** Opens the first review's reply for editing on arrival (10e). */
   startEditing?: boolean;
+  /** Opens the Skip choice on the first task on arrival (10f). */
+  startSkipChoice?: boolean;
+  /** Arrives with the first task just skipped and the Undo toast up (10g). */
+  startSkipped?: boolean;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
+  const skips = useSkip(startSkipped ? tasks[0]?.title : undefined);
+  const [open, setOpen] = useState(startSkipped ? 1 : defaultOpen);
   const [settled, setSettled] = useState<Record<string, string>>({}); // button shows the done state
   const [gone, setGone] = useState<string[]>([]); // item folded away
   // "Task title:review index" of the reply being edited, and the text the owner changed it to.
@@ -34,14 +45,27 @@ export function ToApproveAccordion({
   const [edits, setEdits] = useState<Record<string, string>>({});
   const replyOf = (t: Task, ri: number) => edits[`${t.title}:${ri}`] ?? t.reviews![ri].reply;
 
-  const left = tasks.filter((t) => !gone.includes(t.title));
+  const left = tasks.filter((t) => !gone.includes(t.title) && !skips.hidden.includes(t.title));
+  const away = (t: Task) => gone.includes(t.title) || skips.hidden.includes(t.title);
+
+  // Skip: the item folds away like an approved one and the next opens; Undo puts it back and opens it.
+  const skip = (t: Task, choice: Parameters<typeof skips.skip>[1]) => {
+    skips.skip(t.title, choice);
+    setEditing(null);
+    setOpen(tasks.findIndex((x) => x.title !== t.title && !away(x)));
+  };
+  const undoSkip = () => {
+    const back = skips.undo();
+    const i = tasks.findIndex((t) => t.title === back);
+    if (i >= 0) setOpen(i);
+  };
 
   const settle = (t: Task, label: string) => {
     setSettled((s) => ({ ...s, [t.title]: label }));
     setEditing(null);
     setTimeout(() => {
       setGone((g) => [...g, t.title]);
-      const next = tasks.findIndex((x) => x.title !== t.title && !gone.includes(x.title));
+      const next = tasks.findIndex((x) => x.title !== t.title && !away(x));
       setOpen(next);
     }, 700);
   };
@@ -57,7 +81,7 @@ export function ToApproveAccordion({
         const isOpen = i === open;
         const one = t.reviews?.length === 1 ? t.reviews[0] : undefined;
         return (
-          <Collapse key={t.title} open={!gone.includes(t.title)}>
+          <Collapse key={t.title} open={!away(t)}>
             <div className="pb-3">
               <div
                 className={`rounded-2xl border transition-colors duration-300 ${
@@ -137,6 +161,9 @@ export function ToApproveAccordion({
                             Discard
                           </TextButton>
                         )}
+                        {t.skip && !settled[t.title] && !editing?.startsWith(`${t.title}:`) && (
+                          <SkipMenu defaultOpen={startSkipChoice && i === 0} onChoose={(c) => skip(t, c)} />
+                        )}
                         {t.alt && !settled[t.title] && (
                           <TextButton onClick={() => settle(t, t.alt!.done)}>
                             {t.alt.label}
@@ -167,6 +194,7 @@ export function ToApproveAccordion({
           <p className="t-headline text-secondary-900">All done. We’ll send these to Google.</p>
         </div>
       </Collapse>
+      {skips.toast && <Toast desktop message={skips.toast.message} onUndo={undoSkip} onClose={skips.closeToast} />}
     </section>
   );
 }

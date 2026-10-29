@@ -26,8 +26,13 @@ export type Task = {
   action: string;
   /** Button label in the open desktop item. Defaults to `action`. */
   desktopAction?: string;
-  /** Second answer for when the owner disagrees ("Not right for us"). Settles the task, so it isn’t raised again. */
+  /** Second answer to a question with two real answers ("Open as usual"). Settles the task. */
   alt?: { label: string; done: string };
+  /**
+   * Shows Skip: "Not now" (comes back once, next week) or "Don’t suggest again". Not for questions with two answers.
+   * Skipping changes nothing on Google and never raises Profile score.
+   */
+  skip?: boolean;
   /** The button opens this page instead of approving (10c: approving needs the trial). */
   href?: string;
   /** Points this fix surely adds to Profile score once Google applies it. Omit when the gain depends on the answer (Thanksgiving). */

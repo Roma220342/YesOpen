@@ -12,7 +12,7 @@ export const SUNDAY_HOURS: Task = {
   ],
   hint: "Tap the text to change it.",
   action: "Approve hours",
-  alt: { label: "Not right for us", done: "Kept as closed" },
+  skip: true,
   impact: 6,
 };
 
@@ -30,6 +30,7 @@ export const REPLY_TO_MARCO: Task = {
     },
   ],
   action: "Approve reply",
+  skip: true,
   impact: 2,
 };
 
@@ -56,6 +57,7 @@ export const REPLY_TO_TWO: Task = {
     },
   ],
   action: "Approve 2 replies",
+  skip: true,
   impact: 2,
 };
 
@@ -70,6 +72,7 @@ export const NEW_PHOTOS: Task = {
   title: "Add new photos",
   why: "Your newest photo is 2 years old.",
   action: "Add photos",
+  skip: true,
   impact: 5,
 };
 

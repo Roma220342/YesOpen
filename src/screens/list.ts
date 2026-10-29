@@ -8,7 +8,7 @@ export const ONBOARDING = [
 ] as const;
 
 export const HOME = [
-  ["10a", "Needs you"], ["10a2", "After approve"], ["10b", "All good"], ["10c", "Trial skipped"], ["10e", "Editing reply"],
+  ["10a", "Needs you"], ["10a2", "After approve"], ["10b", "All good"], ["10c", "Trial skipped"], ["10e", "Editing reply"], ["10f", "Skip choice"], ["10g", "Skipped"],
 ] as const;
 
 // Figma has these only as mobile frames (on desktop the dropdown search and inline editing replace them).
