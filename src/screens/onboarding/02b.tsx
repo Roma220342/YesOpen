@@ -148,10 +148,14 @@ export function Desktop() {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <DesktopHeader step={3} skip="/home/10c" />
-      <main className="flex w-full flex-1 items-start">
-        <div className="flex min-w-0 flex-[0_1_852px] flex-col items-end pt-12 pr-12 pb-24 short:pb-12 pl-10 xl:pr-24">
-          <div className="flex w-full max-w-[520px] flex-col gap-6">
-            <DesktopBack href="/onboarding/02a" />
+      {/* Same frame as 05–07: a centred 1128px block, report 520px on the left, the free fix 416px on the right. */}
+      {/* Back sits in its own row so the fix starts level with the title, not with Back. */}
+      <main className="mx-auto grid w-full max-w-[1208px] flex-1 grid-cols-[minmax(0,520px)_minmax(0,416px)] content-start items-start justify-between gap-x-12 gap-y-6 px-10 pt-12 pb-24 short:pb-12">
+        <div className="col-span-2">
+          <DesktopBack href="/onboarding/02a" />
+        </div>
+        <section className="min-w-0">
+          <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-4">
                 <Intro {...INTRO} />
@@ -165,10 +169,10 @@ export function Desktop() {
               </div>
             </div>
           </div>
-        </div>
-        <aside className="flex min-w-0 flex-1 flex-col pt-[110px] pr-10 pb-24 short:pb-12 pl-12 xl:pl-24">
+        </section>
+        <aside className="min-w-0">
           {/* Figma: the fix card, the note 24px under it, then the button 32px below. */}
-          <div className="flex w-full max-w-[416px] flex-col gap-8">
+          <div className="flex flex-col gap-8">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <h2 className="t-headline text-secondary-900">Your free fix</h2>
