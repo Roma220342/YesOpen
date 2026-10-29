@@ -35,9 +35,10 @@ function Content({ p }: { p: ConnectErrorProps }) {
   );
 }
 
-function Secondary({ p, className = "h-11" }: { p: ConnectErrorProps; className?: string }) {
+// The text button above the primary: 56px like it, 12px between them (Figma buttons container), on both views.
+function Secondary({ p }: { p: ConnectErrorProps }) {
   return (
-    <Link href={p.secondary.href} className={`btn-text t-headline flex w-full items-center justify-center rounded-[28px] ${className}`}>
+    <Link href={p.secondary.href} className="btn-text t-headline flex h-14 w-full items-center justify-center rounded-[28px]">
       {p.secondary.label}
     </Link>
   );
@@ -47,11 +48,11 @@ export function ConnectErrorMobile(p: ConnectErrorProps) {
   return (
     <div className="flex min-h-dvh flex-col bg-white">
       <TopBar step={5} back={BACK} skip={SKIP} />
-      <main className="flex flex-1 flex-col justify-between gap-12 px-5 pt-4 pb-6">
+      <main className="flex-1 px-5 pt-4 pb-6">
         <Content p={p} />
-        <Secondary p={p} />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[env(safe-area-inset-bottom)]">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 flex flex-col gap-3 bg-white px-5 pt-4 pb-[max(16px,env(safe-area-inset-bottom))]">
+        <Secondary p={p} />
         <Button href={RETRY}>{p.primary}</Button>
       </div>
     </div>
@@ -69,7 +70,7 @@ export function ConnectErrorDesktop(p: ConnectErrorProps) {
             <Content p={p} />
             {/* Figma buttons container: 32px above, the 56px text button, 12px, the primary. */}
             <div className="flex flex-col gap-3 pt-8">
-              <Secondary p={p} className="h-14" />
+              <Secondary p={p} />
               <Button href={RETRY}>{p.primary}</Button>
             </div>
           </div>

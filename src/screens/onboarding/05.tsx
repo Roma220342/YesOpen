@@ -71,7 +71,7 @@ export function Mobile() {
         <Sent desktop={false} />
         <StillToFix />
       </main>
-      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[env(safe-area-inset-bottom)]">
+      <div data-edge="bottom" className="sticky bottom-0 z-10 bg-white px-5 pt-4 pb-[max(16px,env(safe-area-inset-bottom))]">
         <Button href={NEXT}>{CTA}</Button>
       </div>
     </div>
