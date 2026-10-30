@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Collapse } from "@/components/collapse";
-import { Button, TopBar } from "@/components/ui";
-import { DesktopStep } from "@/components/desktop-step";
+import { TopBar } from "@/components/ui";
+import { DesktopHeader } from "@/components/desktop-header";
 import { Intro } from "./01a";
 
 // Figma 131:732 (mobile), 320:2153 (desktop). The check plays out step by step, as it runs for real:
@@ -132,38 +132,38 @@ export function Mobile() {
 export function Desktop() {
   const { state, done, toFix, finished } = useCheck();
   return (
-    <DesktopStep
-      back="/onboarding/01c"
-      step={2}
-      aside={
-        <>
-          <Summary done={done} toFix={toFix} finished={finished} />
-          <div className="h-1 overflow-hidden rounded-sm bg-secondary-100">
-            <div
-              className="h-1 rounded-sm bg-secondary-900 transition-[width] duration-700 ease-[cubic-bezier(0.2,0,0,1)]"
-              style={{ width: `${(done / CHECKS.length) * 100}%` }}
-            />
+    <div className="flex min-h-dvh flex-col items-center bg-white">
+      <DesktopHeader back="/onboarding/01c" step={2} />
+      <main className="flex w-full flex-1 flex-col items-center px-10 pt-desk pb-desk">
+        <div className="flex w-full max-w-[640px] flex-col">
+          <div className="flex w-full flex-col gap-8">
+            <Intro {...INTRO} />
+            <div className="flex flex-col gap-3">
+              <Summary done={done} toFix={toFix} finished={finished} />
+              <div className="h-1 overflow-hidden rounded-sm bg-secondary-100">
+                <div
+                  className="h-1 rounded-sm bg-secondary-900 transition-[width] duration-700 ease-[cubic-bezier(0.2,0,0,1)]"
+                  style={{ width: `${(done / CHECKS.length) * 100}%` }}
+                />
+              </div>
+              <div className="h-1" />
+              <ol className="grid grid-cols-2 gap-x-8">
+                {CHECKS.map((c, i) => {
+                  const s = state(i);
+                  return (
+                    <li key={c.label} className="flex items-start gap-3 border-b border-secondary-100 py-3.5">
+                      <span className="flex h-[22px] w-4 shrink-0 items-center justify-center" aria-hidden>
+                        <Node state={s} pendingRing="border-secondary-100" />
+                      </span>
+                      <Row c={c} s={s} />
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
           </div>
-        </>
-      }
-      action={<Button variant="loading">Checking your profile</Button>}
-    >
-      <div className="flex flex-col gap-8">
-        <Intro {...INTRO} />
-        <ol className="grid grid-cols-2 gap-x-8">
-          {CHECKS.map((c, i) => {
-            const s = state(i);
-            return (
-              <li key={c.label} className="flex items-start gap-3 border-b border-secondary-100 py-3.5">
-                <span className="flex h-[22px] w-4 shrink-0 items-center justify-center" aria-hidden>
-                  <Node state={s} pendingRing="border-secondary-100" />
-                </span>
-                <Row c={c} s={s} />
-              </li>
-            );
-          })}
-        </ol>
-      </div>
-    </DesktopStep>
+        </div>
+      </main>
+    </div>
   );
 }
