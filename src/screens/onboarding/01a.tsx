@@ -40,20 +40,9 @@ export function MobileSteps({ className = "flex flex-col gap-4" }: { className?:
   );
 }
 
+/** Desktop keeps the mobile list, steps 32px apart, so the screen reads like the other centered steps. */
 export function DesktopSteps() {
-  return (
-    <ol className="flex w-full items-start gap-8 pt-8">
-      {STEPS.map((s, i) => (
-        <li key={s.title} className="flex min-w-0 flex-1 flex-col items-start gap-3">
-          <StepNumber n={i + 1} />
-          <div className="flex w-full flex-col gap-1">
-            <p className="t-headline text-secondary-900">{s.title}</p>
-            <p className="t-small text-secondary-700">{s.text}</p>
-          </div>
-        </li>
-      ))}
-    </ol>
-  );
+  return <MobileSteps className="flex flex-col gap-8" />;
 }
 
 export function Intro({ title, text }: { title: string; text: string }) {
@@ -107,12 +96,12 @@ export function Desktop() {
     <div className="flex min-h-dvh flex-col items-center bg-white">
       <DesktopHeader back="/" step={1} />
       <main className="flex w-full flex-1 flex-col items-center px-10 pt-desk pb-desk">
-        {/* Figma: intro, the full-width search, how it works, then the button 32px below, all 720px wide. */}
-        <div className="flex w-full max-w-[720px] flex-col gap-8">
+        {/* Same order as mobile: intro, how it works, then the search and the button. 520px like the other centered steps. */}
+        <div className="flex w-full max-w-[520px] flex-col gap-8">
           <div className="flex w-full flex-col gap-10">
             <Intro {...INTRO} />
-            <DesktopSearch />
             <DesktopSteps />
+            <DesktopSearch />
           </div>
           <Button variant="disabled">Check my business</Button>
         </div>
