@@ -66,7 +66,7 @@ export function Desktop() {
     <div className="flex min-h-dvh flex-col bg-white">
       <DesktopHeader back="/onboarding/07d" />
       <div className="flex flex-1 flex-col items-center px-10 pt-desk pb-desk">
-        <div className="flex w-full max-w-[520px] flex-col">
+        <div className="flex w-full max-w-[640px] flex-col">
           <Content />
           <div className="pt-8">
             <Button href={NEXT}>Fix opening hours</Button>

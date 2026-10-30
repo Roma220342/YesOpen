@@ -72,19 +72,3 @@ export function DesktopSearch() {
     </div>
   );
 }
-
-/** Desktop selected state: the same field, filled with the chosen business. */
-export function DesktopSelected() {
-  return (
-    <div className={FIELD}>
-      <span className={SLOT}>
-        <img src="/assets/business.jpg" alt="" className="size-8 rounded-full object-cover" />
-      </span>
-      <span className="t-headline truncate text-secondary-900">Forno Rosso Pizzeria</span>
-      <span className="t-small min-w-0 flex-1 truncate pl-2 text-secondary-600">214 Bedford Ave, Brooklyn</span>
-      <Link href="/onboarding/01a" aria-label="Clear selection" className={`${SLOT} rounded-full`}>
-        <Icon name="close" />
-      </Link>
-    </div>
-  );
-}

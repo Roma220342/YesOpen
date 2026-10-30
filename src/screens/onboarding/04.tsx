@@ -63,7 +63,7 @@ export function Desktop() {
     <div className="flex min-h-dvh flex-col bg-white">
       <DesktopHeader back={BACK} step={5} />
       <main className="flex flex-1 justify-center px-10 pt-desk pb-desk">
-        <div className="w-[520px]">
+        <div className="w-full max-w-[640px]">
           <Content desktop />
           <div className="pt-8">
             <Button href={NEXT}>Continue with Google</Button>

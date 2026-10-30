@@ -64,8 +64,8 @@ export function ConnectErrorDesktop(p: ConnectErrorProps) {
     <div className="flex min-h-dvh flex-col bg-white">
       <DesktopHeader back={BACK} step={5} skip={SKIP} />
       <main className="flex flex-1 justify-center px-10 pt-desk pb-desk">
-        <div className="flex flex-col items-start">
-          <div className="w-[520px]">
+        <div className="flex w-full max-w-[640px] flex-col items-start">
+          <div className="w-full">
             <Content p={p} />
             {/* Figma buttons container: 32px above, the 56px text button, 12px, the primary. */}
             <div className="flex flex-col gap-3 pt-8">
