@@ -1,5 +1,5 @@
 import { Button, TopBar } from "@/components/ui";
-import { DesktopHeader } from "@/components/desktop-header";
+import { AsideTitle, DesktopStep } from "@/components/desktop-step";
 
 const NEXT = "/home/10a";
 
@@ -63,16 +63,25 @@ export function Mobile() {
 
 export function Desktop() {
   return (
-    <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader back="/onboarding/07d" />
-      <div className="flex flex-1 flex-col items-center px-10 pt-desk pb-desk">
-        <div className="flex w-full max-w-[640px] flex-col">
-          <Content />
-          <div className="pt-8">
-            <Button href={NEXT}>Fix opening hours</Button>
+    <DesktopStep
+      back="/onboarding/07d"
+      aside={
+        <>
+          <AsideTitle>Up next</AsideTitle>
+          <div className="flex items-start gap-3">
+            <span className="pt-2">
+              <span className="block size-2 rounded-md bg-error-500" />
+            </span>
+            <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+              <span className="t-body text-secondary-900">Opening hours</span>
+              <span className="t-small text-secondary-700">No Sunday hours, so you look closed on Sundays</span>
+            </span>
           </div>
-        </div>
-      </div>
-    </div>
+        </>
+      }
+      action={<Button href={NEXT}>Fix opening hours</Button>}
+    >
+      <Content />
+    </DesktopStep>
   );
 }

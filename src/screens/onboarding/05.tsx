@@ -1,6 +1,6 @@
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopHeader } from "@/components/desktop-header";
+import { DesktopStep } from "@/components/desktop-step";
 
 const NEXT = "/onboarding/06";
 const CTA = "Fix the rest, 14 days free";
@@ -80,20 +80,15 @@ export function Mobile() {
 
 export function Desktop() {
   return (
-    <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader back="/onboarding/04" step={6} />
-      {/* Figma: a centred 1128px block, task column 520px on the left, context column 416px on the right. */}
-      <main className="mx-auto flex w-full max-w-[1208px] flex-1 items-start justify-between gap-12 px-10">
-        <section className="flex w-full max-w-[520px] min-w-0 flex-col gap-6 pt-desk pb-desk">
-          <Sent desktop />
-        </section>
-        <aside className="sticky top-[72px] w-full max-w-[416px] min-w-0 pt-desk pb-desk">
-          <div className="flex flex-col gap-8">
-            <StillToFix desktop />
-            <Button href={NEXT}>{CTA}</Button>
-          </div>
-        </aside>
-      </main>
-    </div>
+    <DesktopStep
+      back="/onboarding/04"
+      step={6}
+      aside={<StillToFix desktop />}
+      action={<Button href={NEXT}>{CTA}</Button>}
+    >
+      <div className="flex flex-col gap-6">
+        <Sent desktop />
+      </div>
+    </DesktopStep>
   );
 }

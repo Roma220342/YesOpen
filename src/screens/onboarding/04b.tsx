@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Icon, type IconName } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopHeader } from "@/components/desktop-header";
+import { AsideTitle, DesktopStep } from "@/components/desktop-step";
 
 // Shared layout for the connect error states 04b (wrong account), 04c (no access), 04d (not verified).
 export type ConnectErrorProps = {
@@ -61,21 +61,25 @@ export function ConnectErrorMobile(p: ConnectErrorProps) {
 
 export function ConnectErrorDesktop(p: ConnectErrorProps) {
   return (
-    <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader back={BACK} step={5} skip={SKIP} />
-      <main className="flex flex-1 justify-center px-10 pt-desk pb-desk">
-        <div className="flex w-full max-w-[640px] flex-col items-start">
-          <div className="w-full">
-            <Content p={p} />
-            {/* Figma buttons container: 32px above, the 56px text button, 12px, the primary. */}
-            <div className="flex flex-col gap-3 pt-8">
-              <Secondary p={p} />
-              <Button href={RETRY}>{p.primary}</Button>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+    <DesktopStep
+      back={BACK}
+      step={5}
+      skip={SKIP}
+      aside={
+        <>
+          <AsideTitle>What you can do</AsideTitle>
+          <p className="t-body text-secondary-700">Try again with the Google account that manages your business.</p>
+        </>
+      }
+      action={
+        <>
+          <Secondary p={p} />
+          <Button href={RETRY}>{p.primary}</Button>
+        </>
+      }
+    >
+      <Content p={p} />
+    </DesktopStep>
   );
 }
 

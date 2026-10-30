@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { DesktopHeader } from "@/components/desktop-header";
+import { AsideTitle, DesktopStep } from "@/components/desktop-step";
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
 import { DesktopSearch } from "./_search";
@@ -107,19 +107,23 @@ export function Mobile() {
 
 export function Desktop() {
   return (
-    <div className="flex min-h-dvh flex-col items-center bg-white">
-      <DesktopHeader back="/" step={1} />
-      <main className="flex w-full flex-1 flex-col items-center px-10 pt-desk pb-desk">
-        {/* Same order as mobile: intro, how it works, then the search and the button. 640px like the other centered steps. */}
-        <div className="flex w-full max-w-[640px] flex-col gap-8">
-          <div className="flex w-full flex-col gap-10">
-            <Intro {...INTRO} />
-            <DesktopSteps />
+    <DesktopStep
+      back="/"
+      step={1}
+      aside={
+        <>
+          <AsideTitle>Your business</AsideTitle>
+          <div>
             <DesktopSearch />
           </div>
-          <Button variant="disabled">Check my business</Button>
-        </div>
-      </main>
-    </div>
+        </>
+      }
+      action={<Button variant="disabled">Check my business</Button>}
+    >
+      <div className="flex flex-col gap-10">
+        <Intro {...INTRO} />
+        <DesktopSteps />
+      </div>
+    </DesktopStep>
   );
 }

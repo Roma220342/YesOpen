@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopHeader } from "@/components/desktop-header";
+import { AsideTitle, DesktopStep } from "@/components/desktop-step";
 import { Intro } from "./01a";
 
 // Figma 165:762 (mobile), 320:2364 (desktop)
@@ -36,9 +36,11 @@ function Content({ desktop }: { desktop?: boolean }) {
           <p className={`${hint} text-secondary-700`}>Tap the text to change it.</p>
         </div>
       </div>
-      <p className="t-small text-secondary-700">
-        Written by AI, so check it. Next, Google asks you to allow the change.
-      </p>
+      {!desktop && (
+        <p className="t-small text-secondary-700">
+          Written by AI, so check it. Next, Google asks you to allow the change.
+        </p>
+      )}
     </div>
   );
 }
@@ -59,20 +61,21 @@ export function Mobile() {
 
 export function Desktop() {
   return (
-    <div className="flex min-h-dvh flex-col items-center bg-white">
-      <DesktopHeader back="/onboarding/02b" step={4} skip="/home/10c" />
-      <main className="flex w-full flex-1 justify-center px-10 pt-desk pb-desk">
-        <div className="flex w-full max-w-[640px] flex-col">
-          <div className="flex flex-col">
-            <Content desktop />
-            <div className="pt-8">
-              <Button href={NEXT}>
-                Send to Google
-              </Button>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
+    <DesktopStep
+      back="/onboarding/02b"
+      step={4}
+      skip="/home/10c"
+      aside={
+        <>
+          <AsideTitle>Before you send</AsideTitle>
+          <p className="t-body text-secondary-700">
+            Written by AI, so check it. Next, Google asks you to allow the change.
+          </p>
+        </>
+      }
+      action={<Button href={NEXT}>Send to Google</Button>}
+    >
+      <Content desktop />
+    </DesktopStep>
   );
 }

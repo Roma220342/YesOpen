@@ -1,4 +1,4 @@
-import { DesktopHeader } from "@/components/desktop-header";
+import { DesktopStep } from "@/components/desktop-step";
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
 
@@ -180,7 +180,7 @@ const SUMMARY: [string, string][] = [
   ["Each extra location", "+$15 a month"],
 ];
 
-function SummaryPanel({ children }: { children: React.ReactNode }) {
+function SummaryPanel() {
   return (
     <div className="flex w-full max-w-[416px] flex-col gap-4">
       <p className="t-headline text-secondary-900">Summary</p>
@@ -192,7 +192,6 @@ function SummaryPanel({ children }: { children: React.ReactNode }) {
       ))}
       {/* Figma: the note 24px under the rows, the button 32px under the note. */}
       <p className="t-small pt-2 text-secondary-600">Cancel anytime before November 11 and you won’t pay.</p>
-      <div className="pt-4">{children}</div>
     </div>
   );
 }
@@ -206,18 +205,16 @@ function desktopButton(state: PaymentState) {
 export function PaymentDesktop({ state }: { state: PaymentState }) {
   const processing = state === "processing";
   return (
-    <div className="flex min-h-dvh flex-col bg-white">
+    <>
       {processing && <AutoAdvance />}
-      <DesktopHeader back={processing ? undefined : BACK} skip={processing ? undefined : SKIP} />
-      {/* Figma: a centred 1128px block, task column 520px on the left, context column 416px on the right. */}
-      <div className="mx-auto flex w-full max-w-[1208px] flex-1 items-start justify-between gap-12 px-10">
-        <div className="w-full max-w-[520px] min-w-0 pt-desk pb-desk">
-          <PaymentForm state={state} desktop />
-        </div>
-        <div className="sticky top-[72px] w-full max-w-[416px] min-w-0 pt-desk pb-desk">
-          <SummaryPanel>{desktopButton(state)}</SummaryPanel>
-        </div>
-      </div>
-    </div>
+      <DesktopStep
+        back={processing ? undefined : BACK}
+        skip={processing ? undefined : SKIP}
+        aside={<SummaryPanel />}
+        action={desktopButton(state)}
+      >
+        <PaymentForm state={state} desktop />
+      </DesktopStep>
+    </>
   );
 }

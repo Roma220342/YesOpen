@@ -1,5 +1,5 @@
 import { Button, TopBar } from "@/components/ui";
-import { DesktopHeader } from "@/components/desktop-header";
+import { DesktopStep } from "@/components/desktop-step";
 import { Intro } from "./01a";
 
 // Figma 137:761 (mobile), 320:2249 (desktop)
@@ -147,45 +147,35 @@ export function Mobile() {
 
 export function Desktop() {
   return (
-    <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader back="/onboarding/02a" step={3} skip="/home/10c" />
-      {/* Same frame as 05–07: a centred 1128px block, report 520px on the left, the free fix 416px on the right. */}
-      {/* The fix and its button stay in view while the report scrolls past (sticky under the header). */}
-      <main className="mx-auto grid w-full max-w-[1208px] flex-1 grid-cols-[minmax(0,520px)_minmax(0,416px)] content-start items-start justify-between gap-x-12 px-10 pt-desk pb-desk">
-        <section className="min-w-0">
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-8">
-              <div className="flex flex-col gap-4">
-                <Intro {...INTRO} />
-                <BusinessChip />
-              </div>
-              <Facts desktop />
-              <Group title="Needs a fix" kind="fix" items={NEEDS_FIX} />
-              <div className="flex items-start gap-10">
-                <Group title="Couldn’t check" kind="unknown" items={COULDNT_CHECK} className="min-w-0 flex-1" />
-                <Group title="Looks good" kind="good" items={LOOKS_GOOD} className="min-w-0 flex-1" />
-              </div>
-            </div>
+    <DesktopStep
+      back="/onboarding/02a"
+      step={3}
+      skip="/home/10c"
+      aside={
+        <>
+          <h2 className="t-headline text-secondary-900">Your free fix</h2>
+          <div className="flex flex-col gap-1.5 rounded-2xl bg-success-50 px-3.5 py-3">
+            <p className="t-small-bold text-success-700">We’ll add this to your description</p>
+            <p className="t-headline text-secondary-900">“Delivery across Williamsburg and Greenpoint.”</p>
+            <p className="t-small text-secondary-700">Next: you review the text before anything changes.</p>
           </div>
-        </section>
-        <aside className="sticky top-desk min-w-0">
-          {/* Figma: the fix card, the note 24px under it, then the button 32px below. */}
-          <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-4">
-                <h2 className="t-headline text-secondary-900">Your free fix</h2>
-                <div className="flex flex-col gap-1.5 rounded-2xl bg-success-50 px-3.5 py-3">
-                  <p className="t-small-bold text-success-700">We’ll add this to your description</p>
-                  <p className="t-headline text-secondary-900">“Delivery across Williamsburg and Greenpoint.”</p>
-                  <p className="t-small text-secondary-700">Next: you review the text before anything changes.</p>
-                </div>
-              </div>
-              <p className="t-small text-secondary-700">The first fix is free. The other 3 come with the plan.</p>
-            </div>
-            <Button href={NEXT}>Fix description for free</Button>
-          </div>
-        </aside>
-      </main>
-    </div>
+          <p className="t-small text-secondary-700">The first fix is free. The other 3 come with the plan.</p>
+        </>
+      }
+      action={<Button href={NEXT}>Fix description for free</Button>}
+    >
+      <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4">
+          <Intro {...INTRO} />
+          <BusinessChip />
+        </div>
+        <Facts desktop />
+        <Group title="Needs a fix" kind="fix" items={NEEDS_FIX} />
+        <div className="flex items-start gap-10">
+          <Group title="Couldn’t check" kind="unknown" items={COULDNT_CHECK} className="min-w-0 flex-1" />
+          <Group title="Looks good" kind="good" items={LOOKS_GOOD} className="min-w-0 flex-1" />
+        </div>
+      </div>
+    </DesktopStep>
   );
 }

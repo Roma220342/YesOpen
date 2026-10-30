@@ -1,6 +1,6 @@
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopHeader } from "@/components/desktop-header";
+import { DesktopStep } from "@/components/desktop-step";
 
 const BACK = "/onboarding/05";
 const SKIP = "/home/10a";
@@ -77,34 +77,26 @@ export function Mobile() {
 
 export function Desktop() {
   return (
-    <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader back={BACK} skip={SKIP} />
-      {/* Figma: a centred 1128px block, task column 520px on the left, context column 416px on the right. */}
-      <main className="mx-auto grid w-full max-w-[1208px] flex-1 grid-cols-[minmax(0,520px)_minmax(0,416px)] content-start items-start justify-between gap-x-12 px-10 pt-desk pb-desk">
-        <section className="min-w-0">
-          <Trial />
-        </section>
-        <aside className="sticky top-desk min-w-0">
-          {/* Figma: summary rows, the cancel note 24px under them, then the button 32px below. */}
-          <div className="flex flex-col gap-8">
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col gap-4">
-                <h2 className="t-headline text-secondary-900">Summary</h2>
-                <dl className="contents">
-                  {SUMMARY.map(([k, v]) => (
-                    <div key={k} className="t-body flex justify-between whitespace-nowrap">
-                      <dt className="text-secondary-600">{k}</dt>
-                      <dd className="text-secondary-900">{v}</dd>
-                    </div>
-                  ))}
-                </dl>
+    <DesktopStep
+      back={BACK}
+      skip={SKIP}
+      aside={
+        <>
+          <h2 className="t-headline text-secondary-900">Summary</h2>
+          <dl className="contents">
+            {SUMMARY.map(([k, v]) => (
+              <div key={k} className="t-body flex justify-between whitespace-nowrap">
+                <dt className="text-secondary-600">{k}</dt>
+                <dd className="text-secondary-900">{v}</dd>
               </div>
-              <p className="t-small text-secondary-600">Cancel anytime before November 11 and you won’t pay.</p>
-            </div>
-            <Button href={NEXT}>{CTA}</Button>
-          </div>
-        </aside>
-      </main>
-    </div>
+            ))}
+          </dl>
+          <p className="t-small text-secondary-600">Cancel anytime before November 11 and you won’t pay.</p>
+        </>
+      }
+      action={<Button href={NEXT}>{CTA}</Button>}
+    >
+      <Trial />
+    </DesktopStep>
   );
 }

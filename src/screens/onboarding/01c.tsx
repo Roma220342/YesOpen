@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Icon } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
-import { DesktopHeader } from "@/components/desktop-header";
+import { AsideTitle, DesktopStep } from "@/components/desktop-step";
 import { DesktopSteps, Intro, MobileSteps } from "./01a";
 
 // Figma 89:1048 (mobile), 320:2104 (desktop)
@@ -49,19 +49,21 @@ export function Mobile() {
 
 export function Desktop() {
   return (
-    <div className="flex min-h-dvh flex-col items-center bg-white">
-      <DesktopHeader back="/onboarding/01a" step={1} />
-      <main className="flex w-full flex-1 flex-col items-center px-10 pt-desk pb-desk">
-        {/* Same order as mobile: intro, how it works, then the search and the button. 640px like the other centered steps. */}
-        <div className="flex w-full max-w-[640px] flex-col gap-8">
-          <div className="flex w-full flex-col gap-10">
-            <Intro {...INTRO} />
-            <DesktopSteps />
-            <SelectedBusiness />
-          </div>
-          <Button href="/onboarding/02a">Check my business</Button>
-        </div>
-      </main>
-    </div>
+    <DesktopStep
+      back="/onboarding/01a"
+      step={1}
+      aside={
+        <>
+          <AsideTitle>Your business</AsideTitle>
+          <SelectedBusiness />
+        </>
+      }
+      action={<Button href="/onboarding/02a">Check my business</Button>}
+    >
+      <div className="flex flex-col gap-10">
+        <Intro {...INTRO} />
+        <DesktopSteps />
+      </div>
+    </DesktopStep>
   );
 }

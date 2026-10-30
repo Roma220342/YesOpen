@@ -1,4 +1,4 @@
-import { DesktopHeader } from "@/components/desktop-header";
+import { AsideTitle, DesktopStep } from "@/components/desktop-step";
 import { Icon, type IconName } from "@/components/icon";
 import { Button, TopBar } from "@/components/ui";
 
@@ -36,9 +36,11 @@ function Content({ desktop = false }: { desktop?: boolean }) {
             </li>
           ))}
         </ul>
-        <p className="t-small text-secondary-700">
-          Nothing goes live unless you approve it. YesOpen can’t access your Gmail, Google Ads, or payment information.
-        </p>
+        {!desktop && (
+          <p className="t-small text-secondary-700">
+            Nothing goes live unless you approve it. YesOpen can’t access your Gmail, Google Ads, or payment information.
+          </p>
+        )}
       </div>
     </div>
   );
@@ -60,16 +62,20 @@ export function Mobile() {
 
 export function Desktop() {
   return (
-    <div className="flex min-h-dvh flex-col bg-white">
-      <DesktopHeader back={BACK} step={5} />
-      <main className="flex flex-1 justify-center px-10 pt-desk pb-desk">
-        <div className="w-full max-w-[640px]">
-          <Content desktop />
-          <div className="pt-8">
-            <Button href={NEXT}>Continue with Google</Button>
-          </div>
-        </div>
-      </main>
-    </div>
+    <DesktopStep
+      back={BACK}
+      step={5}
+      aside={
+        <>
+          <AsideTitle>You stay in control</AsideTitle>
+          <p className="t-body text-secondary-700">
+            Nothing goes live unless you approve it. YesOpen can’t access your Gmail, Google Ads, or payment information.
+          </p>
+        </>
+      }
+      action={<Button href={NEXT}>Continue with Google</Button>}
+    >
+      <Content desktop />
+    </DesktopStep>
   );
 }
