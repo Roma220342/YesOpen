@@ -177,6 +177,7 @@ body {
   --animate-pop-in: pop-in 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-screen-in: screen-in 280ms cubic-bezier(0.2, 0, 0, 1) both;
   --animate-drop-in: drop-in 180ms cubic-bezier(0.2, 0, 0, 1) both;
+  --animate-rise-in: rise-in 180ms cubic-bezier(0.2, 0, 0, 1) both;
   --animate-fade-in: fade-in 200ms ease-out both;
   --animate-sheet-in: sheet-in 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
   --animate-sheet-out: sheet-out 220ms cubic-bezier(0.4, 0, 1, 1) both;
@@ -192,6 +193,7 @@ body {
 @keyframes pop-in { from { opacity: 0; transform: scale(0.4); } }
 @keyframes screen-in { from { opacity: 0; transform: translateY(8px); } }
 @keyframes drop-in { from { opacity: 0; transform: translateY(-4px) scale(0.98); } }
+@keyframes rise-in { from { opacity: 0; transform: translateY(4px) scale(0.98); } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 1ms !important; transition-duration: 1ms !important; }
 }

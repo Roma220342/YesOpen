@@ -15,7 +15,7 @@ export const RESULTS = [
 const FIELD = "flex h-14 w-full min-w-0 flex-1 items-center rounded-full bg-secondary-50 p-1";
 const SLOT = "flex size-12 shrink-0 items-center justify-center text-secondary-900";
 
-/** Desktop search: the search bar component, with results in a dropdown (no separate typing screen). */
+/** Desktop search: the search bar component, with results opening upward over the steps, so they never cover the button or run off screen. */
 export function DesktopSearch() {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
@@ -46,7 +46,7 @@ export function DesktopSearch() {
       </label>
 
       {show && (
-        <div className="absolute inset-x-0 top-full z-10 mt-2 origin-top animate-drop-in rounded-3xl border border-secondary-100 bg-white p-2 shadow-pop">
+        <div className="absolute inset-x-0 bottom-full z-10 mb-2 origin-bottom animate-rise-in rounded-3xl border border-secondary-100 bg-white p-2 shadow-pop">
           {hits.length > 0 ? (
             <ul className="flex flex-col">
               {hits.map((r) => (
